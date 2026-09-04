@@ -46,6 +46,8 @@ def render(report: Dict[str, Any]) -> str:
     unsupported = report.get("unsupported_rules", {})
     categories = report.get("categories", [])
     clients = report.get("client_outputs", {})
+    roles = upstreams.get("roles", {})
+    client_extras = report.get("client_only_extras", {})
     lines = [
         "本 PR 由上游规则自动更新工作流生成，需人工审查后合并。",
         "",
@@ -54,6 +56,9 @@ def render(report: Dict[str, Any]) -> str:
         f"- Components processed: {_number(upstreams.get('component_count'))}",
         f"- Enabled categories: {', '.join(upstreams.get('enabled_categories', [])) or 'none'}",
         f"- Disabled categories: {', '.join(upstreams.get('disabled_categories', [])) or 'none'}",
+        f"- Component roles: authoritative={_number(roles.get('canonical-authoritative'))}; "
+        f"audit={_number(roles.get('audit-reference'))}; "
+        f"client-only-extra={_number(roles.get('client-only-extra'))}",
         "",
         "## Canonical",
         "",
@@ -86,12 +91,25 @@ def render(report: Dict[str, Any]) -> str:
         if not isinstance(client, dict):
             continue
         if client_id == "quantumult-x":
-            lines.append(f"- Quantumult X: {_number(client.get('rules'))} rules")
+            lines.append(
+                f"- Quantumult X: {_number(client.get('rules'))} rules; "
+                f"{_number(len(client.get('artifacts', [])))} category files; "
+                f"license-separated={client.get('mixed_derivative') is False}"
+            )
         else:
             lines.append(
                 f"- Mihomo: {_number(client.get('providers'))} local providers; "
                 f"{_number(client.get('prepend_rules'))} prepend rules"
             )
+    if isinstance(client_extras, dict):
+        for client_id, categories_for_client in client_extras.items():
+            if not isinstance(categories_for_client, dict):
+                continue
+            total = sum(_number(value) for value in categories_for_client.values())
+            if total:
+                lines.append(
+                    f"- {client_id} explicit client-only extras: {total} rules"
+                )
     lines.extend(
         [
             "",

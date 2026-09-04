@@ -5,6 +5,7 @@
         "mihomo": {
           "metacubex-ads-mrs": {
             "bytes": 8330,
+            "role": "audit-reference",
             "sha256": "de96e159a31bfc09b658647e04ecb6747072ea3069497cc395147c434ef3b99c",
             "stale_cache": false,
             "upstream_updated": null,
@@ -14,6 +15,7 @@
         "quantumult-x": {
           "metacubex-ads-domain": {
             "bytes": 23078,
+            "role": "canonical-authoritative",
             "sha256": "4f7e2ec4a1728e89f615d3466fb501bae476799d3310c61b213fe71ebbf0cd8b",
             "stale_cache": false,
             "upstream_updated": null,
@@ -28,6 +30,7 @@
         "mihomo": {
           "metacubex-apple-mrs": {
             "bytes": 17859,
+            "role": "audit-reference",
             "sha256": "ef067fccb6b336c650703e8126707690e038122598ec813b6edb4dfae8a51823",
             "stale_cache": false,
             "upstream_updated": null,
@@ -37,6 +40,7 @@
         "quantumult-x": {
           "metacubex-apple-domain": {
             "bytes": 47622,
+            "role": "canonical-authoritative",
             "sha256": "ecf986257a5613a77b5f4d0fd79b4cf90bec1a6257f9faffd907b1735514c895",
             "stale_cache": false,
             "upstream_updated": null,
@@ -51,6 +55,7 @@
         "mihomo": {
           "metacubex-chatgpt-mrs": {
             "bytes": 415,
+            "role": "audit-reference",
             "sha256": "acc679f1e78844f45fd56d8be9c3e9f15788c15f0417b92156081245233f45ce",
             "stale_cache": false,
             "upstream_updated": null,
@@ -60,6 +65,7 @@
         "quantumult-x": {
           "metacubex-chatgpt-domain": {
             "bytes": 664,
+            "role": "canonical-authoritative",
             "sha256": "19d194277b7eccade2b6d65a5a13770e028feea3e39140faaac43bd12d5a34af",
             "stale_cache": false,
             "upstream_updated": null,
@@ -74,6 +80,7 @@
         "mihomo": {
           "blackmatrix-claude-classical": {
             "bytes": 265,
+            "role": "audit-reference",
             "sha256": "ef21df39005b17dbd84aa65a47162b36fb5e72754cd32384146474ed488df482",
             "stale_cache": false,
             "upstream_updated": "2025-06-06 09:20:01",
@@ -83,6 +90,7 @@
         "quantumult-x": {
           "blackmatrix-claude-qx": {
             "bytes": 255,
+            "role": "canonical-authoritative",
             "sha256": "bcf41ba79464a16d8305cf1c6f18c69d023ccd33ea1b84834daaa47cc0d5dfea",
             "stale_cache": false,
             "upstream_updated": "2025-06-06 09:20:01",
@@ -97,6 +105,7 @@
         "mihomo": {
           "blackmatrix-gemini-classical": {
             "bytes": 666,
+            "role": "audit-reference",
             "sha256": "d76e9822f72a69860b7d3086db61bbbef53014c57e3dc12472150c62a4f6434b",
             "stale_cache": false,
             "upstream_updated": "2025-06-06 09:20:02",
@@ -106,6 +115,7 @@
         "quantumult-x": {
           "blackmatrix-gemini-qx": {
             "bytes": 664,
+            "role": "canonical-authoritative",
             "sha256": "9e488fd027a55ec5bfeeeda1ab4a9022364c1d47dfd140293e02835d3303980f",
             "stale_cache": false,
             "upstream_updated": "2025-06-06 09:20:02",
@@ -127,6 +137,7 @@
         "mihomo": {
           "metacubex-google-mrs": {
             "bytes": 8871,
+            "role": "audit-reference",
             "sha256": "c00b128d6dc427be195d98b2c5cc6de0b0da31673ee9ff2427725cf166cf845a",
             "stale_cache": false,
             "upstream_updated": null,
@@ -136,6 +147,7 @@
         "quantumult-x": {
           "metacubex-google-domain": {
             "bytes": 24667,
+            "role": "canonical-authoritative",
             "sha256": "4268dcc67f27e744e08430e1a78879eac6e3327fa6cf5cdbbdaf89e9320030ad",
             "stale_cache": false,
             "upstream_updated": null,
@@ -150,6 +162,7 @@
         "mihomo": {
           "blackmatrix-netflix-classical": {
             "bytes": 32719,
+            "role": "client-only-extra",
             "sha256": "82962baecece6de61b21e7eb51cb4c4f14f33d5023611ad63e885b24740bb721",
             "stale_cache": false,
             "upstream_updated": "2025-06-06 09:16:54",
@@ -159,6 +172,7 @@
         "quantumult-x": {
           "blackmatrix-netflix-qx": {
             "bytes": 37297,
+            "role": "canonical-authoritative",
             "sha256": "eb95ba340fc9b3013e6b66a64270d20e4142b0f9b8cde1bac060725742331ec7",
             "stale_cache": false,
             "upstream_updated": "2025-06-06 09:16:54",
@@ -173,6 +187,7 @@
         "mihomo": {
           "blackmatrix-private-tracker-classical": {
             "bytes": 7802,
+            "role": "audit-reference",
             "sha256": "12285a4c3cf08148a0dff6221ae1713bd3856c5b87b4fb3959123ee6cd89d511",
             "stale_cache": false,
             "upstream_updated": "2026-06-04 03:21:05",
@@ -182,6 +197,7 @@
         "quantumult-x": {
           "blackmatrix-private-tracker-qx": {
             "bytes": 10025,
+            "role": "canonical-authoritative",
             "sha256": "431d1c2c061cd5110f6b335bc8bdfef8bf97188a5b2d9a721484b6d4fd1d72ad",
             "stale_cache": false,
             "upstream_updated": "2026-06-04 03:21:05",
@@ -196,6 +212,7 @@
         "mihomo": {
           "metacubex-telegram-mrs": {
             "bytes": 274,
+            "role": "audit-reference",
             "sha256": "ffa4d1d3e8649965e529c1c570d8add75a0d6f70aa8503ece8add841ce48c0e7",
             "stale_cache": false,
             "upstream_updated": null,
@@ -205,6 +222,7 @@
         "quantumult-x": {
           "metacubex-telegram-domain": {
             "bytes": 429,
+            "role": "canonical-authoritative",
             "sha256": "4712014d6fcb434daf8b03b4740e37445109b42bc0e824f6acbce733ef92abb0",
             "stale_cache": false,
             "upstream_updated": null,
@@ -219,6 +237,7 @@
         "mihomo": {
           "metacubex-youtube-mrs": {
             "bytes": 1366,
+            "role": "audit-reference",
             "sha256": "e212b2ce9f39b30f4e2ab57da9ed0937673606bc56bb46e5d55ad7dd9af00aef",
             "stale_cache": false,
             "upstream_updated": null,
@@ -228,6 +247,7 @@
         "quantumult-x": {
           "metacubex-youtube-domain": {
             "bytes": 3821,
+            "role": "canonical-authoritative",
             "sha256": "ec32854438b8ad4e2f2f2ee0d578834c667f1d0cec4c82357e34629452d2fc5d",
             "stale_cache": false,
             "upstream_updated": null,

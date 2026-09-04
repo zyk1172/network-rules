@@ -3,6 +3,8 @@
 # GENERATED-BY: network-rules-project/scripts/build.py
 # SOURCE-OF-TRUTH: canonical rule model after patches, deduplication and conflict resolution
 # THIRD-PARTY-DATA: see sources/ATTRIBUTIONS.md
+# CANONICAL-RULES: 1157
+# CLIENT-ONLY-EXTRA-RULES: 1
 # RULES: 1158
 payload:
   - "DOMAIN,e13252.dscg.akamaiedge.net"

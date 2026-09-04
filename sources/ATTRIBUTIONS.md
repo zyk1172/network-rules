@@ -20,9 +20,13 @@
 
 上游文件和最终构建时使用的 SHA-256 见 [`upstreams.lock.json`](upstreams.lock.json)。组件结构和 BlackMatrix7 README 配置建议的审查结论见 [`component-audit.md`](component-audit.md)。
 
+每个分类的 authoritative、audit-reference 和 client-only-extra 角色以 [`upstreams.json`](upstreams.json) 为准；角色只决定构建参与方式，不改变上游许可证。当前 Netflix 的 Mihomo Classical 是显式 client-only-extra，其他客户端组件差异只进入审计报告。
+
 ## 衍生生成物边界
 
-`dist/quantumult-x/aggregate.list` 和 `dist/mihomo/providers/*.yaml` 是从上述第三方规则输入经过规范化、去重、patch 和客户端语法转换得到的衍生数据，不应被根目录 MIT License 单独解释为 MIT。`dist/mihomo/merge.yaml` 主要是本项目的配置编译代码生成的入口片段，但其中的规则 provider 指向仍承载上游数据许可义务。
+`dist/quantumult-x/providers/*.list` 和 `dist/mihomo/providers/*.yaml` 是从上述第三方规则输入经过规范化、去重、patch 和客户端语法转换得到的衍生数据，不应被根目录 MIT License 单独解释为 MIT。Quantumult X 产物按 category 文件拆分，每个文件只包含一个登记来源和一个许可证范围；`dist/quantumult-x/entry.example.conf` 会按优先级列出多个远程分类文件。`dist/mihomo/merge.yaml` 主要是本项目的配置编译代码生成的入口片段，但其中的规则 provider 指向仍承载上游数据许可义务。
+
+本项目不在公开生成链中提供把 GPL-2.0 与 GPL-3.0 规则数据物理合成的 Quantumult X `aggregate.list`。如果未来确认混合再分发具有明确的上游授权和法律依据，必须单独审查后才能重新引入聚合文件；当前默认发布策略是分类级文件，由用户的 QX 主配置按优先级组合。
 
 不要擅自修改或替换第三方许可证文本。公开分发、重新打包或新增上游时，请重新检查上游仓库当前的 LICENSE、README、NOTICE 和 attribution 要求；本文件不是法律意见。
 

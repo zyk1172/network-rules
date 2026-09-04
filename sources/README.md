@@ -26,12 +26,18 @@ category → client → 1..N upstream components
   "url": "https://raw.githubusercontent.com/...",
   "format": "mihomo-yaml",
   "behavior": "classical",
-  "canonical": true,
+  "role": "client-only-extra",
   "complete": true
 }
 ```
 
-`canonical: true` 表示该组件会被解析为内部统一规则模型；`canonical: false` 表示它仍会被下载、锁定和报告，但不直接绕过 parser 成为事实来源。这样可以同时记录客户端最佳上游格式，并防止 Mihomo 直接从第三方 URL 读取未经 patch 的规则。
+每个 category 必须恰好声明一个 `canonical-authoritative` 组件，作为共享 canonical model 的唯一事实入口。其他组件必须明确声明角色：
+
+- `canonical-authoritative`：进入共享 canonical model，参与 patch、去重和跨分类冲突解决；
+- `audit-reference`：下载、锁定、解析并与 authoritative source 对照，只用于发现上游差异，不会自动进入 canonical；
+- `client-only-extra`：只在它所在的客户端输出，不进入共享 canonical，也不会自动传播到其他客户端。
+
+不能再使用含义模糊的 `canonical: true/false`。这样 QX 与 Mihomo 的上游差异会被明确建模，而不是默认取两个客户端规则的并集。
 
 允许的输入格式：
 
@@ -39,6 +45,8 @@ category → client → 1..N upstream components
 - `meta-domain-yaml`：MetaCubeX `payload` 域名列表，转换 `+.example.com`、`full:`、`keyword:` 等表达式。
 - `mihomo-yaml` / `yaml`：含 `payload` 的 Mihomo classical、domain 或 ipcidr 规则。
 - `mrs`：二进制 provider，仅锁定和审计，不作为当前 canonical parser 输入。
+
+Quantumult X 公开产物位于 `dist/quantumult-x/providers/*.list`，按 category 分文件；Mihomo 公开产物位于 `dist/mihomo/providers/*.yaml`，通过 `dist/mihomo/merge.yaml` 统一接入。QX 分类文件不会把不同上游许可证物理合并成旧式 `aggregate.list`。
 
 规则类型在 `scripts/rule_model.py` 中统一为 `domain`、`domain-suffix`、`domain-keyword`、`domain-wildcard`、`ip-cidr`、`ip-cidr6`、`user-agent`、`process-name`，客户端策略名称只在生成阶段使用 `policies.json` 映射。
 

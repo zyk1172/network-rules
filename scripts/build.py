@@ -45,6 +45,14 @@ DIST_DIR = ROOT / "dist"
 LOCK_PATH = ROOT / "sources" / "upstreams.lock.json"
 CLIENTS = ("quantumult-x", "mihomo")
 COMPONENT_FORMATS = {"qx-list", "meta-domain-yaml", "mihomo-yaml", "yaml", "mrs"}
+COMPONENT_ROLES = {
+    "canonical-authoritative",
+    "audit-reference",
+    "client-only-extra",
+}
+AUTHORITATIVE_ROLE = "canonical-authoritative"
+AUDIT_ROLE = "audit-reference"
+CLIENT_EXTRA_ROLE = "client-only-extra"
 
 
 class BuildError(RuntimeError):
@@ -190,7 +198,7 @@ def validate_manifest(
         components = source.get("components")
         if not isinstance(components, dict):
             raise BuildError(f"{source_id} 缺少 components")
-        canonical_count = 0
+        authoritative_components: List[Tuple[str, str]] = []
         for client in CLIENTS:
             client_components = components.get(client)
             if not isinstance(client_components, list) or not client_components:
@@ -212,10 +220,17 @@ def validate_manifest(
                 fmt = component.get("format")
                 if fmt not in COMPONENT_FORMATS:
                     raise BuildError(f"{component_id} 使用不支持的格式：{fmt!r}")
-                if not isinstance(component.get("canonical", False), bool):
-                    raise BuildError(f"{component_id} canonical 必须是布尔值")
-                if component.get("canonical"):
-                    canonical_count += 1
+                role = component.get("role")
+                if role not in COMPONENT_ROLES:
+                    raise BuildError(
+                        f"{component_id} role 必须是 {sorted(COMPONENT_ROLES)} 之一"
+                    )
+                if "canonical" in component:
+                    raise BuildError(
+                        f"{component_id} 不再接受 canonical 字段，请使用明确的 role"
+                    )
+                if role == AUTHORITATIVE_ROLE:
+                    authoritative_components.append((client, component_id))
                 if "complete" in component and not isinstance(
                     component["complete"], bool
                 ):
@@ -226,10 +241,15 @@ def validate_manifest(
                         raise BuildError(
                             f"{component_id} Mihomo behavior 无效：{behavior!r}"
                         )
-                if fmt == "mrs" and component.get("canonical"):
-                    raise BuildError(f"{component_id} MRS 无法作为 canonical 输入")
-        if source.get("enabled", True) and canonical_count == 0:
-            raise BuildError(f"启用分类 {source_id} 没有 canonical 组件")
+                if fmt == "mrs" and role == AUTHORITATIVE_ROLE:
+                    raise BuildError(
+                        f"{component_id} MRS 无法作为 canonical-authoritative 输入"
+                    )
+        if len(authoritative_components) != 1:
+            raise BuildError(
+                f"{source_id} 必须恰好有一个 canonical-authoritative 组件，"
+                f"实际为 {authoritative_components}"
+            )
         for client in CLIENTS:
             mapping = policies.get(client)
             if not isinstance(mapping, dict) or source_id not in mapping:
@@ -297,13 +317,24 @@ def collect_canonical_rules(
     Dict[str, Any],
     Dict[str, Dict[str, Any]],
     List[Dict[str, Any]],
+    Dict[str, Dict[str, List[CanonicalRule]]],
 ]:
+    """Fetch and classify components without implicitly unioning client inputs.
+
+    Every category has exactly one authoritative component. Audit references are
+    parsed only for drift reporting, while client-only extras are kept out of
+    the shared canonical model and are emitted only for their declared client.
+    """
+
     candidates: List[CanonicalRule] = []
     lock: Dict[str, Any] = {"schema_version": 2, "categories": {}}
     category_stats: Dict[str, Dict[str, Any]] = {}
     component_reports: List[Dict[str, Any]] = []
-    parsed_components: Dict[str, Dict[str, set[Tuple[str, str]]]] = defaultdict(dict)
-    canonical_keys: Dict[str, set[Tuple[str, str]]] = defaultdict(set)
+    parsed_components: Dict[str, Dict[str, Dict[str, Any]]] = defaultdict(dict)
+    authoritative_keys: Dict[str, set[Tuple[str, str]]] = defaultdict(set)
+    client_extras: Dict[str, Dict[str, List[CanonicalRule]]] = {
+        client: defaultdict(list) for client in CLIENTS
+    }
 
     for source in sources:
         category_id = str(source["id"])
@@ -312,6 +343,9 @@ def collect_canonical_rules(
             "raw_rules": 0,
             "normalized": 0,
             "unsupported_rules": 0,
+            "authoritative_component": None,
+            "audit_reference_rules": 0,
+            "client_only_extra_rules": 0,
             "components": [],
         }
         category_stats[category_id] = stats
@@ -335,6 +369,7 @@ def collect_canonical_rules(
                 )
                 lock_category["components"][client][component_id] = {
                     "url": str(component["url"]),
+                    "role": str(component["role"]),
                     "bytes": len(data),
                     "sha256": sha256(data),
                     "upstream_updated": upstream_updated(data),
@@ -358,7 +393,8 @@ def collect_canonical_rules(
                     "client": client,
                     "id": component_id,
                     "format": component["format"],
-                    "canonical": bool(component.get("canonical", False)),
+                    "role": str(component["role"]),
+                    "contributes_to_canonical": component["role"] == AUTHORITATIVE_ROLE,
                     "complete": bool(component.get("complete", False)),
                     "bytes": len(data),
                     "stale_cache": stale,
@@ -374,35 +410,50 @@ def collect_canonical_rules(
                     if parsed.unsupported:
                         report["unsupported_examples"] = parsed.unsupported[:10]
                     parsed_components[category_id][component_id] = {
-                        rule.key for rule in parsed.rules
+                        "keys": {rule.key for rule in parsed.rules},
+                        "role": str(component["role"]),
+                        "client": client,
                     }
-                    if component.get("canonical"):
+                    role = str(component["role"])
+                    if role == AUTHORITATIVE_ROLE:
                         candidates.extend(parsed.rules)
                         stats["raw_rules"] += parsed.raw_rules
                         stats["normalized"] += len(parsed.rules)
                         stats["unsupported_rules"] += len(parsed.unsupported)
-                        canonical_keys[category_id].update(rule.key for rule in parsed.rules)
+                        stats["authoritative_component"] = {
+                            "client": client,
+                            "id": component_id,
+                        }
+                        authoritative_keys[category_id].update(
+                            rule.key for rule in parsed.rules
+                        )
+                    elif role == CLIENT_EXTRA_ROLE:
+                        client_extras[client][category_id].extend(parsed.rules)
+                        stats["client_only_extra_rules"] += len(parsed.rules)
+                    elif role == AUDIT_ROLE:
+                        stats["audit_reference_rules"] += len(parsed.rules)
                 stats["components"].append(report)
                 component_reports.append(report)
 
     for category_id, reports in parsed_components.items():
-        expected = canonical_keys[category_id]
-        for component_id, keys in reports.items():
+        expected = authoritative_keys[category_id]
+        for component_id, parsed_info in reports.items():
             report = next(
                 item
                 for item in component_reports
                 if item["category"] == category_id and item["id"] == component_id
             )
+            keys = parsed_info["keys"]
             missing = sorted(expected - keys)
             extra = sorted(keys - expected)
-            report["canonical_coverage"] = {
+            report["coverage_against_authoritative"] = {
                 "missing": len(missing),
                 "extra": len(extra),
                 "missing_examples": missing[:10],
                 "extra_examples": extra[:10],
             }
 
-    return candidates, lock, category_stats, component_reports
+    return candidates, lock, category_stats, component_reports, client_extras
 
 
 def deduplicate_candidates(
@@ -549,73 +600,189 @@ def write_qx_output(
     policies: Dict[str, Any],
     personal_rules: Sequence[CanonicalRule],
     by_category: Dict[str, List[CanonicalRule]],
+    client_extras: Dict[str, Dict[str, List[CanonicalRule]]],
 ) -> Dict[str, Any]:
-    header = [
-        "# NAME: network-rules canonical aggregate",
-        "# GENERATED-BY: network-rules-project/scripts/build.py",
-        "# SOURCE-OF-TRUTH: canonical rule model after patches, deduplication and conflict resolution",
-        "# This is a Quantumult X filter list. It does not contain nodes, rewrites or MitM settings.",
-    ]
-    rendered = list(header)
+    """Write category-scoped QX files so third-party licenses are not mixed."""
+
+    output_dir = DIST_DIR / "quantumult-x" / "providers"
+    output_dir.mkdir(parents=True, exist_ok=True)
     sections: List[Dict[str, Any]] = []
-    if personal_rules:
-        rendered.extend(
-            [
-                "",
-                "# ===== CATEGORY: 本地覆盖 (personal-overlay) =====",
-                f"# RULES: {len(personal_rules)}",
-            ]
-        )
-        for rule in personal_rules:
-            rendered.append(f"# CANONICAL-CATEGORY: {rule.category}")
+    artifacts: List[str] = []
+    generated_stem_names: set[str] = set()
+
+    def write_category_file(
+        file_name: str,
+        category_id: str,
+        label: str,
+        rules: Sequence[CanonicalRule],
+        *,
+        license_scope: str,
+        upstream: str,
+    ) -> None:
+        rendered = [
+            "# NAME: network-rules Quantumult X category provider",
+            "# GENERATED-BY: network-rules-project/scripts/build.py",
+            f"# ===== CATEGORY: {label} ({category_id}) =====",
+            "# PUBLICATION-SCOPE: one category only; do not combine another license scope in this file",
+            f"# THIRD-PARTY-SOURCE: {upstream}",
+            f"# LICENSE-SCOPE: {license_scope}",
+            "# SOURCE-OF-TRUTH: canonical rule model after patches, deduplication and conflict resolution",
+            "# This is a Quantumult X filter list. It does not contain nodes, rewrites or MitM settings.",
+            f"# RULES: {len(rules)}",
+        ]
+        for rule in rules:
+            if category_id == "personal-overlay":
+                rendered.append(f"# CANONICAL-CATEGORY: {rule.category}")
             rendered.append(
-                render_qx_rule(rule, policy_value(policies, "quantumult-x", rule.category))
+                render_qx_rule(
+                    rule,
+                    policy_value(policies, "quantumult-x", rule.category),
+                )
             )
+        path = output_dir / file_name
+        write_text(path, "\n".join(rendered))
+        generated_stem_names.add(path.stem)
+        relative = str(path.relative_to(ROOT))
+        artifacts.append(relative)
         sections.append(
-            {"id": "personal-overlay", "label": "本地覆盖", "rules": len(personal_rules)}
+            {
+                "id": category_id,
+                "label": label,
+                "rules": len(rules),
+                "canonical_rules": len(rules),
+                "client_only_extra_rules": 0,
+                "artifact": relative,
+                "license_scope": license_scope,
+                "upstream": upstream,
+            }
+        )
+
+    if personal_rules:
+        write_category_file(
+            "personal-overlay.list",
+            "personal-overlay",
+            "本地覆盖",
+            personal_rules,
+            license_scope="user-owned",
+            upstream="overrides/rules.txt",
         )
 
     for source in sorted(sources, key=source_sort_key):
         if not source.get("enabled", True):
             continue
         category_id = str(source["id"])
-        rules = by_category.get(category_id, [])
-        rendered.extend(
-            [
-                "",
-                f"# ===== CATEGORY: {category_label(source)} ({category_id}) =====",
-                f"# RULES: {len(rules)}",
-                "# FORMAT: canonical -> Quantumult X",
-            ]
+        rules, canonical_count, client_extra_count, unsupported = merge_client_category_rules(
+            by_category.get(category_id, []),
+            client_extras.get("quantumult-x", {}).get(category_id, []),
+            client="quantumult-x",
         )
-        for rule in rules:
-            rendered.append(
-                render_qx_rule(rule, policy_value(policies, "quantumult-x", category_id))
+        if unsupported:
+            raise BuildError(
+                f"Quantumult X client-only-extra 无法输出：{category_id}/{unsupported[0]}"
             )
-        sections.append(
-            {"id": category_id, "label": category_label(source), "rules": len(rules)}
+        write_category_file(
+            f"{category_id}.list",
+            category_id,
+            category_label(source),
+            rules,
+            license_scope=str(source.get("license", "upstream")),
+            upstream=str(source.get("provider", "unknown")),
         )
-    output_path = DIST_DIR / "quantumult-x" / "aggregate.list"
-    write_text(output_path, "\n".join(rendered))
+        sections[-1]["canonical_rules"] = canonical_count
+        sections[-1]["client_only_extra_rules"] = client_extra_count
+
+    for path in output_dir.glob("*.list"):
+        if path.stem in generated_stem_names:
+            continue
+        try:
+            first_lines = path.read_text(encoding="utf-8").splitlines()[:3]
+        except OSError:
+            continue
+        if "# GENERATED-BY: network-rules-project/scripts/build.py" in first_lines:
+            path.unlink()
+
+    # Remove the former mixed aggregate when rebuilding an existing checkout.
+    legacy_path = DIST_DIR / "quantumult-x" / "aggregate.list"
+    if legacy_path.exists():
+        try:
+            first_lines = legacy_path.read_text(encoding="utf-8").splitlines()[:3]
+        except OSError:
+            first_lines = []
+        if "# GENERATED-BY: network-rules-project/scripts/build.py" in first_lines:
+            legacy_path.unlink()
+
     return {
-        "artifact": str(output_path.relative_to(ROOT)),
+        "artifacts": artifacts,
+        "artifact_mode": "category-scoped-license-separated",
+        "mixed_derivative": False,
         "rules": sum(section["rules"] for section in sections),
+        "canonical_rules": sum(section["canonical_rules"] for section in sections),
+        "client_only_extra_rules": sum(
+            section["client_only_extra_rules"] for section in sections
+        ),
         "categories": sections,
     }
 
 
-def provider_content(source: Dict[str, Any], rules: Sequence[CanonicalRule]) -> str:
+def provider_content(
+    source: Dict[str, Any],
+    rules: Sequence[CanonicalRule],
+    *,
+    canonical_count: int,
+    client_extra_count: int,
+) -> str:
     lines = [
         "# NAME: network-rules canonical provider",
         f"# CATEGORY: {category_label(source)} ({source['id']})",
         "# GENERATED-BY: network-rules-project/scripts/build.py",
         "# SOURCE-OF-TRUTH: canonical rule model after patches, deduplication and conflict resolution",
         "# THIRD-PARTY-DATA: see sources/ATTRIBUTIONS.md",
+        f"# CANONICAL-RULES: {canonical_count}",
+        f"# CLIENT-ONLY-EXTRA-RULES: {client_extra_count}",
         f"# RULES: {len(rules)}",
         "payload:",
     ]
     lines.extend(f"  - {yaml_quote(render_mihomo_rule(rule))}" for rule in rules)
     return "\n".join(lines)
+
+
+def merge_client_category_rules(
+    canonical_rules: Sequence[CanonicalRule],
+    client_extra_rules: Sequence[CanonicalRule],
+    *,
+    client: str,
+) -> Tuple[List[CanonicalRule], int, int, List[Dict[str, str]]]:
+    """Combine shared rules with explicit client-only extras for one output."""
+
+    rules: List[CanonicalRule] = []
+    seen: set[Tuple[str, str]] = set()
+    unsupported: List[Dict[str, str]] = []
+    canonical_count = 0
+    client_extra_count = 0
+    for rule, role in [
+        *[(rule, AUTHORITATIVE_ROLE) for rule in canonical_rules],
+        *[(rule, CLIENT_EXTRA_ROLE) for rule in client_extra_rules],
+    ]:
+        if not client_supports(rule, client):
+            unsupported.append(
+                {
+                    "type": rule.type,
+                    "value": rule.value,
+                    "category": rule.category,
+                    "role": role,
+                    "reason": f"unsupported by {client} client adapter",
+                }
+            )
+            continue
+        if rule.key in seen:
+            continue
+        seen.add(rule.key)
+        rules.append(rule)
+        if role == AUTHORITATIVE_ROLE:
+            canonical_count += 1
+        else:
+            client_extra_count += 1
+    return rules, canonical_count, client_extra_count, unsupported
 
 
 def write_mihomo_output(
@@ -624,6 +791,7 @@ def write_mihomo_output(
     policies: Dict[str, Any],
     personal_rules: Sequence[CanonicalRule],
     by_category: Dict[str, List[CanonicalRule]],
+    client_extras: Dict[str, Dict[str, List[CanonicalRule]]],
 ) -> Dict[str, Any]:
     publication = manifest["publication"]
     base_url = (
@@ -666,28 +834,37 @@ def write_mihomo_output(
                     "type": rule.type,
                     "value": rule.value,
                     "category": rule.category,
+                    "role": "personal-overlay",
                     "reason": "unsupported by Mihomo client adapter",
                 }
             )
+    provider_rule_counts: Dict[str, int] = {}
+    provider_canonical_counts: Dict[str, int] = {}
+    provider_client_extra_counts: Dict[str, int] = {}
+    mihomo_client_extras = client_extras.get("mihomo", {})
     for source in sorted(sources, key=source_sort_key):
         if not source.get("enabled", True):
             continue
         category_id = str(source["id"])
-        rules = []
-        for rule in by_category.get(category_id, []):
-            if client_supports(rule, "mihomo"):
-                rules.append(rule)
-            else:
-                unsupported_rules.append(
-                    {
-                        "type": rule.type,
-                        "value": rule.value,
-                        "category": rule.category,
-                        "reason": "unsupported by Mihomo client adapter",
-                    }
-                )
+        rules, canonical_count, client_extra_count, unsupported = merge_client_category_rules(
+            by_category.get(category_id, []),
+            mihomo_client_extras.get(category_id, []),
+            client="mihomo",
+        )
+        unsupported_rules.extend(unsupported)
         provider_path = provider_dir / f"{category_id}.yaml"
-        write_text(provider_path, provider_content(source, rules))
+        write_text(
+            provider_path,
+            provider_content(
+                source,
+                rules,
+                canonical_count=canonical_count,
+                client_extra_count=client_extra_count,
+            ),
+        )
+        provider_rule_counts[category_id] = len(rules)
+        provider_canonical_counts[category_id] = canonical_count
+        provider_client_extra_counts[category_id] = client_extra_count
         provider_ids.append(category_id)
         lines.append(f"  # ===== CATEGORY: {category_label(source)} ({category_id}) =====")
         lines.extend(
@@ -725,14 +902,9 @@ def write_mihomo_output(
         "provider_directory": str(provider_dir.relative_to(ROOT)),
         "providers": len(provider_ids),
         "provider_ids": provider_ids,
-        "provider_rules": {
-            category_id: sum(
-                1
-                for rule in by_category.get(category_id, [])
-                if client_supports(rule, "mihomo")
-            )
-            for category_id in provider_ids
-        },
+        "provider_rules": provider_rule_counts,
+        "canonical_provider_rules": provider_canonical_counts,
+        "client_only_extra_rules": provider_client_extra_counts,
         "prepend_rules": len(mihomo_personal_rules) + len(provider_ids),
         "personal_rules": len(mihomo_personal_rules),
         "canonical_personal_rules": len(personal_rules),
@@ -748,18 +920,33 @@ def write_mihomo_output(
             "by_type": dict(Counter(item["type"] for item in unsupported_rules)),
             "examples": unsupported_rules[:50],
         },
-        "source": "canonical",
+        "source": "canonical-plus-explicit-client-extras",
     }
 
 
-def build_qx_entry_example() -> None:
-    content = "\n".join(
-        [
-            "# 将下面这一行加入 Quantumult X 的 [filter_remote]。",
-            "# 发布本仓库后，把 OWNER/REPOSITORY 替换成你的 GitHub 路径。",
-            "https://raw.githubusercontent.com/OWNER/REPOSITORY/main/dist/quantumult-x/aggregate.list, tag=网络规则聚合, update-interval=86400, opt-parser=false, enabled=true",
-        ]
+def build_qx_entry_example(
+    manifest: Dict[str, Any],
+    qx_report: Dict[str, Any],
+) -> None:
+    publication = manifest["publication"]
+    base_url = (
+        f"https://raw.githubusercontent.com/{publication['repository']}/{publication['ref']}"
     )
+    lines = [
+        "# Quantumult X 需要将下面这些行按顺序加入 [filter_remote]。",
+        "# 每个文件只包含一个 canonical category 或个人覆盖，避免把不同上游许可证物理合成一个文件。",
+        "# 请保留当前顺序：它对应 personal override 和 category priority。",
+    ]
+    for section in qx_report.get("categories", []):
+        artifact = section.get("artifact")
+        if not artifact:
+            continue
+        category_id = str(section.get("id", "category"))
+        lines.append(
+            f"{base_url}/{artifact}, tag=网络规则-{category_id}, "
+            "update-interval=86400, opt-parser=false, enabled=true"
+        )
+    content = "\n".join(lines)
     write_text(DIST_DIR / "quantumult-x" / "entry.example.conf", content)
 
 
@@ -789,17 +976,45 @@ def build(argv: Optional[Sequence[str]] = None) -> int:
         local_rules = parse_local_rules(OVERRIDES_PATH, category_ids)
         patches = load_patches(PATCHES_DIR)
 
-        upstream_candidates, lock, category_stats, component_reports = collect_canonical_rules(
+        (
+            upstream_candidates,
+            lock,
+            category_stats,
+            component_reports,
+            client_extras,
+        ) = collect_canonical_rules(
             sources,
             offline=args.offline,
             allow_stale=args.allow_stale,
         )
-        candidates = local_rules + upstream_candidates
-        patched_candidates, patch_outcomes, priority_patches = apply_patches(
-            candidates,
+        canonical_candidates = local_rules + upstream_candidates
+        extra_object_ids = {
+            id(rule): client
+            for client, client_rules in client_extras.items()
+            for rules in client_rules.values()
+            for rule in rules
+        }
+        patched_working, patch_outcomes, priority_patches = apply_patches(
+            canonical_candidates
+            + [
+                rule
+                for client_rules in client_extras.values()
+                for rules in client_rules.values()
+                for rule in rules
+            ],
             patches,
             category_ids,
         )
+        patched_candidates: List[CanonicalRule] = []
+        patched_client_extras: Dict[str, Dict[str, List[CanonicalRule]]] = {
+            client: defaultdict(list) for client in CLIENTS
+        }
+        for rule in patched_working:
+            owner_client = extra_object_ids.get(id(rule))
+            if owner_client is None:
+                patched_candidates.append(rule)
+            else:
+                patched_client_extras[owner_client][rule.category].append(rule)
         deduplicated, duplicates = deduplicate_candidates(patched_candidates)
         final_rules, conflicts = resolve_canonical_rules(
             deduplicated,
@@ -810,12 +1025,21 @@ def build(argv: Optional[Sequence[str]] = None) -> int:
         personal_rules, by_category = category_rule_sets(final_rules, sources)
 
         qx_report = write_qx_output(
-            sources, policies, personal_rules, by_category
+            sources,
+            policies,
+            personal_rules,
+            by_category,
+            patched_client_extras,
         )
         mihomo_report = write_mihomo_output(
-            manifest, sources, policies, personal_rules, by_category
+            manifest,
+            sources,
+            policies,
+            personal_rules,
+            by_category,
+            patched_client_extras,
         )
-        build_qx_entry_example()
+        build_qx_entry_example(manifest, qx_report)
 
         category_patched = [
             rule for rule in patched_candidates if rule.source != "personal-rules"
@@ -866,7 +1090,8 @@ def build(argv: Optional[Sequence[str]] = None) -> int:
                 {
                     "id": "overrides/rules.txt",
                     "client": "canonical",
-                    "canonical": True,
+                    "role": AUTHORITATIVE_ROLE,
+                    "contributes_to_canonical": True,
                     "parsed_rules": len(local_rules),
                 }
             ],
@@ -906,11 +1131,27 @@ def build(argv: Optional[Sequence[str]] = None) -> int:
             {"id": str(source["id"]), "label": category_label(source), **category_stats[str(source["id"])]}
             for source in sorted(sources, key=source_sort_key)
         ]
+        qx_client_extra_counts = {
+            str(item.get("id")): int(item.get("client_only_extra_rules", 0))
+            for item in qx_report.get("categories", [])
+            if isinstance(item, dict) and int(item.get("client_only_extra_rules", 0)) > 0
+        }
+        mihomo_client_extra_counts = {
+            str(category_id): int(count)
+            for category_id, count in mihomo_report.get(
+                "client_only_extra_rules", {}
+            ).items()
+            if int(count) > 0
+        }
         report = {
             "schema_version": 2,
             "generator": "scripts/build.py",
             "upstreams": {
                 "component_count": len(component_reports),
+                "roles": {
+                    role: sum(item["role"] == role for item in component_reports)
+                    for role in sorted(COMPONENT_ROLES)
+                },
                 "enabled_categories": [
                     str(source["id"])
                     for source in sorted(sources, key=source_sort_key)
@@ -943,6 +1184,10 @@ def build(argv: Optional[Sequence[str]] = None) -> int:
                 "examples": conflict_examples,
             },
             "categories": categories_report,
+            "client_only_extras": {
+                "quantumult-x": qx_client_extra_counts,
+                "mihomo": mihomo_client_extra_counts,
+            },
             "client_outputs": {
                 "quantumult-x": qx_report,
                 "mihomo": mihomo_report,

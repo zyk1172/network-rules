@@ -1,0 +1,30 @@
+# NAME: network-rules Quantumult X category provider
+# GENERATED-BY: network-rules-project/scripts/build.py
+# ===== CATEGORY: Telegram (telegram) =====
+# PUBLICATION-SCOPE: one category only; do not combine another license scope in this file
+# THIRD-PARTY-SOURCE: MetaCubeX/meta-rules-dat
+# LICENSE-SCOPE: GPL-3.0
+# SOURCE-OF-TRUTH: canonical rule model after patches, deduplication and conflict resolution
+# This is a Quantumult X filter list. It does not contain nodes, rewrites or MitM settings.
+# RULES: 21
+HOST-SUFFIX,cdn-telegram.org,✉️ Telegram
+HOST-SUFFIX,comments.app,✉️ Telegram
+HOST-SUFFIX,contest.com,✉️ Telegram
+HOST-SUFFIX,fragment.com,✉️ Telegram
+HOST-SUFFIX,graph.org,✉️ Telegram
+HOST-SUFFIX,quiz.directory,✉️ Telegram
+HOST-SUFFIX,t.me,✉️ Telegram
+HOST-SUFFIX,tdesktop.com,✉️ Telegram
+HOST-SUFFIX,telega.one,✉️ Telegram
+HOST-SUFFIX,telegra.ph,✉️ Telegram
+HOST-SUFFIX,telegram-cdn.org,✉️ Telegram
+HOST-SUFFIX,telegram.dog,✉️ Telegram
+HOST-SUFFIX,telegram.me,✉️ Telegram
+HOST-SUFFIX,telegram.org,✉️ Telegram
+HOST-SUFFIX,telegram.space,✉️ Telegram
+HOST-SUFFIX,telesco.pe,✉️ Telegram
+HOST-SUFFIX,tg.dev,✉️ Telegram
+HOST-SUFFIX,ton.org,✉️ Telegram
+HOST-SUFFIX,toncenter.com,✉️ Telegram
+HOST-SUFFIX,tx.me,✉️ Telegram
+HOST-SUFFIX,usercontent.dev,✉️ Telegram

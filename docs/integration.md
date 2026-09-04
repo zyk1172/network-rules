@@ -1,6 +1,6 @@
 # 客户端接入与维护
 
-本项目对外提供每个客户端一个入口，对内通过 canonical rule model 统一规则意图。入口只包含规则和策略映射，不包含节点、订阅、DNS、TUN、rewrite 或 MitM 配置。
+本项目对外提供简单的客户端入口，对内通过 canonical rule model 统一规则意图。入口只包含规则和策略映射，不包含节点、订阅、DNS、TUN、rewrite 或 MitM 配置。由于公开仓库同时承载 GPL-2.0 和 GPL-3.0 上游，本项目的 QX 产物按分类拆分，避免把不同许可证范围物理合成一个文件；Mihomo 仍保持一个 Merge 入口。
 
 ## Clash Verge Rev / Mihomo
 
@@ -16,7 +16,7 @@ https://raw.githubusercontent.com/zyk1172/network-rules/main/dist/mihomo/merge.y
 dist/mihomo/providers/<category>.yaml
 ```
 
-因此 Mihomo 不会绕过本项目直接拉取 BlackMatrix7 或 MetaCubeX 的原始 provider。每个 provider 都由 canonical 规则生成，采用 Mihomo `classical` YAML 格式；策略名称只出现在 `merge.yaml` 的 `RULE-SET` 中，规则数据本身不绑定 Mihomo 策略。
+因此 Mihomo 不会绕过本项目直接拉取 BlackMatrix7 或 MetaCubeX 的原始 provider。每个 provider 都由共享 canonical 规则和该分类明确声明的 Mihomo `client-only-extra` 编译，采用 `classical` YAML 格式；策略名称只出现在 `merge.yaml` 的 `RULE-SET` 中，规则数据本身不绑定 Mihomo 策略。
 
 节点、proxy-groups、DNS、TUN、rewrite 和 MitM 继续使用现有基础配置。合并顺序由 `prepend-rules` 控制：个人覆盖在前，然后按 category priority 引用本项目 providers。qBittorrent 改监听端口不需要改这套公共域名/IP 规则。
 
@@ -45,19 +45,21 @@ personal override → private-tracker → ads → chatgpt → claude → gemini
 
 ## Quantumult X
 
-把 `dist/quantumult-x/entry.example.conf` 中的行加入 Quantumult X 的 `[filter_remote]`，正式发布地址为：
+把 `dist/quantumult-x/entry.example.conf` 中的多行按原顺序加入 Quantumult X 的 `[filter_remote]`。这些是分类级远程入口，例如：
 
 ```text
-https://raw.githubusercontent.com/zyk1172/network-rules/main/dist/quantumult-x/aggregate.list, tag=网络规则聚合, update-interval=86400, opt-parser=false, enabled=true
+https://raw.githubusercontent.com/zyk1172/network-rules/main/dist/quantumult-x/providers/personal-overlay.list, tag=网络规则-personal-overlay, update-interval=86400, opt-parser=false, enabled=true
+https://raw.githubusercontent.com/zyk1172/network-rules/main/dist/quantumult-x/providers/private-tracker.list, tag=网络规则-private-tracker, update-interval=86400, opt-parser=false, enabled=true
+https://raw.githubusercontent.com/zyk1172/network-rules/main/dist/quantumult-x/providers/ads.list, tag=网络规则-ads, update-interval=86400, opt-parser=false, enabled=true
 ```
 
-列表由同一份 canonical rule set 生成，再把稳定 category ID 转换为 QX `HOST`、`HOST-SUFFIX`、`IP-CIDR` 等语法，并映射到 QX 策略名称。现有 `[rewrite_local]`、`[rewrite_remote]` 和 `[mitm]` 不放入这个远程列表。
+完整行和当前分类顺序以生成的 `dist/quantumult-x/entry.example.conf` 为准。每个 `providers/<category>.list` 只包含一个 canonical category 及其登记来源；主配置通过多条远程规则组合它们，并保留 personal override、广告和服务分类的优先级。这样公开分发时不会把 GPL-2.0 与 GPL-3.0 规则物理混入同一个 aggregate 文件。现有 `[rewrite_local]`、`[rewrite_remote]` 和 `[mitm]` 不放入这些远程列表。
 
 canonical vocabulary 可以比单个客户端更宽。比如当前 Mihomo core 没有 `USER-AGENT` 规则适配器，因此 Netflix 的 `Argo*` User-Agent 规则会保留在 QX 产物，并在 Mihomo 的 `unsupported_rules` 报告中明确记录，不会伪装成可用的 Mihomo 规则；Mihomo 支持的 `DOMAIN-WILDCARD`、`PROCESS-NAME` 等类型仍会生成。
 
 ## 分类、策略与个人规则
 
-`sources/upstreams.json` 中的 `id` 是稳定 canonical category，例如 `netflix`，不是客户端显示名。`sources/policies.json` 才负责将其映射为 QX 的 `📺 Netflix` 或 Mihomo 的 `流媒体`。这样同一规则事实不会因为客户端策略组名称不同而被复制成两套来源。
+`sources/upstreams.json` 中的 `id` 是稳定 canonical category，例如 `netflix`，不是客户端显示名。组件还必须明确角色：每个 category 恰好一个 `canonical-authoritative`，其他组件只能是 `audit-reference` 或 `client-only-extra`。`sources/policies.json` 才负责将 category 映射为 QX 的 `📺 Netflix` 或 Mihomo 的 `流媒体`。这样客户端差异不会默认被并入共享事实。
 
 个人规则和上游修补分开：
 
@@ -74,10 +76,10 @@ canonical vocabulary 可以比单个客户端更宽。比如当前 Mihomo core �
 
 ## 上游组件选择
 
-一个 category/client 可以声明多个组件。BlackMatrix7 的组件不能只看同名 `.yaml`：
+一个 category/client 可以声明多个组件。每个 category 恰好一个组件是 `canonical-authoritative`；其他组件明确作为 `audit-reference` 或 `client-only-extra`，不会默认进入共享规则并集。BlackMatrix7 的组件不能只看同名 `.yaml`：
 
 - Global 使用上游 README 建议可单独使用的 `Global_Classical.yaml`（但默认禁用）。
-- Netflix 使用可单独使用的 `Netflix_Classical.yaml`。
+- Netflix 使用可单独使用的 `Netflix_Classical.yaml`，但当前只作为 Mihomo 的 `client-only-extra`；QX `Netflix.list` 是该分类的 authoritative source。
 - Claude、Gemini、PrivateTracker 使用各自的完整 classical YAML。
 - MetaCubeX 的域名 YAML 作为 canonical 域名输入；其 MRS 组件会锁定并审计，但二进制 MRS 不直接作为本项目 canonical parser 的事实来源，生成的 Mihomo provider 仍来自已解析的 canonical model。
 

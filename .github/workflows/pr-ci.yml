@@ -1,0 +1,42 @@
+name: Validate network-rules changes
+
+on:
+  pull_request: {}
+  workflow_dispatch:
+
+# This workflow only checks the submitted tree. It never writes contents,
+# updates a branch, or creates a pull request.
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out submitted tree
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Install build dependencies
+        run: python3 -m pip install --disable-pip-version-check --no-input -r requirements.txt
+
+      - name: Compile Python modules
+        run: python3 -m py_compile scripts/*.py tests/*.py
+
+      - name: Rebuild generated artifacts
+        run: python3 scripts/build.py
+
+      - name: Validate generated artifacts
+        run: python3 scripts/validate.py
+
+      - name: Run semantic routing tests
+        run: python3 -m unittest discover -s tests -v
+
+      - name: Ensure generated artifacts are committed
+        run: git diff --exit-code -- dist sources/upstreams.lock.json

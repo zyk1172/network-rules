@@ -17,7 +17,8 @@ from rule_model import CanonicalRule, first_matching_rule, make_rule
 
 
 ROOT = Path(__file__).resolve().parents[1]
-QX_PATH = ROOT / "dist" / "quantumult-x" / "aggregate.list"
+QX_DIR = ROOT / "dist" / "quantumult-x" / "providers"
+QX_PATH = QX_DIR
 MIHOMO_PATH = ROOT / "dist" / "mihomo" / "merge.yaml"
 PROVIDER_DIR = ROOT / "dist" / "mihomo" / "providers"
 CASES_PATH = ROOT / "tests" / "routing-cases.json"
@@ -50,7 +51,36 @@ def _rule_from_line(
     return rule
 
 
+def qx_output_paths(root: Path = ROOT) -> List[Path]:
+    """Return QX files in the same priority order as the generated example."""
+
+    manifest = json.loads((root / "sources" / "upstreams.json").read_text(encoding="utf-8"))
+    output_dir = root / "dist" / "quantumult-x" / "providers"
+    paths: List[Path] = []
+    personal = output_dir / "personal-overlay.list"
+    if personal.exists():
+        paths.append(personal)
+    sources = sorted(
+        manifest.get("sources", []),
+        key=lambda source: (int(source.get("priority", 10000)), str(source.get("id"))),
+    )
+    for source in sources:
+        if source.get("enabled", True):
+            paths.append(output_dir / f"{source['id']}.list")
+    if not paths:
+        raise RoutingError(f"缺少 Quantumult X 分类生成物：{output_dir}")
+    return paths
+
+
 def parse_qx_rules(path: Path = QX_PATH) -> List[CanonicalRule]:
+    if path.is_dir():
+        paths = qx_output_paths(ROOT) if path == QX_DIR else sorted(path.glob("*.list"))
+        rules: List[CanonicalRule] = []
+        for child in paths:
+            rules.extend(parse_qx_rules(child))
+        if not rules:
+            raise RoutingError(f"Quantumult X 生成目录没有可评估规则：{path}")
+        return rules
     if not path.exists():
         raise RoutingError(f"缺少 Quantumult X 生成物：{path}")
     rules: List[CanonicalRule] = []
@@ -189,7 +219,9 @@ def load_cases(path: Path = CASES_PATH) -> List[Dict[str, Any]]:
 
 def run_routing_cases(root: Path = ROOT) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
     cases = load_cases(root / "tests" / "routing-cases.json")
-    qx_rules = parse_qx_rules(root / "dist" / "quantumult-x" / "aggregate.list")
+    qx_rules: List[CanonicalRule] = []
+    for qx_path in qx_output_paths(root):
+        qx_rules.extend(parse_qx_rules(qx_path))
     mihomo_rules = parse_mihomo_rules(
         root / "dist" / "mihomo" / "merge.yaml",
         root / "dist" / "mihomo" / "providers",

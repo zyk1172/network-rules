@@ -1,0 +1,28 @@
+# NAME: network-rules Quantumult X category provider
+# GENERATED-BY: network-rules-project/scripts/build.py
+# ===== CATEGORY: ChatGPT (chatgpt) =====
+# PUBLICATION-SCOPE: one category only; do not combine another license scope in this file
+# THIRD-PARTY-SOURCE: MetaCubeX/meta-rules-dat
+# LICENSE-SCOPE: GPL-3.0
+# SOURCE-OF-TRUTH: canonical rule model after patches, deduplication and conflict resolution
+# This is a Quantumult X filter list. It does not contain nodes, rewrites or MitM settings.
+# RULES: 19
+HOST,openaiapi-site.azureedge.net,Gpt
+HOST,openaiassets.blob.core.windows.net,Gpt
+HOST,openaicom-api-bdcpf8c6d2e9atf6.z01.azurefd.net,Gpt
+HOST,openaicom.imgix.net,Gpt
+HOST,openaicomproductionae4b.blob.core.windows.net,Gpt
+HOST,production-openaicom-storage.azureedge.net,Gpt
+HOST-SUFFIX,oaiusercontent.com,Gpt
+HOST-SUFFIX,chatgpt.com,Gpt
+HOST-SUFFIX,chatgpt.site,Gpt
+HOST-SUFFIX,crixet.com,Gpt
+HOST-SUFFIX,oaistatic.com,Gpt
+HOST-SUFFIX,oaistatsig.com,Gpt
+HOST-SUFFIX,chat.com,Gpt
+HOST-SUFFIX,openai.com,Gpt
+HOST-SUFFIX,sora.com,Gpt
+HOST-SUFFIX,chatgpt.livekit.cloud,Gpt
+HOST-SUFFIX,host.livekit.cloud,Gpt
+HOST-SUFFIX,turn.livekit.cloud,Gpt
+HOST-SUFFIX,openai.com.cdn.cloudflare.net,Gpt

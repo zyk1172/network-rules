@@ -17,11 +17,15 @@ LOCK_PATH = ROOT / "sources" / "upstreams.lock.json"
 REPORT_PATH = ROOT / "dist" / "build-report.json"
 MIHOMO_PATH = ROOT / "dist" / "mihomo" / "merge.yaml"
 PROVIDER_DIR = ROOT / "dist" / "mihomo" / "providers"
-QX_PATH = ROOT / "dist" / "quantumult-x" / "aggregate.list"
+QX_DIR = ROOT / "dist" / "quantumult-x" / "providers"
 
 sys.path.insert(0, str(ROOT / "scripts"))
 from build import (  # noqa: E402
+    AUDIT_ROLE,
+    AUTHORITATIVE_ROLE,
     CLIENTS,
+    CLIENT_EXTRA_ROLE,
+    COMPONENT_ROLES,
     BuildError,
     load_json,
     validate_manifest as validate_build_manifest,
@@ -161,6 +165,8 @@ def validate_lock(
                     continue
                 if component_record.get("url") != manifest_component.get("url"):
                     add_error(errors, f"锁定 URL 与清单不一致：{category_id}/{client}/{component_id}")
+                if component_record.get("role") != manifest_component.get("role"):
+                    add_error(errors, f"锁定 role 与清单不一致：{category_id}/{client}/{component_id}")
                 if not re.fullmatch(r"[0-9a-f]{64}", str(component_record.get("sha256", ""))):
                     add_error(errors, f"锁定信息缺少 SHA-256：{category_id}/{client}/{component_id}")
                 try:
@@ -234,14 +240,37 @@ def validate_report(
         if manifest_component is None:
             add_error(errors, f"构建报告存在未登记组件：{key}")
             continue
-        if component.get("canonical") != bool(manifest_component.get("canonical", False)):
-            add_error(errors, f"构建报告 canonical 标志不一致：{key}")
-        if component.get("canonical"):
+        expected_role = manifest_component.get("role")
+        actual_role = component.get("role")
+        if actual_role != expected_role:
+            add_error(errors, f"构建报告 role 不一致：{key}")
+        if actual_role not in COMPONENT_ROLES:
+            add_error(errors, f"构建报告 role 无效：{key}={actual_role!r}")
+        expected_canonical = actual_role == AUTHORITATIVE_ROLE
+        if component.get("contributes_to_canonical") is not expected_canonical:
+            add_error(errors, f"构建报告 canonical 贡献标志不一致：{key}")
+        if actual_role == AUTHORITATIVE_ROLE:
             unsupported = integer(component.get("unsupported_rules"), 0)
             if unsupported:
-                add_error(errors, f"canonical 组件含未转换规则：{key}, count={unsupported}")
+                add_error(errors, f"authoritative 组件含未转换规则：{key}, count={unsupported}")
             if not isinstance(component.get("parsed_rules"), int):
-                add_error(errors, f"canonical 组件缺少 parsed_rules：{key}")
+                add_error(errors, f"authoritative 组件缺少 parsed_rules：{key}")
+        elif actual_role in {AUDIT_ROLE, CLIENT_EXTRA_ROLE}:
+            if component.get("parsed_rules") is not None and not isinstance(
+                component.get("coverage_against_authoritative"), dict
+            ):
+                add_error(errors, f"非 authoritative 组件缺少对照报告：{key}")
+
+    role_counts = upstream_report.get("roles")
+    if not isinstance(role_counts, dict):
+        add_error(errors, "构建报告 upstreams.roles 必须是对象")
+    else:
+        expected_role_counts = {
+            role: sum(item.get("role") == role for item in components if isinstance(item, dict))
+            for role in COMPONENT_ROLES
+        }
+        if role_counts != expected_role_counts:
+            add_error(errors, "构建报告 upstreams.roles 与组件记录不一致")
 
     category_records = report.get("categories")
     expected_category_ids = {"personal-overlay", *all_ids(sources)}
@@ -340,66 +369,16 @@ def validate_qx(
     report: Dict[str, Any] | None,
     errors: List[str],
 ) -> None:
-    if not QX_PATH.exists():
-        add_error(errors, f"缺少生成文件：{QX_PATH}")
+    if not QX_DIR.exists():
+        add_error(errors, f"缺少 Quantumult X 分类生成目录：{QX_DIR}")
         return
     active = set(active_ids(sources))
     all_category_ids = set(all_ids(sources))
     policy_map = policies.get("quantumult-x", {})
-    raw_lines = QX_PATH.read_text(encoding="utf-8").splitlines()
-    if "# GENERATED-BY: network-rules-project/scripts/build.py" not in raw_lines:
-        add_error(errors, "Quantumult X 生成物缺少生成器标记")
-    current_category: str | None = None
-    pending_category: str | None = None
-    seen_categories = set()
-    rule_count = 0
-    section_counts: Dict[str, int] = {}
-    for number, raw_line in enumerate(raw_lines, 1):
-        line = raw_line.strip()
-        marker = re.match(r"^# ===== CATEGORY: .+ \(([^()]+)\) =====$", line)
-        if marker:
-            current_category = marker.group(1)
-            pending_category = None
-            seen_categories.add(current_category)
-            section_counts.setdefault(current_category, 0)
-            if current_category != "personal-overlay" and current_category not in active:
-                add_error(errors, f"Quantumult X 使用了非启用分类：{current_category}")
-            continue
-        canonical_marker = re.match(r"^# CANONICAL-CATEGORY: ([A-Za-z0-9_-]+)$", line)
-        if canonical_marker:
-            pending_category = canonical_marker.group(1)
-            if pending_category not in all_category_ids:
-                add_error(errors, f"Quantumult X 使用了未知 canonical category：{pending_category}")
-            continue
-        if not line or line.startswith("#") or line.startswith(";"):
-            continue
-        if current_category is None:
-            add_error(errors, f"Quantumult X 第 {number} 行规则位于分类段之外")
-            continue
-        category = pending_category or current_category
-        parts = [part.strip() for part in line.split(",")]
-        if len(parts) < 3:
-            add_error(errors, f"Quantumult X 第 {number} 行缺少策略：{line}")
-            continue
-        if canonicalize_type(parts[0]) not in CANONICAL_TYPES:
-            add_error(errors, f"Quantumult X 第 {number} 行类型不属于 canonical model：{parts[0]}")
-        expected_policy = policy_map.get(category)
-        if expected_policy is None:
-            add_error(errors, f"Quantumult X 第 {number} 行分类没有策略映射：{category}")
-        elif parts[2] != str(expected_policy):
-            add_error(
-                errors,
-                f"Quantumult X 第 {number} 行策略与 category 不一致："
-                f"{category} expected={expected_policy!r} actual={parts[2]!r}",
-            )
-        if any(token in line for token in ("OWNER/REPOSITORY", "REPLACE_ME", "<YOUR_")):
-            add_error(errors, f"Quantumult X 第 {number} 行包含占位符")
-        rule_count += 1
-        section_counts[current_category] = section_counts.get(current_category, 0) + 1
-        pending_category = None
+    source_map = {str(source["id"]): source for source in sources}
 
-    expected_sections = set(active)
     personal_report: Dict[str, Any] = {}
+    qx_report: Dict[str, Any] = {}
     if isinstance(report, dict):
         category_records = report.get("categories", [])
         if isinstance(category_records, list):
@@ -411,6 +390,127 @@ def validate_qx(
                 ),
                 {},
             )
+        client_outputs = report.get("client_outputs", {})
+        if isinstance(client_outputs, dict) and isinstance(
+            client_outputs.get("quantumult-x"), dict
+        ):
+            qx_report = client_outputs["quantumult-x"]
+    qx_category_records = qx_report.get("categories", [])
+    if not isinstance(qx_category_records, list):
+        add_error(errors, "构建报告 Quantumult X categories 必须是列表")
+        qx_category_records = []
+
+    expected_file_names: List[str] = []
+    if integer(personal_report.get("final"), 0) > 0:
+        expected_file_names.append("personal-overlay.list")
+    expected_file_names.extend(f"{category_id}.list" for category_id in active_ids(sources))
+    actual_file_names = sorted(path.name for path in QX_DIR.glob("*.list"))
+    if set(actual_file_names) != set(expected_file_names):
+        add_error(
+            errors,
+            "Quantumult X 分类文件集合不一致："
+            f"expected={sorted(expected_file_names)}, actual={actual_file_names}",
+        )
+    legacy_path = ROOT / "dist" / "quantumult-x" / "aggregate.list"
+    if legacy_path.exists():
+        add_error(errors, f"Quantumult X 仍存在已废弃的混合 aggregate.list：{legacy_path}")
+
+    seen_categories = set()
+    rule_count = 0
+    section_counts: Dict[str, int] = {}
+
+    for file_name in expected_file_names:
+        path = QX_DIR / file_name
+        if not path.exists():
+            add_error(errors, f"缺少 Quantumult X 分类生成文件：{path}")
+            continue
+        raw_lines = path.read_text(encoding="utf-8").splitlines()
+        if "# GENERATED-BY: network-rules-project/scripts/build.py" not in raw_lines[:3]:
+            add_error(errors, f"Quantumult X 生成物缺少生成器标记：{path}")
+        expected_category = path.stem
+        current_category: str | None = None
+        pending_category: str | None = None
+        file_rule_count = 0
+        if not any(line.startswith("# LICENSE-SCOPE:") for line in raw_lines[:10]):
+            add_error(errors, f"Quantumult X 文件缺少 LICENSE-SCOPE：{path}")
+        for number, raw_line in enumerate(raw_lines, 1):
+            line = raw_line.strip()
+            marker = re.match(r"^# ===== CATEGORY: .+ \(([^()]+)\) =====$", line)
+            if marker:
+                current_category = marker.group(1)
+                pending_category = None
+                seen_categories.add(current_category)
+                section_counts.setdefault(current_category, 0)
+                if current_category != expected_category:
+                    add_error(
+                        errors,
+                        f"Quantumult X 文件分类与文件名不一致：{path}:{number}={current_category}",
+                    )
+                if current_category != "personal-overlay" and current_category not in active:
+                    add_error(errors, f"Quantumult X 使用了非启用分类：{current_category}")
+                continue
+            canonical_marker = re.match(r"^# CANONICAL-CATEGORY: ([A-Za-z0-9_-]+)$", line)
+            if canonical_marker:
+                pending_category = canonical_marker.group(1)
+                if pending_category not in all_category_ids:
+                    add_error(
+                        errors,
+                        f"Quantumult X 使用了未知 canonical category：{pending_category}",
+                    )
+                continue
+            if not line or line.startswith("#") or line.startswith(";"):
+                continue
+            if current_category is None:
+                add_error(errors, f"Quantumult X 第 {number} 行规则位于分类段之外：{path}")
+                continue
+            category = pending_category or current_category
+            parts = [part.strip() for part in line.split(",")]
+            if len(parts) < 3:
+                add_error(errors, f"Quantumult X 第 {number} 行缺少策略：{line}")
+                continue
+            if canonicalize_type(parts[0]) not in CANONICAL_TYPES:
+                add_error(errors, f"Quantumult X 第 {number} 行类型不属于 canonical model：{parts[0]}")
+            expected_policy = policy_map.get(category)
+            if expected_policy is None:
+                add_error(errors, f"Quantumult X 第 {number} 行分类没有策略映射：{category}")
+            elif parts[2] != str(expected_policy):
+                add_error(
+                    errors,
+                    f"Quantumult X 第 {number} 行策略与 category 不一致："
+                    f"{category} expected={expected_policy!r} actual={parts[2]!r}",
+                )
+            if any(token in line for token in ("OWNER/REPOSITORY", "REPLACE_ME", "<YOUR_")):
+                add_error(errors, f"Quantumult X 第 {number} 行包含占位符")
+            rule_count += 1
+            file_rule_count += 1
+            section_counts[current_category] = section_counts.get(current_category, 0) + 1
+            pending_category = None
+        if current_category is None:
+            add_error(errors, f"Quantumult X 文件缺少 CATEGORY 段：{path}")
+        if expected_category != "personal-overlay":
+            source = source_map.get(expected_category)
+            if source is not None:
+                required_scope = f"# LICENSE-SCOPE: {source.get('license', 'upstream')}"
+                required_source = f"# THIRD-PARTY-SOURCE: {source.get('provider', 'unknown')}"
+                if required_scope not in raw_lines:
+                    add_error(errors, f"Quantumult X 文件许可证范围不一致：{path}")
+                if required_source not in raw_lines:
+                    add_error(errors, f"Quantumult X 文件上游来源不一致：{path}")
+        elif "# LICENSE-SCOPE: user-owned" not in raw_lines:
+            add_error(errors, f"Quantumult X 个人覆盖文件许可证范围不正确：{path}")
+        if file_rule_count != integer(
+            next(
+                (
+                    item.get("rules")
+                    for item in qx_category_records
+                    if isinstance(item, dict) and item.get("id") == expected_category
+                ),
+                -1,
+            )
+        ):
+            add_error(errors, f"Quantumult X 文件规则数与报告不一致：{path}")
+
+    expected_sections = set(active)
     if integer(personal_report.get("final"), 0) > 0:
         expected_sections.add("personal-overlay")
     if seen_categories != expected_sections:
@@ -433,9 +533,17 @@ def validate_qx(
             qx_report = {}
         if integer(qx_report.get("rules")) != rule_count:
             add_error(errors, "构建报告与 Quantumult X 实际规则数不一致")
+        expected_artifacts = [
+            str((QX_DIR / file_name).relative_to(ROOT))
+            for file_name in expected_file_names
+        ]
+        if qx_report.get("artifacts") != expected_artifacts:
+            add_error(errors, "构建报告与 Quantumult X 分类文件顺序不一致")
+        if qx_report.get("artifact_mode") != "category-scoped-license-separated":
+            add_error(errors, "Quantumult X 未使用分类级许可证隔离产物模式")
         report_sections = {
             str(item.get("id")): integer(item.get("rules"))
-            for item in qx_report.get("categories", [])
+            for item in qx_category_records
             if isinstance(item, dict)
         }
         if report_sections != section_counts:

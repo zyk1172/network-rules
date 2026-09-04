@@ -1,10 +1,10 @@
 {
   "canonical_rules": {
-    "after_dedup": 5423,
-    "after_patch": 6848,
-    "final": 5185,
-    "normalized": 6848,
-    "raw": 6848
+    "after_dedup": 5422,
+    "after_patch": 5427,
+    "final": 5184,
+    "normalized": 5427,
+    "raw": 5427
   },
   "categories": [
     {
@@ -12,10 +12,11 @@
       "after_patch": 11,
       "components": [
         {
-          "canonical": true,
           "client": "canonical",
+          "contributes_to_canonical": true,
           "id": "overrides/rules.txt",
-          "parsed_rules": 11
+          "parsed_rules": 11,
+          "role": "canonical-authoritative"
         }
       ],
       "final": 11,
@@ -27,45 +28,53 @@
     },
     {
       "after_dedup": 245,
-      "after_patch": 496,
+      "after_patch": 248,
+      "audit_reference_rules": 248,
+      "authoritative_component": {
+        "client": "quantumult-x",
+        "id": "blackmatrix-private-tracker-qx"
+      },
+      "client_only_extra_rules": 0,
       "components": [
         {
           "bytes": 10025,
           "cache": "sources/cache/private-tracker.quantumult-x.blackmatrix-private-tracker-qx.list",
-          "canonical": true,
-          "canonical_coverage": {
+          "category": "private-tracker",
+          "client": "quantumult-x",
+          "complete": false,
+          "contributes_to_canonical": true,
+          "coverage_against_authoritative": {
             "extra": 0,
             "extra_examples": [],
             "missing": 0,
             "missing_examples": []
           },
-          "category": "private-tracker",
-          "client": "quantumult-x",
-          "complete": false,
           "format": "qx-list",
           "id": "blackmatrix-private-tracker-qx",
           "parsed_rules": 248,
           "raw_rules": 248,
+          "role": "canonical-authoritative",
           "stale_cache": false,
           "unsupported_rules": 0
         },
         {
           "bytes": 7802,
           "cache": "sources/cache/private-tracker.mihomo.blackmatrix-private-tracker-classical.yaml",
-          "canonical": true,
-          "canonical_coverage": {
+          "category": "private-tracker",
+          "client": "mihomo",
+          "complete": true,
+          "contributes_to_canonical": false,
+          "coverage_against_authoritative": {
             "extra": 0,
             "extra_examples": [],
             "missing": 0,
             "missing_examples": []
           },
-          "category": "private-tracker",
-          "client": "mihomo",
-          "complete": true,
           "format": "mihomo-yaml",
           "id": "blackmatrix-private-tracker-classical",
           "parsed_rules": 248,
           "raw_rules": 248,
+          "role": "audit-reference",
           "stale_cache": false,
           "unsupported_rules": 0
         }
@@ -73,45 +82,53 @@
       "final": 245,
       "id": "private-tracker",
       "label": "PT / PrivateTracker",
-      "normalized": 496,
-      "raw_rules": 496,
+      "normalized": 248,
+      "raw_rules": 248,
       "status": "enabled",
       "unsupported_rules": 0
     },
     {
       "after_dedup": 910,
       "after_patch": 910,
+      "audit_reference_rules": 0,
+      "authoritative_component": {
+        "client": "quantumult-x",
+        "id": "metacubex-ads-domain"
+      },
+      "client_only_extra_rules": 0,
       "components": [
         {
           "bytes": 23078,
           "cache": "sources/cache/ads.quantumult-x.metacubex-ads-domain.yaml",
-          "canonical": true,
-          "canonical_coverage": {
+          "category": "ads",
+          "client": "quantumult-x",
+          "complete": false,
+          "contributes_to_canonical": true,
+          "coverage_against_authoritative": {
             "extra": 0,
             "extra_examples": [],
             "missing": 0,
             "missing_examples": []
           },
-          "category": "ads",
-          "client": "quantumult-x",
-          "complete": false,
           "format": "meta-domain-yaml",
           "id": "metacubex-ads-domain",
           "parsed_rules": 910,
           "raw_rules": 910,
+          "role": "canonical-authoritative",
           "stale_cache": false,
           "unsupported_rules": 0
         },
         {
           "bytes": 8330,
           "cache": "sources/cache/ads.mihomo.metacubex-ads-mrs.mrs",
-          "canonical": false,
           "category": "ads",
           "client": "mihomo",
           "complete": false,
+          "contributes_to_canonical": false,
           "format": "mrs",
           "id": "metacubex-ads-mrs",
           "parsed_rules": null,
+          "role": "audit-reference",
           "stale_cache": false,
           "unsupported_rules": 0
         }
@@ -127,37 +144,45 @@
     {
       "after_dedup": 22,
       "after_patch": 22,
+      "audit_reference_rules": 0,
+      "authoritative_component": {
+        "client": "quantumult-x",
+        "id": "metacubex-chatgpt-domain"
+      },
+      "client_only_extra_rules": 0,
       "components": [
         {
           "bytes": 664,
           "cache": "sources/cache/chatgpt.quantumult-x.metacubex-chatgpt-domain.yaml",
-          "canonical": true,
-          "canonical_coverage": {
+          "category": "chatgpt",
+          "client": "quantumult-x",
+          "complete": false,
+          "contributes_to_canonical": true,
+          "coverage_against_authoritative": {
             "extra": 0,
             "extra_examples": [],
             "missing": 0,
             "missing_examples": []
           },
-          "category": "chatgpt",
-          "client": "quantumult-x",
-          "complete": false,
           "format": "meta-domain-yaml",
           "id": "metacubex-chatgpt-domain",
           "parsed_rules": 22,
           "raw_rules": 22,
+          "role": "canonical-authoritative",
           "stale_cache": false,
           "unsupported_rules": 0
         },
         {
           "bytes": 415,
           "cache": "sources/cache/chatgpt.mihomo.metacubex-chatgpt-mrs.mrs",
-          "canonical": false,
           "category": "chatgpt",
           "client": "mihomo",
           "complete": false,
+          "contributes_to_canonical": false,
           "format": "mrs",
           "id": "metacubex-chatgpt-mrs",
           "parsed_rules": null,
+          "role": "audit-reference",
           "stale_cache": false,
           "unsupported_rules": 0
         }
@@ -172,45 +197,53 @@
     },
     {
       "after_dedup": 3,
-      "after_patch": 6,
+      "after_patch": 3,
+      "audit_reference_rules": 3,
+      "authoritative_component": {
+        "client": "quantumult-x",
+        "id": "blackmatrix-claude-qx"
+      },
+      "client_only_extra_rules": 0,
       "components": [
         {
           "bytes": 255,
           "cache": "sources/cache/claude.quantumult-x.blackmatrix-claude-qx.list",
-          "canonical": true,
-          "canonical_coverage": {
+          "category": "claude",
+          "client": "quantumult-x",
+          "complete": false,
+          "contributes_to_canonical": true,
+          "coverage_against_authoritative": {
             "extra": 0,
             "extra_examples": [],
             "missing": 0,
             "missing_examples": []
           },
-          "category": "claude",
-          "client": "quantumult-x",
-          "complete": false,
           "format": "qx-list",
           "id": "blackmatrix-claude-qx",
           "parsed_rules": 3,
           "raw_rules": 3,
+          "role": "canonical-authoritative",
           "stale_cache": false,
           "unsupported_rules": 0
         },
         {
           "bytes": 265,
           "cache": "sources/cache/claude.mihomo.blackmatrix-claude-classical.yaml",
-          "canonical": true,
-          "canonical_coverage": {
+          "category": "claude",
+          "client": "mihomo",
+          "complete": true,
+          "contributes_to_canonical": false,
+          "coverage_against_authoritative": {
             "extra": 0,
             "extra_examples": [],
             "missing": 0,
             "missing_examples": []
           },
-          "category": "claude",
-          "client": "mihomo",
-          "complete": true,
           "format": "mihomo-yaml",
           "id": "blackmatrix-claude-classical",
           "parsed_rules": 3,
           "raw_rules": 3,
+          "role": "audit-reference",
           "stale_cache": false,
           "unsupported_rules": 0
         }
@@ -218,52 +251,60 @@
       "final": 3,
       "id": "claude",
       "label": "Claude",
-      "normalized": 6,
-      "raw_rules": 6,
+      "normalized": 3,
+      "raw_rules": 3,
       "status": "enabled",
       "unsupported_rules": 0
     },
     {
       "after_dedup": 13,
-      "after_patch": 26,
+      "after_patch": 13,
+      "audit_reference_rules": 13,
+      "authoritative_component": {
+        "client": "quantumult-x",
+        "id": "blackmatrix-gemini-qx"
+      },
+      "client_only_extra_rules": 0,
       "components": [
         {
           "bytes": 664,
           "cache": "sources/cache/gemini.quantumult-x.blackmatrix-gemini-qx.list",
-          "canonical": true,
-          "canonical_coverage": {
+          "category": "gemini",
+          "client": "quantumult-x",
+          "complete": false,
+          "contributes_to_canonical": true,
+          "coverage_against_authoritative": {
             "extra": 0,
             "extra_examples": [],
             "missing": 0,
             "missing_examples": []
           },
-          "category": "gemini",
-          "client": "quantumult-x",
-          "complete": false,
           "format": "qx-list",
           "id": "blackmatrix-gemini-qx",
           "parsed_rules": 13,
           "raw_rules": 13,
+          "role": "canonical-authoritative",
           "stale_cache": false,
           "unsupported_rules": 0
         },
         {
           "bytes": 666,
           "cache": "sources/cache/gemini.mihomo.blackmatrix-gemini-classical.yaml",
-          "canonical": true,
-          "canonical_coverage": {
+          "category": "gemini",
+          "client": "mihomo",
+          "complete": true,
+          "contributes_to_canonical": false,
+          "coverage_against_authoritative": {
             "extra": 0,
             "extra_examples": [],
             "missing": 0,
             "missing_examples": []
           },
-          "category": "gemini",
-          "client": "mihomo",
-          "complete": true,
           "format": "mihomo-yaml",
           "id": "blackmatrix-gemini-classical",
           "parsed_rules": 13,
           "raw_rules": 13,
+          "role": "audit-reference",
           "stale_cache": false,
           "unsupported_rules": 0
         }
@@ -271,45 +312,53 @@
       "final": 13,
       "id": "gemini",
       "label": "Gemini",
-      "normalized": 26,
-      "raw_rules": 26,
+      "normalized": 13,
+      "raw_rules": 13,
       "status": "enabled",
       "unsupported_rules": 0
     },
     {
       "after_dedup": 21,
       "after_patch": 21,
+      "audit_reference_rules": 0,
+      "authoritative_component": {
+        "client": "quantumult-x",
+        "id": "metacubex-telegram-domain"
+      },
+      "client_only_extra_rules": 0,
       "components": [
         {
           "bytes": 429,
           "cache": "sources/cache/telegram.quantumult-x.metacubex-telegram-domain.yaml",
-          "canonical": true,
-          "canonical_coverage": {
+          "category": "telegram",
+          "client": "quantumult-x",
+          "complete": false,
+          "contributes_to_canonical": true,
+          "coverage_against_authoritative": {
             "extra": 0,
             "extra_examples": [],
             "missing": 0,
             "missing_examples": []
           },
-          "category": "telegram",
-          "client": "quantumult-x",
-          "complete": false,
           "format": "meta-domain-yaml",
           "id": "metacubex-telegram-domain",
           "parsed_rules": 21,
           "raw_rules": 21,
+          "role": "canonical-authoritative",
           "stale_cache": false,
           "unsupported_rules": 0
         },
         {
           "bytes": 274,
           "cache": "sources/cache/telegram.mihomo.metacubex-telegram-mrs.mrs",
-          "canonical": false,
           "category": "telegram",
           "client": "mihomo",
           "complete": false,
+          "contributes_to_canonical": false,
           "format": "mrs",
           "id": "metacubex-telegram-mrs",
           "parsed_rules": null,
+          "role": "audit-reference",
           "stale_cache": false,
           "unsupported_rules": 0
         }
@@ -325,37 +374,45 @@
     {
       "after_dedup": 178,
       "after_patch": 178,
+      "audit_reference_rules": 0,
+      "authoritative_component": {
+        "client": "quantumult-x",
+        "id": "metacubex-youtube-domain"
+      },
+      "client_only_extra_rules": 0,
       "components": [
         {
           "bytes": 3821,
           "cache": "sources/cache/youtube.quantumult-x.metacubex-youtube-domain.yaml",
-          "canonical": true,
-          "canonical_coverage": {
+          "category": "youtube",
+          "client": "quantumult-x",
+          "complete": false,
+          "contributes_to_canonical": true,
+          "coverage_against_authoritative": {
             "extra": 0,
             "extra_examples": [],
             "missing": 0,
             "missing_examples": []
           },
-          "category": "youtube",
-          "client": "quantumult-x",
-          "complete": false,
           "format": "meta-domain-yaml",
           "id": "metacubex-youtube-domain",
           "parsed_rules": 178,
           "raw_rules": 178,
+          "role": "canonical-authoritative",
           "stale_cache": false,
           "unsupported_rules": 0
         },
         {
           "bytes": 1366,
           "cache": "sources/cache/youtube.mihomo.metacubex-youtube-mrs.mrs",
-          "canonical": false,
           "category": "youtube",
           "client": "mihomo",
           "complete": false,
+          "contributes_to_canonical": false,
           "format": "mrs",
           "id": "metacubex-youtube-mrs",
           "parsed_rules": null,
+          "role": "audit-reference",
           "stale_cache": false,
           "unsupported_rules": 0
         }
@@ -369,41 +426,51 @@
       "unsupported_rules": 0
     },
     {
-      "after_dedup": 1159,
-      "after_patch": 2315,
+      "after_dedup": 1158,
+      "after_patch": 1158,
+      "audit_reference_rules": 0,
+      "authoritative_component": {
+        "client": "quantumult-x",
+        "id": "blackmatrix-netflix-qx"
+      },
+      "client_only_extra_rules": 1157,
       "components": [
         {
           "bytes": 37297,
           "cache": "sources/cache/netflix.quantumult-x.blackmatrix-netflix-qx.list",
-          "canonical": true,
-          "canonical_coverage": {
-            "extra": 0,
-            "extra_examples": [],
-            "missing": 1,
-            "missing_examples": [
-              [
-                "process-name",
-                "com.netflix.mediaclient"
-              ]
-            ]
-          },
           "category": "netflix",
           "client": "quantumult-x",
           "complete": false,
+          "contributes_to_canonical": true,
+          "coverage_against_authoritative": {
+            "extra": 0,
+            "extra_examples": [],
+            "missing": 0,
+            "missing_examples": []
+          },
           "format": "qx-list",
           "id": "blackmatrix-netflix-qx",
           "parsed_rules": 1158,
           "raw_rules": 1158,
+          "role": "canonical-authoritative",
           "stale_cache": false,
           "unsupported_rules": 0
         },
         {
           "bytes": 32719,
           "cache": "sources/cache/netflix.mihomo.blackmatrix-netflix-classical.yaml",
-          "canonical": true,
-          "canonical_coverage": {
-            "extra": 0,
-            "extra_examples": [],
+          "category": "netflix",
+          "client": "mihomo",
+          "complete": true,
+          "contributes_to_canonical": false,
+          "coverage_against_authoritative": {
+            "extra": 1,
+            "extra_examples": [
+              [
+                "process-name",
+                "com.netflix.mediaclient"
+              ]
+            ],
             "missing": 2,
             "missing_examples": [
               [
@@ -416,59 +483,65 @@
               ]
             ]
           },
-          "category": "netflix",
-          "client": "mihomo",
-          "complete": true,
           "format": "mihomo-yaml",
           "id": "blackmatrix-netflix-classical",
           "parsed_rules": 1157,
           "raw_rules": 1157,
+          "role": "client-only-extra",
           "stale_cache": false,
           "unsupported_rules": 0
         }
       ],
-      "final": 1159,
+      "final": 1158,
       "id": "netflix",
       "label": "Netflix",
-      "normalized": 2315,
-      "raw_rules": 2315,
+      "normalized": 1158,
+      "raw_rules": 1158,
       "status": "enabled",
       "unsupported_rules": 0
     },
     {
       "after_dedup": 1790,
       "after_patch": 1792,
+      "audit_reference_rules": 0,
+      "authoritative_component": {
+        "client": "quantumult-x",
+        "id": "metacubex-apple-domain"
+      },
+      "client_only_extra_rules": 0,
       "components": [
         {
           "bytes": 47622,
           "cache": "sources/cache/apple.quantumult-x.metacubex-apple-domain.yaml",
-          "canonical": true,
-          "canonical_coverage": {
+          "category": "apple",
+          "client": "quantumult-x",
+          "complete": false,
+          "contributes_to_canonical": true,
+          "coverage_against_authoritative": {
             "extra": 0,
             "extra_examples": [],
             "missing": 0,
             "missing_examples": []
           },
-          "category": "apple",
-          "client": "quantumult-x",
-          "complete": false,
           "format": "meta-domain-yaml",
           "id": "metacubex-apple-domain",
           "parsed_rules": 1792,
           "raw_rules": 1792,
+          "role": "canonical-authoritative",
           "stale_cache": false,
           "unsupported_rules": 0
         },
         {
           "bytes": 17859,
           "cache": "sources/cache/apple.mihomo.metacubex-apple-mrs.mrs",
-          "canonical": false,
           "category": "apple",
           "client": "mihomo",
           "complete": false,
+          "contributes_to_canonical": false,
           "format": "mrs",
           "id": "metacubex-apple-mrs",
           "parsed_rules": null,
+          "role": "audit-reference",
           "stale_cache": false,
           "unsupported_rules": 0
         }
@@ -484,37 +557,45 @@
     {
       "after_dedup": 1071,
       "after_patch": 1071,
+      "audit_reference_rules": 0,
+      "authoritative_component": {
+        "client": "quantumult-x",
+        "id": "metacubex-google-domain"
+      },
+      "client_only_extra_rules": 0,
       "components": [
         {
           "bytes": 24667,
           "cache": "sources/cache/google.quantumult-x.metacubex-google-domain.yaml",
-          "canonical": true,
-          "canonical_coverage": {
+          "category": "google",
+          "client": "quantumult-x",
+          "complete": false,
+          "contributes_to_canonical": true,
+          "coverage_against_authoritative": {
             "extra": 0,
             "extra_examples": [],
             "missing": 0,
             "missing_examples": []
           },
-          "category": "google",
-          "client": "quantumult-x",
-          "complete": false,
           "format": "meta-domain-yaml",
           "id": "metacubex-google-domain",
           "parsed_rules": 1071,
           "raw_rules": 1071,
+          "role": "canonical-authoritative",
           "stale_cache": false,
           "unsupported_rules": 0
         },
         {
           "bytes": 8871,
           "cache": "sources/cache/google.mihomo.metacubex-google-mrs.mrs",
-          "canonical": false,
           "category": "google",
           "client": "mihomo",
           "complete": false,
+          "contributes_to_canonical": false,
           "format": "mrs",
           "id": "metacubex-google-mrs",
           "parsed_rules": null,
+          "role": "audit-reference",
           "stale_cache": false,
           "unsupported_rules": 0
         }
@@ -530,6 +611,9 @@
     {
       "after_dedup": 0,
       "after_patch": 0,
+      "audit_reference_rules": 0,
+      "authoritative_component": null,
+      "client_only_extra_rules": 0,
       "components": [],
       "final": 0,
       "id": "global",
@@ -540,11 +624,41 @@
       "unsupported_rules": 0
     }
   ],
+  "client_only_extras": {
+    "mihomo": {
+      "netflix": 1
+    },
+    "quantumult-x": {}
+  },
   "client_outputs": {
     "mihomo": {
       "artifact": "dist/mihomo/merge.yaml",
       "canonical_personal_rules": 11,
-      "canonical_rules": 5184,
+      "canonical_provider_rules": {
+        "ads": 910,
+        "apple": 1785,
+        "chatgpt": 19,
+        "claude": 3,
+        "gemini": 13,
+        "google": 842,
+        "netflix": 1157,
+        "private-tracker": 245,
+        "telegram": 21,
+        "youtube": 177
+      },
+      "canonical_rules": 5183,
+      "client_only_extra_rules": {
+        "ads": 0,
+        "apple": 0,
+        "chatgpt": 0,
+        "claude": 0,
+        "gemini": 0,
+        "google": 0,
+        "netflix": 1,
+        "private-tracker": 0,
+        "telegram": 0,
+        "youtube": 0
+      },
       "personal_rules": 11,
       "prepend_rules": 21,
       "provider_directory": "dist/mihomo/providers",
@@ -573,7 +687,7 @@
         "youtube": 177
       },
       "providers": 10,
-      "source": "canonical",
+      "source": "canonical-plus-explicit-client-extras",
       "unsupported_rules": {
         "by_type": {
           "user-agent": 1
@@ -581,7 +695,8 @@
         "examples": [
           {
             "category": "netflix",
-            "reason": "unsupported by Mihomo client adapter",
+            "reason": "unsupported by mihomo client adapter",
+            "role": "canonical-authoritative",
             "type": "user-agent",
             "value": "Argo*"
           }
@@ -590,65 +705,136 @@
       }
     },
     "quantumult-x": {
-      "artifact": "dist/quantumult-x/aggregate.list",
+      "artifact_mode": "category-scoped-license-separated",
+      "artifacts": [
+        "dist/quantumult-x/providers/personal-overlay.list",
+        "dist/quantumult-x/providers/private-tracker.list",
+        "dist/quantumult-x/providers/ads.list",
+        "dist/quantumult-x/providers/chatgpt.list",
+        "dist/quantumult-x/providers/claude.list",
+        "dist/quantumult-x/providers/gemini.list",
+        "dist/quantumult-x/providers/telegram.list",
+        "dist/quantumult-x/providers/youtube.list",
+        "dist/quantumult-x/providers/netflix.list",
+        "dist/quantumult-x/providers/apple.list",
+        "dist/quantumult-x/providers/google.list"
+      ],
+      "canonical_rules": 5184,
       "categories": [
         {
+          "artifact": "dist/quantumult-x/providers/personal-overlay.list",
+          "canonical_rules": 11,
+          "client_only_extra_rules": 0,
           "id": "personal-overlay",
           "label": "本地覆盖",
-          "rules": 11
+          "license_scope": "user-owned",
+          "rules": 11,
+          "upstream": "overrides/rules.txt"
         },
         {
+          "artifact": "dist/quantumult-x/providers/private-tracker.list",
+          "canonical_rules": 245,
+          "client_only_extra_rules": 0,
           "id": "private-tracker",
           "label": "PT / PrivateTracker",
-          "rules": 245
+          "license_scope": "GPL-2.0",
+          "rules": 245,
+          "upstream": "blackmatrix7/ios_rule_script"
         },
         {
+          "artifact": "dist/quantumult-x/providers/ads.list",
+          "canonical_rules": 910,
+          "client_only_extra_rules": 0,
           "id": "ads",
           "label": "广告",
-          "rules": 910
+          "license_scope": "GPL-3.0",
+          "rules": 910,
+          "upstream": "MetaCubeX/meta-rules-dat"
         },
         {
+          "artifact": "dist/quantumult-x/providers/chatgpt.list",
+          "canonical_rules": 19,
+          "client_only_extra_rules": 0,
           "id": "chatgpt",
           "label": "ChatGPT",
-          "rules": 19
+          "license_scope": "GPL-3.0",
+          "rules": 19,
+          "upstream": "MetaCubeX/meta-rules-dat"
         },
         {
+          "artifact": "dist/quantumult-x/providers/claude.list",
+          "canonical_rules": 3,
+          "client_only_extra_rules": 0,
           "id": "claude",
           "label": "Claude",
-          "rules": 3
+          "license_scope": "GPL-2.0",
+          "rules": 3,
+          "upstream": "blackmatrix7/ios_rule_script"
         },
         {
+          "artifact": "dist/quantumult-x/providers/gemini.list",
+          "canonical_rules": 13,
+          "client_only_extra_rules": 0,
           "id": "gemini",
           "label": "Gemini",
-          "rules": 13
+          "license_scope": "GPL-2.0",
+          "rules": 13,
+          "upstream": "blackmatrix7/ios_rule_script"
         },
         {
+          "artifact": "dist/quantumult-x/providers/telegram.list",
+          "canonical_rules": 21,
+          "client_only_extra_rules": 0,
           "id": "telegram",
           "label": "Telegram",
-          "rules": 21
+          "license_scope": "GPL-3.0",
+          "rules": 21,
+          "upstream": "MetaCubeX/meta-rules-dat"
         },
         {
+          "artifact": "dist/quantumult-x/providers/youtube.list",
+          "canonical_rules": 177,
+          "client_only_extra_rules": 0,
           "id": "youtube",
           "label": "YouTube",
-          "rules": 177
+          "license_scope": "GPL-3.0",
+          "rules": 177,
+          "upstream": "MetaCubeX/meta-rules-dat"
         },
         {
+          "artifact": "dist/quantumult-x/providers/netflix.list",
+          "canonical_rules": 1158,
+          "client_only_extra_rules": 0,
           "id": "netflix",
           "label": "Netflix",
-          "rules": 1159
+          "license_scope": "GPL-2.0",
+          "rules": 1158,
+          "upstream": "blackmatrix7/ios_rule_script"
         },
         {
+          "artifact": "dist/quantumult-x/providers/apple.list",
+          "canonical_rules": 1785,
+          "client_only_extra_rules": 0,
           "id": "apple",
           "label": "Apple",
-          "rules": 1785
+          "license_scope": "GPL-3.0",
+          "rules": 1785,
+          "upstream": "MetaCubeX/meta-rules-dat"
         },
         {
+          "artifact": "dist/quantumult-x/providers/google.list",
+          "canonical_rules": 842,
+          "client_only_extra_rules": 0,
           "id": "google",
           "label": "Google",
-          "rules": 842
+          "license_scope": "GPL-3.0",
+          "rules": 842,
+          "upstream": "MetaCubeX/meta-rules-dat"
         }
       ],
-      "rules": 5185
+      "client_only_extra_rules": 0,
+      "mixed_derivative": false,
+      "rules": 5184
     }
   },
   "conflicts": {
@@ -660,12 +846,6 @@
             "component": "blackmatrix-gemini-qx",
             "source": "blackmatrix7/ios_rule_script",
             "source_rule": "HOST,ai.google.dev,Gemini"
-          },
-          {
-            "category": "gemini",
-            "component": "blackmatrix-gemini-classical",
-            "source": "blackmatrix7/ios_rule_script",
-            "source_rule": "DOMAIN,ai.google.dev"
           },
           {
             "category": "google",
@@ -724,12 +904,6 @@
             "component": "blackmatrix-gemini-qx",
             "source": "blackmatrix7/ios_rule_script",
             "source_rule": "HOST,alkalimakersuite-pa.clients6.google.com,Gemini"
-          },
-          {
-            "category": "gemini",
-            "component": "blackmatrix-gemini-classical",
-            "source": "blackmatrix7/ios_rule_script",
-            "source_rule": "DOMAIN,alkalimakersuite-pa.clients6.google.com"
           },
           {
             "category": "google",
@@ -1579,12 +1753,6 @@
             "component": "blackmatrix-gemini-qx",
             "source": "blackmatrix7/ios_rule_script",
             "source_rule": "HOST-SUFFIX,deepmind.com,Gemini"
-          },
-          {
-            "category": "gemini",
-            "component": "blackmatrix-gemini-classical",
-            "source": "blackmatrix7/ios_rule_script",
-            "source_rule": "DOMAIN-SUFFIX,deepmind.com"
           },
           {
             "category": "google",
@@ -3587,7 +3755,7 @@
     "by_reason": {
       "client-unsupported": 1,
       "conflict": 238,
-      "duplicate": 1425,
+      "duplicate": 5,
       "patch-remove": 0
     },
     "examples": [
@@ -3634,242 +3802,32 @@
         "value": "m-team"
       },
       {
-        "category": "private-tracker",
+        "category": "apple",
         "dropped": {
-          "component": "blackmatrix-private-tracker-classical",
-          "source": "blackmatrix7/ios_rule_script"
+          "component": "metacubex-apple-domain",
+          "source": "MetaCubeX/meta-rules-dat"
         },
         "kept": {
-          "component": "blackmatrix-private-tracker-qx",
-          "source": "blackmatrix7/ios_rule_script"
+          "component": "metacubex-apple-domain",
+          "source": "MetaCubeX/meta-rules-dat"
         },
         "reason": "duplicate",
         "type": "domain",
-        "value": "004430.xyz"
+        "value": "np-edge.itunes.apple.com"
       },
       {
-        "category": "private-tracker",
+        "category": "apple",
         "dropped": {
-          "component": "blackmatrix-private-tracker-classical",
-          "source": "blackmatrix7/ios_rule_script"
+          "component": "metacubex-apple-domain",
+          "source": "MetaCubeX/meta-rules-dat"
         },
         "kept": {
-          "component": "blackmatrix-private-tracker-qx",
-          "source": "blackmatrix7/ios_rule_script"
+          "component": "metacubex-apple-domain",
+          "source": "MetaCubeX/meta-rules-dat"
         },
         "reason": "duplicate",
         "type": "domain",
-        "value": "021912.xyz"
-      },
-      {
-        "category": "private-tracker",
-        "dropped": {
-          "component": "blackmatrix-private-tracker-classical",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "kept": {
-          "component": "blackmatrix-private-tracker-qx",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "reason": "duplicate",
-        "type": "domain",
-        "value": "1337.abcvg.info"
-      },
-      {
-        "category": "private-tracker",
-        "dropped": {
-          "component": "blackmatrix-private-tracker-classical",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "kept": {
-          "component": "blackmatrix-private-tracker-qx",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "reason": "duplicate",
-        "type": "domain",
-        "value": "6ahddutb1ucc3cp.ru"
-      },
-      {
-        "category": "private-tracker",
-        "dropped": {
-          "component": "blackmatrix-private-tracker-classical",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "kept": {
-          "component": "blackmatrix-private-tracker-qx",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "reason": "duplicate",
-        "type": "domain",
-        "value": "aboutbeautifulgallopinghorsesinthegreenpasture.online"
-      },
-      {
-        "category": "private-tracker",
-        "dropped": {
-          "component": "blackmatrix-private-tracker-classical",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "kept": {
-          "component": "blackmatrix-private-tracker-qx",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "reason": "duplicate",
-        "type": "domain",
-        "value": "admin.52ywp.com"
-      },
-      {
-        "category": "private-tracker",
-        "dropped": {
-          "component": "blackmatrix-private-tracker-classical",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "kept": {
-          "component": "blackmatrix-private-tracker-qx",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "reason": "duplicate",
-        "type": "domain",
-        "value": "anime-tracker.aruku.kro.kr"
-      },
-      {
-        "category": "private-tracker",
-        "dropped": {
-          "component": "blackmatrix-private-tracker-classical",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "kept": {
-          "component": "blackmatrix-private-tracker-qx",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "reason": "duplicate",
-        "type": "domain",
-        "value": "archive.torrentonline.cc"
-      },
-      {
-        "category": "private-tracker",
-        "dropped": {
-          "component": "blackmatrix-private-tracker-classical",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "kept": {
-          "component": "blackmatrix-private-tracker-qx",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "reason": "duplicate",
-        "type": "domain",
-        "value": "banananetwork.qzz.io"
-      },
-      {
-        "category": "private-tracker",
-        "dropped": {
-          "component": "blackmatrix-private-tracker-classical",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "kept": {
-          "component": "blackmatrix-private-tracker-qx",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "reason": "duplicate",
-        "type": "domain",
-        "value": "bittorrent-tracker.e-n-c-r-y-p-t.net"
-      },
-      {
-        "category": "private-tracker",
-        "dropped": {
-          "component": "blackmatrix-private-tracker-classical",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "kept": {
-          "component": "blackmatrix-private-tracker-qx",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "reason": "duplicate",
-        "type": "domain",
-        "value": "bt.okmp3.ru"
-      },
-      {
-        "category": "private-tracker",
-        "dropped": {
-          "component": "blackmatrix-private-tracker-classical",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "kept": {
-          "component": "blackmatrix-private-tracker-qx",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "reason": "duplicate",
-        "type": "domain",
-        "value": "bt1.archive.org"
-      },
-      {
-        "category": "private-tracker",
-        "dropped": {
-          "component": "blackmatrix-private-tracker-classical",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "kept": {
-          "component": "blackmatrix-private-tracker-qx",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "reason": "duplicate",
-        "type": "domain",
-        "value": "bt2.archive.org"
-      },
-      {
-        "category": "private-tracker",
-        "dropped": {
-          "component": "blackmatrix-private-tracker-classical",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "kept": {
-          "component": "blackmatrix-private-tracker-qx",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "reason": "duplicate",
-        "type": "domain",
-        "value": "bvarf.tracker.sh"
-      },
-      {
-        "category": "private-tracker",
-        "dropped": {
-          "component": "blackmatrix-private-tracker-classical",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "kept": {
-          "component": "blackmatrix-private-tracker-qx",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "reason": "duplicate",
-        "type": "domain",
-        "value": "cerf.cs.umd.edu"
-      },
-      {
-        "category": "private-tracker",
-        "dropped": {
-          "component": "blackmatrix-private-tracker-classical",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "kept": {
-          "component": "blackmatrix-private-tracker-qx",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "reason": "duplicate",
-        "type": "domain",
-        "value": "coeus.torrentonline.cc"
-      },
-      {
-        "category": "private-tracker",
-        "dropped": {
-          "component": "blackmatrix-private-tracker-classical",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "kept": {
-          "component": "blackmatrix-private-tracker-qx",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "reason": "duplicate",
-        "type": "domain",
-        "value": "evan.im"
+        "value": "play-edge.itunes.apple.com"
       },
       {
         "appearances": [
@@ -3878,12 +3836,6 @@
             "component": "blackmatrix-gemini-qx",
             "source": "blackmatrix7/ios_rule_script",
             "source_rule": "HOST,ai.google.dev,Gemini"
-          },
-          {
-            "category": "gemini",
-            "component": "blackmatrix-gemini-classical",
-            "source": "blackmatrix7/ios_rule_script",
-            "source_rule": "DOMAIN,ai.google.dev"
           },
           {
             "category": "google",
@@ -3942,12 +3894,6 @@
             "component": "blackmatrix-gemini-qx",
             "source": "blackmatrix7/ios_rule_script",
             "source_rule": "HOST,alkalimakersuite-pa.clients6.google.com,Gemini"
-          },
-          {
-            "category": "gemini",
-            "component": "blackmatrix-gemini-classical",
-            "source": "blackmatrix7/ios_rule_script",
-            "source_rule": "DOMAIN,alkalimakersuite-pa.clients6.google.com"
           },
           {
             "category": "google",
@@ -4473,12 +4419,13 @@
       },
       {
         "category": "netflix",
-        "reason": "unsupported by Mihomo client adapter",
+        "reason": "unsupported by mihomo client adapter",
+        "role": "canonical-authoritative",
         "type": "user-agent",
         "value": "Argo*"
       }
     ],
-    "total": 1664
+    "total": 244
   },
   "duplicates": {
     "examples": [
@@ -4522,618 +4469,33 @@
         "value": "m-team"
       },
       {
-        "category": "private-tracker",
+        "category": "apple",
         "dropped": {
-          "component": "blackmatrix-private-tracker-classical",
-          "source": "blackmatrix7/ios_rule_script"
+          "component": "metacubex-apple-domain",
+          "source": "MetaCubeX/meta-rules-dat"
         },
         "kept": {
-          "component": "blackmatrix-private-tracker-qx",
-          "source": "blackmatrix7/ios_rule_script"
+          "component": "metacubex-apple-domain",
+          "source": "MetaCubeX/meta-rules-dat"
         },
         "type": "domain",
-        "value": "004430.xyz"
+        "value": "np-edge.itunes.apple.com"
       },
       {
-        "category": "private-tracker",
+        "category": "apple",
         "dropped": {
-          "component": "blackmatrix-private-tracker-classical",
-          "source": "blackmatrix7/ios_rule_script"
+          "component": "metacubex-apple-domain",
+          "source": "MetaCubeX/meta-rules-dat"
         },
         "kept": {
-          "component": "blackmatrix-private-tracker-qx",
-          "source": "blackmatrix7/ios_rule_script"
+          "component": "metacubex-apple-domain",
+          "source": "MetaCubeX/meta-rules-dat"
         },
         "type": "domain",
-        "value": "021912.xyz"
-      },
-      {
-        "category": "private-tracker",
-        "dropped": {
-          "component": "blackmatrix-private-tracker-classical",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "kept": {
-          "component": "blackmatrix-private-tracker-qx",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "type": "domain",
-        "value": "1337.abcvg.info"
-      },
-      {
-        "category": "private-tracker",
-        "dropped": {
-          "component": "blackmatrix-private-tracker-classical",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "kept": {
-          "component": "blackmatrix-private-tracker-qx",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "type": "domain",
-        "value": "6ahddutb1ucc3cp.ru"
-      },
-      {
-        "category": "private-tracker",
-        "dropped": {
-          "component": "blackmatrix-private-tracker-classical",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "kept": {
-          "component": "blackmatrix-private-tracker-qx",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "type": "domain",
-        "value": "aboutbeautifulgallopinghorsesinthegreenpasture.online"
-      },
-      {
-        "category": "private-tracker",
-        "dropped": {
-          "component": "blackmatrix-private-tracker-classical",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "kept": {
-          "component": "blackmatrix-private-tracker-qx",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "type": "domain",
-        "value": "admin.52ywp.com"
-      },
-      {
-        "category": "private-tracker",
-        "dropped": {
-          "component": "blackmatrix-private-tracker-classical",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "kept": {
-          "component": "blackmatrix-private-tracker-qx",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "type": "domain",
-        "value": "anime-tracker.aruku.kro.kr"
-      },
-      {
-        "category": "private-tracker",
-        "dropped": {
-          "component": "blackmatrix-private-tracker-classical",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "kept": {
-          "component": "blackmatrix-private-tracker-qx",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "type": "domain",
-        "value": "archive.torrentonline.cc"
-      },
-      {
-        "category": "private-tracker",
-        "dropped": {
-          "component": "blackmatrix-private-tracker-classical",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "kept": {
-          "component": "blackmatrix-private-tracker-qx",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "type": "domain",
-        "value": "banananetwork.qzz.io"
-      },
-      {
-        "category": "private-tracker",
-        "dropped": {
-          "component": "blackmatrix-private-tracker-classical",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "kept": {
-          "component": "blackmatrix-private-tracker-qx",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "type": "domain",
-        "value": "bittorrent-tracker.e-n-c-r-y-p-t.net"
-      },
-      {
-        "category": "private-tracker",
-        "dropped": {
-          "component": "blackmatrix-private-tracker-classical",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "kept": {
-          "component": "blackmatrix-private-tracker-qx",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "type": "domain",
-        "value": "bt.okmp3.ru"
-      },
-      {
-        "category": "private-tracker",
-        "dropped": {
-          "component": "blackmatrix-private-tracker-classical",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "kept": {
-          "component": "blackmatrix-private-tracker-qx",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "type": "domain",
-        "value": "bt1.archive.org"
-      },
-      {
-        "category": "private-tracker",
-        "dropped": {
-          "component": "blackmatrix-private-tracker-classical",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "kept": {
-          "component": "blackmatrix-private-tracker-qx",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "type": "domain",
-        "value": "bt2.archive.org"
-      },
-      {
-        "category": "private-tracker",
-        "dropped": {
-          "component": "blackmatrix-private-tracker-classical",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "kept": {
-          "component": "blackmatrix-private-tracker-qx",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "type": "domain",
-        "value": "bvarf.tracker.sh"
-      },
-      {
-        "category": "private-tracker",
-        "dropped": {
-          "component": "blackmatrix-private-tracker-classical",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "kept": {
-          "component": "blackmatrix-private-tracker-qx",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "type": "domain",
-        "value": "cerf.cs.umd.edu"
-      },
-      {
-        "category": "private-tracker",
-        "dropped": {
-          "component": "blackmatrix-private-tracker-classical",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "kept": {
-          "component": "blackmatrix-private-tracker-qx",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "type": "domain",
-        "value": "coeus.torrentonline.cc"
-      },
-      {
-        "category": "private-tracker",
-        "dropped": {
-          "component": "blackmatrix-private-tracker-classical",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "kept": {
-          "component": "blackmatrix-private-tracker-qx",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "type": "domain",
-        "value": "evan.im"
-      },
-      {
-        "category": "private-tracker",
-        "dropped": {
-          "component": "blackmatrix-private-tracker-classical",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "kept": {
-          "component": "blackmatrix-private-tracker-qx",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "type": "domain",
-        "value": "exodus.desync.com"
-      },
-      {
-        "category": "private-tracker",
-        "dropped": {
-          "component": "blackmatrix-private-tracker-classical",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "kept": {
-          "component": "blackmatrix-private-tracker-qx",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "type": "domain",
-        "value": "ipv4announce.sktorrent.eu"
-      },
-      {
-        "category": "private-tracker",
-        "dropped": {
-          "component": "blackmatrix-private-tracker-classical",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "kept": {
-          "component": "blackmatrix-private-tracker-qx",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "type": "domain",
-        "value": "leet-tracker.moe"
-      },
-      {
-        "category": "private-tracker",
-        "dropped": {
-          "component": "blackmatrix-private-tracker-classical",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "kept": {
-          "component": "blackmatrix-private-tracker-qx",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "type": "domain",
-        "value": "martin-gebhardt.eu"
-      },
-      {
-        "category": "private-tracker",
-        "dropped": {
-          "component": "blackmatrix-private-tracker-classical",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "kept": {
-          "component": "blackmatrix-private-tracker-qx",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "type": "domain",
-        "value": "ns575949.ip-51-222-82.net"
-      },
-      {
-        "category": "private-tracker",
-        "dropped": {
-          "component": "blackmatrix-private-tracker-classical",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "kept": {
-          "component": "blackmatrix-private-tracker-qx",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "type": "domain",
-        "value": "nyaa.tracker.wf"
-      },
-      {
-        "category": "private-tracker",
-        "dropped": {
-          "component": "blackmatrix-private-tracker-classical",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "kept": {
-          "component": "blackmatrix-private-tracker-qx",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "type": "domain",
-        "value": "obey.torrentonline.cc"
-      },
-      {
-        "category": "private-tracker",
-        "dropped": {
-          "component": "blackmatrix-private-tracker-classical",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "kept": {
-          "component": "blackmatrix-private-tracker-qx",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "type": "domain",
-        "value": "open.demonii.com"
-      },
-      {
-        "category": "private-tracker",
-        "dropped": {
-          "component": "blackmatrix-private-tracker-classical",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "kept": {
-          "component": "blackmatrix-private-tracker-qx",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "type": "domain",
-        "value": "open.demonoid.ch"
-      },
-      {
-        "category": "private-tracker",
-        "dropped": {
-          "component": "blackmatrix-private-tracker-classical",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "kept": {
-          "component": "blackmatrix-private-tracker-qx",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "type": "domain",
-        "value": "open.ftorrent.com"
-      },
-      {
-        "category": "private-tracker",
-        "dropped": {
-          "component": "blackmatrix-private-tracker-classical",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "kept": {
-          "component": "blackmatrix-private-tracker-qx",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "type": "domain",
-        "value": "open.stealth.si"
-      },
-      {
-        "category": "private-tracker",
-        "dropped": {
-          "component": "blackmatrix-private-tracker-classical",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "kept": {
-          "component": "blackmatrix-private-tracker-qx",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "type": "domain",
-        "value": "open.tracker.ink"
-      },
-      {
-        "category": "private-tracker",
-        "dropped": {
-          "component": "blackmatrix-private-tracker-classical",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "kept": {
-          "component": "blackmatrix-private-tracker-qx",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "type": "domain",
-        "value": "opentor.org"
-      },
-      {
-        "category": "private-tracker",
-        "dropped": {
-          "component": "blackmatrix-private-tracker-classical",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "kept": {
-          "component": "blackmatrix-private-tracker-qx",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "type": "domain",
-        "value": "orgtgju.org"
-      },
-      {
-        "category": "private-tracker",
-        "dropped": {
-          "component": "blackmatrix-private-tracker-classical",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "kept": {
-          "component": "blackmatrix-private-tracker-qx",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "type": "domain",
-        "value": "p4p.arenabg.com"
-      },
-      {
-        "category": "private-tracker",
-        "dropped": {
-          "component": "blackmatrix-private-tracker-classical",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "kept": {
-          "component": "blackmatrix-private-tracker-qx",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "type": "domain",
-        "value": "pybittrack.retiolus.net"
-      },
-      {
-        "category": "private-tracker",
-        "dropped": {
-          "component": "blackmatrix-private-tracker-classical",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "kept": {
-          "component": "blackmatrix-private-tracker-qx",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "type": "domain",
-        "value": "rekcart.duckdns.org"
-      },
-      {
-        "category": "private-tracker",
-        "dropped": {
-          "component": "blackmatrix-private-tracker-classical",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "kept": {
-          "component": "blackmatrix-private-tracker-qx",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "type": "domain",
-        "value": "retracker.hotplug.ru"
-      },
-      {
-        "category": "private-tracker",
-        "dropped": {
-          "component": "blackmatrix-private-tracker-classical",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "kept": {
-          "component": "blackmatrix-private-tracker-qx",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "type": "domain",
-        "value": "seedpeer.net"
-      },
-      {
-        "category": "private-tracker",
-        "dropped": {
-          "component": "blackmatrix-private-tracker-classical",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "kept": {
-          "component": "blackmatrix-private-tracker-qx",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "type": "domain",
-        "value": "shahidrazi.online"
-      },
-      {
-        "category": "private-tracker",
-        "dropped": {
-          "component": "blackmatrix-private-tracker-classical",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "kept": {
-          "component": "blackmatrix-private-tracker-qx",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "type": "domain",
-        "value": "t.213891.xyz"
-      },
-      {
-        "category": "private-tracker",
-        "dropped": {
-          "component": "blackmatrix-private-tracker-classical",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "kept": {
-          "component": "blackmatrix-private-tracker-qx",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "type": "domain",
-        "value": "t.overflow.biz"
-      },
-      {
-        "category": "private-tracker",
-        "dropped": {
-          "component": "blackmatrix-private-tracker-classical",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "kept": {
-          "component": "blackmatrix-private-tracker-qx",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "type": "domain",
-        "value": "torrent.tracker.durukanbal.com"
-      },
-      {
-        "category": "private-tracker",
-        "dropped": {
-          "component": "blackmatrix-private-tracker-classical",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "kept": {
-          "component": "blackmatrix-private-tracker-qx",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "type": "domain",
-        "value": "torrentclub.online"
-      },
-      {
-        "category": "private-tracker",
-        "dropped": {
-          "component": "blackmatrix-private-tracker-classical",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "kept": {
-          "component": "blackmatrix-private-tracker-qx",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "type": "domain",
-        "value": "torrents.tmtime.dev"
-      },
-      {
-        "category": "private-tracker",
-        "dropped": {
-          "component": "blackmatrix-private-tracker-classical",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "kept": {
-          "component": "blackmatrix-private-tracker-qx",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "type": "domain",
-        "value": "torrentsmd.com"
-      },
-      {
-        "category": "private-tracker",
-        "dropped": {
-          "component": "blackmatrix-private-tracker-classical",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "kept": {
-          "component": "blackmatrix-private-tracker-qx",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "type": "domain",
-        "value": "tr.abiir.top"
-      },
-      {
-        "category": "private-tracker",
-        "dropped": {
-          "component": "blackmatrix-private-tracker-classical",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "kept": {
-          "component": "blackmatrix-private-tracker-qx",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "type": "domain",
-        "value": "tr.highstar.shop"
-      },
-      {
-        "category": "private-tracker",
-        "dropped": {
-          "component": "blackmatrix-private-tracker-classical",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "kept": {
-          "component": "blackmatrix-private-tracker-qx",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "type": "domain",
-        "value": "tr.kxmp.cf"
-      },
-      {
-        "category": "private-tracker",
-        "dropped": {
-          "component": "blackmatrix-private-tracker-classical",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "kept": {
-          "component": "blackmatrix-private-tracker-qx",
-          "source": "blackmatrix7/ios_rule_script"
-        },
-        "type": "domain",
-        "value": "tr.nyacat.pw"
+        "value": "play-edge.itunes.apple.com"
       }
     ],
-    "total": 1425
+    "total": 5
   },
   "generator": "scripts/build.py",
   "obsolete_patch_candidates": [],
@@ -5176,7 +4538,8 @@
         "examples": [
           {
             "category": "netflix",
-            "reason": "unsupported by Mihomo client adapter",
+            "reason": "unsupported by mihomo client adapter",
+            "role": "canonical-authoritative",
             "type": "user-agent",
             "value": "Argo*"
           }
@@ -5193,287 +4556,305 @@
       {
         "bytes": 10025,
         "cache": "sources/cache/private-tracker.quantumult-x.blackmatrix-private-tracker-qx.list",
-        "canonical": true,
-        "canonical_coverage": {
+        "category": "private-tracker",
+        "client": "quantumult-x",
+        "complete": false,
+        "contributes_to_canonical": true,
+        "coverage_against_authoritative": {
           "extra": 0,
           "extra_examples": [],
           "missing": 0,
           "missing_examples": []
         },
-        "category": "private-tracker",
-        "client": "quantumult-x",
-        "complete": false,
         "format": "qx-list",
         "id": "blackmatrix-private-tracker-qx",
         "parsed_rules": 248,
         "raw_rules": 248,
+        "role": "canonical-authoritative",
         "stale_cache": false,
         "unsupported_rules": 0
       },
       {
         "bytes": 7802,
         "cache": "sources/cache/private-tracker.mihomo.blackmatrix-private-tracker-classical.yaml",
-        "canonical": true,
-        "canonical_coverage": {
+        "category": "private-tracker",
+        "client": "mihomo",
+        "complete": true,
+        "contributes_to_canonical": false,
+        "coverage_against_authoritative": {
           "extra": 0,
           "extra_examples": [],
           "missing": 0,
           "missing_examples": []
         },
-        "category": "private-tracker",
-        "client": "mihomo",
-        "complete": true,
         "format": "mihomo-yaml",
         "id": "blackmatrix-private-tracker-classical",
         "parsed_rules": 248,
         "raw_rules": 248,
+        "role": "audit-reference",
         "stale_cache": false,
         "unsupported_rules": 0
       },
       {
         "bytes": 23078,
         "cache": "sources/cache/ads.quantumult-x.metacubex-ads-domain.yaml",
-        "canonical": true,
-        "canonical_coverage": {
+        "category": "ads",
+        "client": "quantumult-x",
+        "complete": false,
+        "contributes_to_canonical": true,
+        "coverage_against_authoritative": {
           "extra": 0,
           "extra_examples": [],
           "missing": 0,
           "missing_examples": []
         },
-        "category": "ads",
-        "client": "quantumult-x",
-        "complete": false,
         "format": "meta-domain-yaml",
         "id": "metacubex-ads-domain",
         "parsed_rules": 910,
         "raw_rules": 910,
+        "role": "canonical-authoritative",
         "stale_cache": false,
         "unsupported_rules": 0
       },
       {
         "bytes": 8330,
         "cache": "sources/cache/ads.mihomo.metacubex-ads-mrs.mrs",
-        "canonical": false,
         "category": "ads",
         "client": "mihomo",
         "complete": false,
+        "contributes_to_canonical": false,
         "format": "mrs",
         "id": "metacubex-ads-mrs",
         "parsed_rules": null,
+        "role": "audit-reference",
         "stale_cache": false,
         "unsupported_rules": 0
       },
       {
         "bytes": 664,
         "cache": "sources/cache/chatgpt.quantumult-x.metacubex-chatgpt-domain.yaml",
-        "canonical": true,
-        "canonical_coverage": {
+        "category": "chatgpt",
+        "client": "quantumult-x",
+        "complete": false,
+        "contributes_to_canonical": true,
+        "coverage_against_authoritative": {
           "extra": 0,
           "extra_examples": [],
           "missing": 0,
           "missing_examples": []
         },
-        "category": "chatgpt",
-        "client": "quantumult-x",
-        "complete": false,
         "format": "meta-domain-yaml",
         "id": "metacubex-chatgpt-domain",
         "parsed_rules": 22,
         "raw_rules": 22,
+        "role": "canonical-authoritative",
         "stale_cache": false,
         "unsupported_rules": 0
       },
       {
         "bytes": 415,
         "cache": "sources/cache/chatgpt.mihomo.metacubex-chatgpt-mrs.mrs",
-        "canonical": false,
         "category": "chatgpt",
         "client": "mihomo",
         "complete": false,
+        "contributes_to_canonical": false,
         "format": "mrs",
         "id": "metacubex-chatgpt-mrs",
         "parsed_rules": null,
+        "role": "audit-reference",
         "stale_cache": false,
         "unsupported_rules": 0
       },
       {
         "bytes": 255,
         "cache": "sources/cache/claude.quantumult-x.blackmatrix-claude-qx.list",
-        "canonical": true,
-        "canonical_coverage": {
+        "category": "claude",
+        "client": "quantumult-x",
+        "complete": false,
+        "contributes_to_canonical": true,
+        "coverage_against_authoritative": {
           "extra": 0,
           "extra_examples": [],
           "missing": 0,
           "missing_examples": []
         },
-        "category": "claude",
-        "client": "quantumult-x",
-        "complete": false,
         "format": "qx-list",
         "id": "blackmatrix-claude-qx",
         "parsed_rules": 3,
         "raw_rules": 3,
+        "role": "canonical-authoritative",
         "stale_cache": false,
         "unsupported_rules": 0
       },
       {
         "bytes": 265,
         "cache": "sources/cache/claude.mihomo.blackmatrix-claude-classical.yaml",
-        "canonical": true,
-        "canonical_coverage": {
+        "category": "claude",
+        "client": "mihomo",
+        "complete": true,
+        "contributes_to_canonical": false,
+        "coverage_against_authoritative": {
           "extra": 0,
           "extra_examples": [],
           "missing": 0,
           "missing_examples": []
         },
-        "category": "claude",
-        "client": "mihomo",
-        "complete": true,
         "format": "mihomo-yaml",
         "id": "blackmatrix-claude-classical",
         "parsed_rules": 3,
         "raw_rules": 3,
+        "role": "audit-reference",
         "stale_cache": false,
         "unsupported_rules": 0
       },
       {
         "bytes": 664,
         "cache": "sources/cache/gemini.quantumult-x.blackmatrix-gemini-qx.list",
-        "canonical": true,
-        "canonical_coverage": {
+        "category": "gemini",
+        "client": "quantumult-x",
+        "complete": false,
+        "contributes_to_canonical": true,
+        "coverage_against_authoritative": {
           "extra": 0,
           "extra_examples": [],
           "missing": 0,
           "missing_examples": []
         },
-        "category": "gemini",
-        "client": "quantumult-x",
-        "complete": false,
         "format": "qx-list",
         "id": "blackmatrix-gemini-qx",
         "parsed_rules": 13,
         "raw_rules": 13,
+        "role": "canonical-authoritative",
         "stale_cache": false,
         "unsupported_rules": 0
       },
       {
         "bytes": 666,
         "cache": "sources/cache/gemini.mihomo.blackmatrix-gemini-classical.yaml",
-        "canonical": true,
-        "canonical_coverage": {
+        "category": "gemini",
+        "client": "mihomo",
+        "complete": true,
+        "contributes_to_canonical": false,
+        "coverage_against_authoritative": {
           "extra": 0,
           "extra_examples": [],
           "missing": 0,
           "missing_examples": []
         },
-        "category": "gemini",
-        "client": "mihomo",
-        "complete": true,
         "format": "mihomo-yaml",
         "id": "blackmatrix-gemini-classical",
         "parsed_rules": 13,
         "raw_rules": 13,
+        "role": "audit-reference",
         "stale_cache": false,
         "unsupported_rules": 0
       },
       {
         "bytes": 429,
         "cache": "sources/cache/telegram.quantumult-x.metacubex-telegram-domain.yaml",
-        "canonical": true,
-        "canonical_coverage": {
+        "category": "telegram",
+        "client": "quantumult-x",
+        "complete": false,
+        "contributes_to_canonical": true,
+        "coverage_against_authoritative": {
           "extra": 0,
           "extra_examples": [],
           "missing": 0,
           "missing_examples": []
         },
-        "category": "telegram",
-        "client": "quantumult-x",
-        "complete": false,
         "format": "meta-domain-yaml",
         "id": "metacubex-telegram-domain",
         "parsed_rules": 21,
         "raw_rules": 21,
+        "role": "canonical-authoritative",
         "stale_cache": false,
         "unsupported_rules": 0
       },
       {
         "bytes": 274,
         "cache": "sources/cache/telegram.mihomo.metacubex-telegram-mrs.mrs",
-        "canonical": false,
         "category": "telegram",
         "client": "mihomo",
         "complete": false,
+        "contributes_to_canonical": false,
         "format": "mrs",
         "id": "metacubex-telegram-mrs",
         "parsed_rules": null,
+        "role": "audit-reference",
         "stale_cache": false,
         "unsupported_rules": 0
       },
       {
         "bytes": 3821,
         "cache": "sources/cache/youtube.quantumult-x.metacubex-youtube-domain.yaml",
-        "canonical": true,
-        "canonical_coverage": {
+        "category": "youtube",
+        "client": "quantumult-x",
+        "complete": false,
+        "contributes_to_canonical": true,
+        "coverage_against_authoritative": {
           "extra": 0,
           "extra_examples": [],
           "missing": 0,
           "missing_examples": []
         },
-        "category": "youtube",
-        "client": "quantumult-x",
-        "complete": false,
         "format": "meta-domain-yaml",
         "id": "metacubex-youtube-domain",
         "parsed_rules": 178,
         "raw_rules": 178,
+        "role": "canonical-authoritative",
         "stale_cache": false,
         "unsupported_rules": 0
       },
       {
         "bytes": 1366,
         "cache": "sources/cache/youtube.mihomo.metacubex-youtube-mrs.mrs",
-        "canonical": false,
         "category": "youtube",
         "client": "mihomo",
         "complete": false,
+        "contributes_to_canonical": false,
         "format": "mrs",
         "id": "metacubex-youtube-mrs",
         "parsed_rules": null,
+        "role": "audit-reference",
         "stale_cache": false,
         "unsupported_rules": 0
       },
       {
         "bytes": 37297,
         "cache": "sources/cache/netflix.quantumult-x.blackmatrix-netflix-qx.list",
-        "canonical": true,
-        "canonical_coverage": {
-          "extra": 0,
-          "extra_examples": [],
-          "missing": 1,
-          "missing_examples": [
-            [
-              "process-name",
-              "com.netflix.mediaclient"
-            ]
-          ]
-        },
         "category": "netflix",
         "client": "quantumult-x",
         "complete": false,
+        "contributes_to_canonical": true,
+        "coverage_against_authoritative": {
+          "extra": 0,
+          "extra_examples": [],
+          "missing": 0,
+          "missing_examples": []
+        },
         "format": "qx-list",
         "id": "blackmatrix-netflix-qx",
         "parsed_rules": 1158,
         "raw_rules": 1158,
+        "role": "canonical-authoritative",
         "stale_cache": false,
         "unsupported_rules": 0
       },
       {
         "bytes": 32719,
         "cache": "sources/cache/netflix.mihomo.blackmatrix-netflix-classical.yaml",
-        "canonical": true,
-        "canonical_coverage": {
-          "extra": 0,
-          "extra_examples": [],
+        "category": "netflix",
+        "client": "mihomo",
+        "complete": true,
+        "contributes_to_canonical": false,
+        "coverage_against_authoritative": {
+          "extra": 1,
+          "extra_examples": [
+            [
+              "process-name",
+              "com.netflix.mediaclient"
+            ]
+          ],
           "missing": 2,
           "missing_examples": [
             [
@@ -5486,79 +4867,81 @@
             ]
           ]
         },
-        "category": "netflix",
-        "client": "mihomo",
-        "complete": true,
         "format": "mihomo-yaml",
         "id": "blackmatrix-netflix-classical",
         "parsed_rules": 1157,
         "raw_rules": 1157,
+        "role": "client-only-extra",
         "stale_cache": false,
         "unsupported_rules": 0
       },
       {
         "bytes": 47622,
         "cache": "sources/cache/apple.quantumult-x.metacubex-apple-domain.yaml",
-        "canonical": true,
-        "canonical_coverage": {
+        "category": "apple",
+        "client": "quantumult-x",
+        "complete": false,
+        "contributes_to_canonical": true,
+        "coverage_against_authoritative": {
           "extra": 0,
           "extra_examples": [],
           "missing": 0,
           "missing_examples": []
         },
-        "category": "apple",
-        "client": "quantumult-x",
-        "complete": false,
         "format": "meta-domain-yaml",
         "id": "metacubex-apple-domain",
         "parsed_rules": 1792,
         "raw_rules": 1792,
+        "role": "canonical-authoritative",
         "stale_cache": false,
         "unsupported_rules": 0
       },
       {
         "bytes": 17859,
         "cache": "sources/cache/apple.mihomo.metacubex-apple-mrs.mrs",
-        "canonical": false,
         "category": "apple",
         "client": "mihomo",
         "complete": false,
+        "contributes_to_canonical": false,
         "format": "mrs",
         "id": "metacubex-apple-mrs",
         "parsed_rules": null,
+        "role": "audit-reference",
         "stale_cache": false,
         "unsupported_rules": 0
       },
       {
         "bytes": 24667,
         "cache": "sources/cache/google.quantumult-x.metacubex-google-domain.yaml",
-        "canonical": true,
-        "canonical_coverage": {
+        "category": "google",
+        "client": "quantumult-x",
+        "complete": false,
+        "contributes_to_canonical": true,
+        "coverage_against_authoritative": {
           "extra": 0,
           "extra_examples": [],
           "missing": 0,
           "missing_examples": []
         },
-        "category": "google",
-        "client": "quantumult-x",
-        "complete": false,
         "format": "meta-domain-yaml",
         "id": "metacubex-google-domain",
         "parsed_rules": 1071,
         "raw_rules": 1071,
+        "role": "canonical-authoritative",
         "stale_cache": false,
         "unsupported_rules": 0
       },
       {
         "bytes": 8871,
         "cache": "sources/cache/google.mihomo.metacubex-google-mrs.mrs",
-        "canonical": false,
         "category": "google",
         "client": "mihomo",
         "complete": false,
+        "contributes_to_canonical": false,
         "format": "mrs",
         "id": "metacubex-google-mrs",
         "parsed_rules": null,
+        "role": "audit-reference",
         "stale_cache": false,
         "unsupported_rules": 0
       }
@@ -5577,6 +4960,11 @@
       "netflix",
       "apple",
       "google"
-    ]
+    ],
+    "roles": {
+      "audit-reference": 9,
+      "canonical-authoritative": 10,
+      "client-only-extra": 1
+    }
   }
 }

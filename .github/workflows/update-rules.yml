@@ -25,7 +25,7 @@ jobs:
         run: python3 -m pip install --disable-pip-version-check --no-input -r requirements.txt
 
       - name: Compile Python modules
-        run: python3 -m py_compile scripts/*.py
+        run: python3 -m py_compile scripts/*.py tests/*.py
 
       - name: Build client artifacts
         run: python3 scripts/build.py

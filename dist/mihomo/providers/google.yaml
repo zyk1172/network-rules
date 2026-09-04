@@ -3,6 +3,8 @@
 # GENERATED-BY: network-rules-project/scripts/build.py
 # SOURCE-OF-TRUTH: canonical rule model after patches, deduplication and conflict resolution
 # THIRD-PARTY-DATA: see sources/ATTRIBUTIONS.md
+# CANONICAL-RULES: 842
+# CLIENT-ONLY-EXTRA-RULES: 0
 # RULES: 842
 payload:
   - "DOMAIN,google-ohttp-relay-safebrowsing.fastly-edge.com"

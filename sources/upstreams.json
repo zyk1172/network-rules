@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "description": "公开上游清单。每个稳定分类拥有一个或多个 canonical 输入和按客户端声明的一个或多个上游组件；生成物由本项目编译，不直接透传上游 URL。",
+  "description": "公开上游清单。每个稳定分类拥有唯一 authoritative canonical 输入，并可按客户端声明一个或多个 audit reference 或 client-only extra 组件；生成物由本项目编译，不直接透传上游 URL。",
   "publication": {
     "repository": "zyk1172/network-rules",
     "ref": "main"
@@ -21,7 +21,7 @@
             "id": "blackmatrix-private-tracker-qx",
             "url": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/PrivateTracker/PrivateTracker.list",
             "format": "qx-list",
-            "canonical": true
+            "role": "canonical-authoritative"
           }
         ],
         "mihomo": [
@@ -30,7 +30,7 @@
             "url": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/PrivateTracker/PrivateTracker.yaml",
             "format": "mihomo-yaml",
             "behavior": "classical",
-            "canonical": true,
+            "role": "audit-reference",
             "complete": true
           }
         ]
@@ -51,7 +51,7 @@
             "id": "metacubex-ads-domain",
             "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-ads-all.yaml",
             "format": "meta-domain-yaml",
-            "canonical": true
+            "role": "canonical-authoritative"
           }
         ],
         "mihomo": [
@@ -60,7 +60,7 @@
             "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-ads-all.mrs",
             "format": "mrs",
             "behavior": "domain",
-            "canonical": false
+            "role": "audit-reference"
           }
         ]
       }
@@ -80,7 +80,7 @@
             "id": "metacubex-chatgpt-domain",
             "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/openai.yaml",
             "format": "meta-domain-yaml",
-            "canonical": true
+            "role": "canonical-authoritative"
           }
         ],
         "mihomo": [
@@ -89,7 +89,7 @@
             "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/openai.mrs",
             "format": "mrs",
             "behavior": "domain",
-            "canonical": false
+            "role": "audit-reference"
           }
         ]
       }
@@ -109,7 +109,7 @@
             "id": "blackmatrix-claude-qx",
             "url": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/Claude/Claude.list",
             "format": "qx-list",
-            "canonical": true
+            "role": "canonical-authoritative"
           }
         ],
         "mihomo": [
@@ -118,7 +118,7 @@
             "url": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Claude/Claude.yaml",
             "format": "mihomo-yaml",
             "behavior": "classical",
-            "canonical": true,
+            "role": "audit-reference",
             "complete": true
           }
         ]
@@ -139,7 +139,7 @@
             "id": "blackmatrix-gemini-qx",
             "url": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/Gemini/Gemini.list",
             "format": "qx-list",
-            "canonical": true
+            "role": "canonical-authoritative"
           }
         ],
         "mihomo": [
@@ -148,7 +148,7 @@
             "url": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Gemini/Gemini.yaml",
             "format": "mihomo-yaml",
             "behavior": "classical",
-            "canonical": true,
+            "role": "audit-reference",
             "complete": true
           }
         ]
@@ -169,7 +169,7 @@
             "id": "metacubex-telegram-domain",
             "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/telegram.yaml",
             "format": "meta-domain-yaml",
-            "canonical": true
+            "role": "canonical-authoritative"
           }
         ],
         "mihomo": [
@@ -178,7 +178,7 @@
             "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/telegram.mrs",
             "format": "mrs",
             "behavior": "domain",
-            "canonical": false
+            "role": "audit-reference"
           }
         ]
       }
@@ -198,7 +198,7 @@
             "id": "metacubex-youtube-domain",
             "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/youtube.yaml",
             "format": "meta-domain-yaml",
-            "canonical": true
+            "role": "canonical-authoritative"
           }
         ],
         "mihomo": [
@@ -207,7 +207,7 @@
             "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/youtube.mrs",
             "format": "mrs",
             "behavior": "domain",
-            "canonical": false
+            "role": "audit-reference"
           }
         ]
       }
@@ -227,7 +227,7 @@
             "id": "blackmatrix-netflix-qx",
             "url": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/Netflix/Netflix.list",
             "format": "qx-list",
-            "canonical": true
+            "role": "canonical-authoritative"
           }
         ],
         "mihomo": [
@@ -236,7 +236,7 @@
             "url": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Netflix/Netflix_Classical.yaml",
             "format": "mihomo-yaml",
             "behavior": "classical",
-            "canonical": true,
+            "role": "client-only-extra",
             "complete": true
           }
         ]
@@ -257,7 +257,7 @@
             "id": "metacubex-apple-domain",
             "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/apple.yaml",
             "format": "meta-domain-yaml",
-            "canonical": true
+            "role": "canonical-authoritative"
           }
         ],
         "mihomo": [
@@ -266,7 +266,7 @@
             "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/apple.mrs",
             "format": "mrs",
             "behavior": "domain",
-            "canonical": false
+            "role": "audit-reference"
           }
         ]
       }
@@ -286,7 +286,7 @@
             "id": "metacubex-google-domain",
             "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.yaml",
             "format": "meta-domain-yaml",
-            "canonical": true
+            "role": "canonical-authoritative"
           }
         ],
         "mihomo": [
@@ -295,7 +295,7 @@
             "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.mrs",
             "format": "mrs",
             "behavior": "domain",
-            "canonical": false
+            "role": "audit-reference"
           }
         ]
       }
@@ -316,7 +316,7 @@
             "id": "blackmatrix-global-qx",
             "url": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/Global/Global.list",
             "format": "qx-list",
-            "canonical": true
+            "role": "canonical-authoritative"
           }
         ],
         "mihomo": [
@@ -325,7 +325,7 @@
             "url": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Global/Global_Classical.yaml",
             "format": "mihomo-yaml",
             "behavior": "classical",
-            "canonical": true,
+            "role": "audit-reference",
             "complete": true
           }
         ]
