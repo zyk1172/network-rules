@@ -42,6 +42,16 @@ https://raw.githubusercontent.com/zyk1172/network-rules/codex/bootstrap-network-
 
 列表已经把公开分类转换为圈 X 语法，并按本机策略名称映射到 `Gpt`、`💻 Ai`、`Gemini`、`✉️ Telegram`、`📺 Netflix`、`🎬 YouTube`、`🍎 苹果服务`、`🌏 国外网站` 等策略。现有 `[rewrite_local]`、`[rewrite_remote]` 和 `[mitm]` 不放入这个入口。
 
+### 规则规模
+
+为兼顾 iOS 端加载速度，`国外网站`泛分类在 Quantumult X 生成物中默认最多输出 10,000 条；专用分类和本地覆盖不受此限制。构建器仍会完整拉取并锁定上游文件，`dist/build-report.json` 会记录候选数量、实际输出数量和截断数量，因此上游更新不会被静默覆盖。
+
+截断时优先保留非 `HOST-SUFFIX` 规则（例如精确域名、关键词、IP-CIDR 和 User-Agent），再按上游顺序补足 `HOST-SUFFIX`；最后仍按上游原顺序输出，不进行基于个人访问记录的“热门网站”推断。由于跨分类重复规则会优先保留前面的专用分类，实际输出可能略低于上限。
+
+当前缓存基线下，圈 X 聚合列表实际为 14,060 条：专用分类 5,184 条，国外网站 8,876 条；上限场景最多约 15,184 条。若需要完整泛分类，可在 `sources/upstreams.json` 中调整或移除 `quantumult_x.max_rules`，但 iOS 端的配置加载和更新会更重。
+
+Clash Verge / Mihomo 不使用这个圈 X 上限，而是继续通过远程 `rule-providers` 加载完整分类；这是针对 macOS 与 iOS 不同运行环境的独立处理。纯域名或 IP 规则可以使用 Mihomo 的 `mrs` 格式，包含关键词、User-Agent 或进程规则的混合源仍保持 `classical` 格式。
+
 聚合列表不是无分类的连续规则：文件中以 `CATEGORY` 注释段区分“本地覆盖、PT / PrivateTracker、广告、ChatGPT、Claude、Gemini、Telegram、YouTube、Netflix、Apple、Google、国外网站”。国外网站是泛分类，放在专用服务分类之后，只承接前面没有匹配到的条目。这些注释不会改变圈 X 的规则匹配顺序，但方便审查和定位某一类规则。Mihomo 文件中的 provider 和 `prepend-rules` 也使用同样的分类名称。
 
 ## 如何保留个人修改

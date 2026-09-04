@@ -34,6 +34,7 @@
 - `overrides/rules.txt`：个人规则优先层，当前先收录 PT 域名/关键词；它不会被上游更新覆盖。
 - `dist/mihomo/merge.yaml`：Clash Verge Rev / Mihomo 的单个 Merge 入口。
 - `dist/quantumult-x/aggregate.list`：圈 X 的单个远程分流列表入口，内部按 PT、广告、ChatGPT、Claude、Gemini、Telegram、YouTube、Netflix、Apple、Google、国外网站等分类分段。
+- 圈 X 的国外网站泛分类默认限制为 10,000 条，避免 iOS 端聚合列表过大；Mihomo 仍保留完整远程 Provider，按 macOS 客户端单独处理。
 - `.github/workflows/update-rules.yml`：每天拉取上游、重建生成物并创建 Pull Request，等待审查后再合并。
 
 具体接入和本地构建命令见 [`docs/integration.md`](docs/integration.md)，来源和许可证见 [`sources/ATTRIBUTIONS.md`](sources/ATTRIBUTIONS.md)。项目已创建并推送到 [zyk1172/network-rules](https://github.com/zyk1172/network-rules)，当前推送分支为 `codex/bootstrap-network-rules`。仓库现为公开项目，采用 [MIT License](LICENSE)；`sources/local/`、`sources/cache/` 等本地快照未纳入版本库。

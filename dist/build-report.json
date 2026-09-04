@@ -89,7 +89,9 @@
         "candidate_rules": 35772,
         "id": "nr-blackmatrix-global",
         "label": "国外网站",
-        "rules": 33292
+        "max_rules": 10000,
+        "rules": 8876,
+        "truncated_rules": 25772
       }
     ],
     "conflict_examples": [
@@ -194,15 +196,15 @@
         "source": "nr-google"
       }
     ],
-    "conflicts": 2718,
+    "conflicts": 1362,
     "local_rules": 11,
-    "rules": 38476,
+    "rules": 14060,
     "source_rules": {
       "nr-ads": 910,
       "nr-apple": 1785,
       "nr-blackmatrix-claude": 3,
       "nr-blackmatrix-gemini": 13,
-      "nr-blackmatrix-global": 33292,
+      "nr-blackmatrix-global": 8876,
       "nr-blackmatrix-netflix": 1158,
       "nr-google": 842,
       "nr-openai": 19,

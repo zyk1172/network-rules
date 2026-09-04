@@ -82,6 +82,16 @@ def validate_manifest(
                 add_error(errors, f"{source_id}/{client} 缺少 policy_key")
             elif not isinstance(policies.get(client), dict) or policy_key not in policies[client]:
                 add_error(errors, f"{client} 缺少策略映射：{policy_key}")
+            max_rules = cfg.get("max_rules")
+            if max_rules is not None and (
+                isinstance(max_rules, bool)
+                or not isinstance(max_rules, int)
+                or max_rules <= 0
+            ):
+                add_error(
+                    errors,
+                    f"{source_id}/{client} max_rules 必须是正整数：{max_rules!r}",
+                )
     return sources
 
 
@@ -190,8 +200,15 @@ def validate_qx(
     allowed_policies = {str(value) for value in policies.get("quantumult-x", {}).values()}
     allowed_policies.update({"direct", "reject", "proxy"})
     rules: List[str] = []
+    category_counts: Dict[str, int] = {}
+    current_category = None
     for number, raw_line in enumerate(QX_PATH.read_text(encoding="utf-8").splitlines(), 1):
         line = raw_line.strip()
+        marker = re.match(r"# ===== CATEGORY: .+ \(([^()]+)\) =====$", line)
+        if marker:
+            current_category = marker.group(1)
+            category_counts.setdefault(current_category, 0)
+            continue
         if not line or line.startswith("#") or line.startswith(";"):
             continue
         parts = split_rule(line)
@@ -207,6 +224,21 @@ def validate_qx(
         if any(token in line for token in ("OWNER/REPOSITORY", "REPLACE_ME", "<YOUR_")):
             add_error(errors, f"Quantumult X 第 {number} 行包含占位符")
         rules.append(line)
+        if current_category is not None:
+            category_counts[current_category] += 1
+
+    for source in sources:
+        cfg = source.get("quantumult_x")
+        if not cfg or cfg.get("max_rules") is None:
+            continue
+        source_id = str(source["id"])
+        actual = category_counts.get(source_id, 0)
+        limit = int(cfg["max_rules"])
+        if actual > limit:
+            add_error(
+                errors,
+                f"Quantumult X 分类 {source_id} 超过 max_rules：{actual}>{limit}",
+            )
 
     try:
         local_rules = parse_local_rules(OVERRIDES_PATH)

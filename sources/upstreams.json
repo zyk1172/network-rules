@@ -223,7 +223,8 @@
       "quantumult_x": {
         "url": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/Global/Global.list",
         "format": "qx-list",
-        "policy_key": "global"
+        "policy_key": "global",
+        "max_rules": 10000
       },
       "mihomo": {
         "url": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Global/Global.yaml",

@@ -301,6 +301,49 @@ def parse_qx_list(data: bytes, source_id: str) -> Tuple[List[str], int]:
     return rules, unsupported
 
 
+def configured_rule_limit(
+    client_cfg: Dict[str, Any], source_id: str
+) -> Optional[int]:
+    """Return a positive per-client output limit, if configured."""
+
+    value = client_cfg.get("max_rules")
+    if value is None:
+        return None
+    if isinstance(value, bool) or not isinstance(value, int) or value <= 0:
+        raise BuildError(f"{source_id} 的 max_rules 必须是正整数：{value!r}")
+    return value
+
+
+def select_qx_rules(
+    rules: Sequence[str], max_rules: Optional[int]
+) -> Tuple[List[str], int]:
+    """Limit a QX source while retaining non-suffix rule types first."""
+
+    if max_rules is None or len(rules) <= max_rules:
+        return list(rules), 0
+
+    selected_indices = {
+        index
+        for index, rule in enumerate(rules)
+        if split_rule(rule)[0].upper() != "HOST-SUFFIX"
+    }
+    if len(selected_indices) > max_rules:
+        selected_indices = set(sorted(selected_indices)[:max_rules])
+    else:
+        remaining = max_rules - len(selected_indices)
+        for index, rule in enumerate(rules):
+            if remaining <= 0:
+                break
+            if split_rule(rule)[0].upper() == "HOST-SUFFIX":
+                selected_indices.add(index)
+                remaining -= 1
+
+    selected = [
+        rule for index, rule in enumerate(rules) if index in selected_indices
+    ]
+    return selected, len(rules) - len(selected)
+
+
 def convert_qx_rule(rule: str, policy: str) -> str:
     parts = split_rule(rule)
     if len(parts) < 2:
@@ -347,6 +390,7 @@ def build_quantumult_x(
         if not client_cfg:
             continue
         source_id = str(source["id"])
+        max_rules = configured_rule_limit(client_cfg, source_id)
         raw = payloads[(source_id, "quantumult-x")]
         if client_cfg["format"] == "meta-domain-yaml":
             parsed, unsupported = parse_meta_domain_yaml(raw, source_id)
@@ -370,27 +414,30 @@ def build_quantumult_x(
             raise BuildError(
                 f"不支持的 Quantumult X 输入格式：{source_id}/{client_cfg['format']}"
             )
+        selected, truncated = select_qx_rules(parsed, max_rules)
         added = 0
         accepted: List[str] = []
-        for rule in parsed:
+        for rule in selected:
             if add_first_wins(output, seen, rule, conflicts, source_id):
                 added += 1
                 accepted.append(rule)
         source_counts[source_id] = added
         unsupported_counts[source_id] = unsupported
-        sections.append(
-            {
-                "id": source_id,
-                "label": category_label(source),
-                "rules": accepted,
-                "candidate_rules": len(parsed),
-            }
-        )
+        section = {
+            "id": source_id,
+            "label": category_label(source),
+            "rules": accepted,
+            "candidate_rules": len(parsed),
+            "truncated_rules": truncated,
+        }
+        if max_rules is not None:
+            section["max_rules"] = max_rules
+        sections.append(section)
 
     header = [
         "# NAME: network-rules aggregate",
         "# GENERATED-BY: network-rules-project/scripts/build.py",
-        "# ORDER: local overlay -> PT -> ads -> service categories",
+        "# ORDER: local overlay -> PT -> ads -> service categories -> generic overseas category",
         "# This is a Quantumult X filter list. It does not contain nodes, rewrites or MitM settings.",
     ]
     rendered_sections = list(header)
@@ -400,6 +447,16 @@ def build_quantumult_x(
                 "",
                 f"# ===== CATEGORY: {section['label']} ({section['id']}) =====",
                 f"# RULES: {len(section['rules'])}",
+                *(
+                    [f"# MAX-RULES: {section['max_rules']}"]
+                    if "max_rules" in section
+                    else []
+                ),
+                *(
+                    [f"# TRUNCATED-RULES: {section['truncated_rules']}"]
+                    if section.get("truncated_rules")
+                    else []
+                ),
                 *section["rules"],
             ]
         )
@@ -423,6 +480,16 @@ def build_quantumult_x(
                 **(
                     {"candidate_rules": section["candidate_rules"]}
                     if "candidate_rules" in section
+                    else {}
+                ),
+                **(
+                    {"max_rules": section["max_rules"]}
+                    if "max_rules" in section
+                    else {}
+                ),
+                **(
+                    {"truncated_rules": section["truncated_rules"]}
+                    if section.get("truncated_rules")
                     else {}
                 ),
             }
