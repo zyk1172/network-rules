@@ -5,6 +5,7 @@
     {
       "id": "nr-private-tracker",
       "name": "PrivateTracker",
+      "category": "PT / PrivateTracker",
       "provider": "blackmatrix7/ios_rule_script",
       "homepage": "https://github.com/blackmatrix7/ios_rule_script",
       "license": "GPL-2.0",
@@ -25,6 +26,7 @@
     {
       "id": "nr-ads",
       "name": "category-ads-all",
+      "category": "广告",
       "provider": "MetaCubeX/meta-rules-dat",
       "homepage": "https://github.com/MetaCubeX/meta-rules-dat",
       "license": "GPL-3.0",
@@ -45,6 +47,7 @@
     {
       "id": "nr-openai",
       "name": "openai",
+      "category": "OpenAI / ChatGPT",
       "provider": "MetaCubeX/meta-rules-dat",
       "homepage": "https://github.com/MetaCubeX/meta-rules-dat",
       "license": "GPL-3.0",
@@ -65,6 +68,7 @@
     {
       "id": "nr-telegram",
       "name": "telegram",
+      "category": "Telegram",
       "provider": "MetaCubeX/meta-rules-dat",
       "homepage": "https://github.com/MetaCubeX/meta-rules-dat",
       "license": "GPL-3.0",
@@ -85,6 +89,7 @@
     {
       "id": "nr-youtube",
       "name": "youtube",
+      "category": "YouTube",
       "provider": "MetaCubeX/meta-rules-dat",
       "homepage": "https://github.com/MetaCubeX/meta-rules-dat",
       "license": "GPL-3.0",
@@ -105,6 +110,7 @@
     {
       "id": "nr-apple",
       "name": "apple",
+      "category": "Apple",
       "provider": "MetaCubeX/meta-rules-dat",
       "homepage": "https://github.com/MetaCubeX/meta-rules-dat",
       "license": "GPL-3.0",
@@ -125,6 +131,7 @@
     {
       "id": "nr-google",
       "name": "google",
+      "category": "Google",
       "provider": "MetaCubeX/meta-rules-dat",
       "homepage": "https://github.com/MetaCubeX/meta-rules-dat",
       "license": "GPL-3.0",

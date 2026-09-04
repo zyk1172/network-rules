@@ -86,6 +86,10 @@ def yaml_quote(value: str) -> str:
     return json.dumps(value, ensure_ascii=False)
 
 
+def category_label(source: Dict[str, Any]) -> str:
+    return str(source.get("category") or source.get("name") or source["id"])
+
+
 def cache_path(source_id: str, client: str, url: str) -> Path:
     suffix = Path(url.split("?", 1)[0]).suffix or ".data"
     safe_client = client.replace("-", "_")
@@ -321,23 +325,28 @@ def build_quantumult_x(
     conflicts: List[Dict[str, str]] = []
     source_counts: Dict[str, int] = {}
     unsupported_counts: Dict[str, int] = {}
+    sections: List[Dict[str, Any]] = []
 
+    local_output: List[str] = []
     for parts in local_rules:
-        add_first_wins(
+        rendered = render_local_rule(parts, policies, "quantumult-x")
+        if add_first_wins(
             output,
             seen,
-            render_local_rule(parts, policies, "quantumult-x"),
+            rendered,
             conflicts,
             "local-overlay",
-        )
+        ):
+            local_output.append(rendered)
+    sections.append(
+        {"id": "local-overlay", "label": "本地覆盖", "rules": local_output}
+    )
 
-    source_sections: List[str] = []
     for source in sources:
         client_cfg = source.get("quantumult_x")
         if not client_cfg:
             continue
         source_id = str(source["id"])
-        source_sections.append(source_id)
         raw = payloads[(source_id, "quantumult-x")]
         if client_cfg["format"] == "meta-domain-yaml":
             parsed, unsupported = parse_meta_domain_yaml(raw, source_id)
@@ -362,10 +371,21 @@ def build_quantumult_x(
                 f"不支持的 Quantumult X 输入格式：{source_id}/{client_cfg['format']}"
             )
         added = 0
+        accepted: List[str] = []
         for rule in parsed:
-            added += int(add_first_wins(output, seen, rule, conflicts, source_id))
+            if add_first_wins(output, seen, rule, conflicts, source_id):
+                added += 1
+                accepted.append(rule)
         source_counts[source_id] = added
         unsupported_counts[source_id] = unsupported
+        sections.append(
+            {
+                "id": source_id,
+                "label": category_label(source),
+                "rules": accepted,
+                "candidate_rules": len(parsed),
+            }
+        )
 
     header = [
         "# NAME: network-rules aggregate",
@@ -373,9 +393,20 @@ def build_quantumult_x(
         "# ORDER: local overlay -> PT -> ads -> service categories",
         "# This is a Quantumult X filter list. It does not contain nodes, rewrites or MitM settings.",
     ]
-    for source_id in source_sections:
-        header.append(f"# SOURCE: {source_id}")
-    write_text(DIST_DIR / "quantumult-x" / "aggregate.list", "\n".join(header + output))
+    rendered_sections = list(header)
+    for section in sections:
+        rendered_sections.extend(
+            [
+                "",
+                f"# ===== CATEGORY: {section['label']} ({section['id']}) =====",
+                f"# RULES: {len(section['rules'])}",
+                *section["rules"],
+            ]
+        )
+    write_text(
+        DIST_DIR / "quantumult-x" / "aggregate.list",
+        "\n".join(rendered_sections),
+    )
 
     return {
         "rules": len(output),
@@ -384,6 +415,19 @@ def build_quantumult_x(
         "unsupported": unsupported_counts,
         "conflicts": len(conflicts),
         "conflict_examples": conflicts[:20],
+        "categories": [
+            {
+                "id": section["id"],
+                "label": section["label"],
+                "rules": len(section["rules"]),
+                **(
+                    {"candidate_rules": section["candidate_rules"]}
+                    if "candidate_rules" in section
+                    else {}
+                ),
+            }
+            for section in sections
+        ],
     }
 
 
@@ -407,6 +451,7 @@ def build_mihomo(
             continue
         source_id = str(source["id"])
         providers.append(source_id)
+        lines.append(f"  # ===== CATEGORY: {category_label(source)} ({source_id}) =====")
         lines.extend(
             [
                 f"  {source_id}:",
@@ -419,7 +464,7 @@ def build_mihomo(
             ]
         )
 
-    lines.extend(["", "prepend-rules:"])
+    lines.extend(["", "prepend-rules:", "  # ===== CATEGORY: 本地覆盖 (local-overlay) ====="])
     for parts in local_rules:
         lines.append(
             f"  - {yaml_quote(render_local_rule(parts, policies, 'mihomo'))}"
@@ -430,6 +475,9 @@ def build_mihomo(
             continue
         policy = policy_value(policies, "mihomo", client_cfg["policy_key"])
         rule_set = f"RULE-SET,{source['id']},{policy}"
+        lines.append(
+            f"  # ===== CATEGORY: {category_label(source)} ({source['id']}) ====="
+        )
         lines.append(f"  - {yaml_quote(rule_set)}")
 
     write_text(DIST_DIR / "mihomo" / "merge.yaml", "\n".join(lines))

@@ -15,6 +15,55 @@
     "providers": 7
   },
   "quantumult_x": {
+    "categories": [
+      {
+        "id": "local-overlay",
+        "label": "本地覆盖",
+        "rules": 11
+      },
+      {
+        "candidate_rules": 248,
+        "id": "nr-private-tracker",
+        "label": "PT / PrivateTracker",
+        "rules": 245
+      },
+      {
+        "candidate_rules": 910,
+        "id": "nr-ads",
+        "label": "广告",
+        "rules": 910
+      },
+      {
+        "candidate_rules": 22,
+        "id": "nr-openai",
+        "label": "OpenAI / ChatGPT",
+        "rules": 19
+      },
+      {
+        "candidate_rules": 21,
+        "id": "nr-telegram",
+        "label": "Telegram",
+        "rules": 21
+      },
+      {
+        "candidate_rules": 178,
+        "id": "nr-youtube",
+        "label": "YouTube",
+        "rules": 177
+      },
+      {
+        "candidate_rules": 1792,
+        "id": "nr-apple",
+        "label": "Apple",
+        "rules": 1785
+      },
+      {
+        "candidate_rules": 1071,
+        "id": "nr-google",
+        "label": "Google",
+        "rules": 845
+      }
+    ],
     "conflict_examples": [
       {
         "kept": "HOST,browser-intake-datadoghq.com,reject",

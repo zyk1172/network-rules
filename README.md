@@ -33,7 +33,7 @@
 - `sources/policies.json`：把同一分类映射到 Mihomo 和 Quantumult X 各自的策略名称。
 - `overrides/rules.txt`：个人规则优先层，当前先收录 PT 域名/关键词；它不会被上游更新覆盖。
 - `dist/mihomo/merge.yaml`：Clash Verge Rev / Mihomo 的单个 Merge 入口。
-- `dist/quantumult-x/aggregate.list`：圈 X 的单个远程分流列表入口。
+- `dist/quantumult-x/aggregate.list`：圈 X 的单个远程分流列表入口，内部按 PT、广告、Telegram、OpenAI、YouTube、Apple、Google 等分类分段。
 - `.github/workflows/update-rules.yml`：每天拉取上游、重建生成物并创建 Pull Request，等待审查后再合并。
 
 具体接入和本地构建命令见 [`docs/integration.md`](docs/integration.md)，来源和许可证见 [`sources/ATTRIBUTIONS.md`](sources/ATTRIBUTIONS.md)。当前没有 GitHub remote，因此本次只完成了本地项目和自动更新工作流的准备，没有替你创建远程仓库或推送内容。

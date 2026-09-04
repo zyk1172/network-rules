@@ -2,13 +2,9 @@
 # GENERATED-BY: network-rules-project/scripts/build.py
 # ORDER: local overlay -> PT -> ads -> service categories
 # This is a Quantumult X filter list. It does not contain nodes, rewrites or MitM settings.
-# SOURCE: nr-private-tracker
-# SOURCE: nr-ads
-# SOURCE: nr-openai
-# SOURCE: nr-telegram
-# SOURCE: nr-youtube
-# SOURCE: nr-apple
-# SOURCE: nr-google
+
+# ===== CATEGORY: 本地覆盖 (local-overlay) =====
+# RULES: 11
 HOST-KEYWORD,m-team,direct
 HOST-KEYWORD,pttime,direct
 HOST-KEYWORD,ptcafe,direct
@@ -20,6 +16,9 @@ HOST-SUFFIX,ptcafe.club,direct
 HOST-SUFFIX,hdtime.org,direct
 HOST-SUFFIX,xingyungept.com,direct
 HOST-SUFFIX,ptzone.club,direct
+
+# ===== CATEGORY: PT / PrivateTracker (nr-private-tracker) =====
+# RULES: 245
 HOST,004430.xyz,direct
 HOST,021912.xyz,direct
 HOST,1337.abcvg.info,direct
@@ -265,6 +264,9 @@ HOST-KEYWORD,torrent,direct
 IP-CIDR,207.241.226.111/32,direct
 IP-CIDR,207.241.231.226/32,direct
 IP-CIDR,52.58.128.163/32,direct
+
+# ===== CATEGORY: 广告 (nr-ads) =====
+# RULES: 910
 HOST,logs.ads.vungle.com,reject
 HOST-SUFFIX,applovin.com,reject
 HOST-SUFFIX,analytics-data.io,reject
@@ -1175,6 +1177,9 @@ HOST-SUFFIX,ssacdn.com,reject
 HOST-SUFFIX,supersonic.com,reject
 HOST-SUFFIX,supersonicads.com,reject
 HOST-SUFFIX,supersonicads-a.akamaihd.net,reject
+
+# ===== CATEGORY: OpenAI / ChatGPT (nr-openai) =====
+# RULES: 19
 HOST,openaiapi-site.azureedge.net,Gpt
 HOST,openaiassets.blob.core.windows.net,Gpt
 HOST,openaicom-api-bdcpf8c6d2e9atf6.z01.azurefd.net,Gpt
@@ -1194,6 +1199,9 @@ HOST-SUFFIX,chatgpt.livekit.cloud,Gpt
 HOST-SUFFIX,host.livekit.cloud,Gpt
 HOST-SUFFIX,turn.livekit.cloud,Gpt
 HOST-SUFFIX,openai.com.cdn.cloudflare.net,Gpt
+
+# ===== CATEGORY: Telegram (nr-telegram) =====
+# RULES: 21
 HOST-SUFFIX,cdn-telegram.org,✉️ Telegram
 HOST-SUFFIX,comments.app,✉️ Telegram
 HOST-SUFFIX,contest.com,✉️ Telegram
@@ -1215,6 +1223,9 @@ HOST-SUFFIX,ton.org,✉️ Telegram
 HOST-SUFFIX,toncenter.com,✉️ Telegram
 HOST-SUFFIX,tx.me,✉️ Telegram
 HOST-SUFFIX,usercontent.dev,✉️ Telegram
+
+# ===== CATEGORY: YouTube (nr-youtube) =====
+# RULES: 177
 HOST,yt3.googleusercontent.com,🎬 YouTube
 HOST-SUFFIX,youtube,🎬 YouTube
 HOST-SUFFIX,youtube.ru,🎬 YouTube
@@ -1392,6 +1403,9 @@ HOST-SUFFIX,youtube.co.ae,🎬 YouTube
 HOST-SUFFIX,youtube-ui.l.google.com,🎬 YouTube
 HOST-SUFFIX,wide-youtube.l.google.com,🎬 YouTube
 HOST-SUFFIX,ggpht.cn,🎬 YouTube
+
+# ===== CATEGORY: Apple (nr-apple) =====
+# RULES: 1785
 HOST,apple.com.akadns.net,🍎 苹果服务
 HOST,configuration-lb.ls-apple.com.akadns.net,🍎 苹果服务
 HOST,push-apple.com.akadns.net,🍎 苹果服务
@@ -3177,6 +3191,9 @@ HOST,itunes-apple.com.akadns.net,🍎 苹果服务
 HOST,itunes.apple.com,🍎 苹果服务
 HOST,itunesconnect.apple.com,🍎 苹果服务
 HOST,osxapps.itunes.g.aaplimg.com,🍎 苹果服务
+
+# ===== CATEGORY: Google (nr-google) =====
+# RULES: 845
 HOST,google-ohttp-relay-safebrowsing.fastly-edge.com,Google
 HOST,alt7-mtalk.google.com,Google
 HOST,alt8-mtalk.google.com,Google

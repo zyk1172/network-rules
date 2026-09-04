@@ -22,6 +22,7 @@ from build import (  # noqa: E402  (shared parser and policy rules)
     BuildError,
     QX_TYPE_MAP,
     action_index,
+    category_label,
     load_json,
     parse_local_rules,
     render_local_rule,
@@ -65,6 +66,8 @@ def validate_manifest(
         if source_id in ids:
             add_error(errors, f"上游 id 重复：{source_id}")
         ids.add(source_id)
+        if not str(source.get("category", "")).strip():
+            add_error(errors, f"上游缺少可读分类：{source_id}")
         for client, key in (("quantumult-x", "quantumult_x"), ("mihomo", "mihomo")):
             cfg = source.get(key)
             if not cfg:
@@ -88,6 +91,14 @@ def validate_mihomo(
     if not MIHOMO_PATH.exists():
         add_error(errors, f"缺少生成文件：{MIHOMO_PATH}")
         return
+    raw_text = MIHOMO_PATH.read_text(encoding="utf-8")
+    if "# ===== CATEGORY: 本地覆盖 (local-overlay) =====" not in raw_text:
+        add_error(errors, "Mihomo Merge 缺少本地覆盖分类段")
+    for source in sources:
+        if source.get("mihomo"):
+            marker = f"# ===== CATEGORY: {category_label(source)} ({source['id']}) ====="
+            if marker not in raw_text:
+                add_error(errors, f"Mihomo Merge 缺少分类段：{source['id']}")
     try:
         data = load_yaml(MIHOMO_PATH)
     except BuildError as exc:
@@ -152,10 +163,20 @@ def validate_mihomo(
         )
 
 
-def validate_qx(policies: Dict[str, Any], errors: List[str]) -> None:
+def validate_qx(
+    sources: Sequence[Dict[str, Any]], policies: Dict[str, Any], errors: List[str]
+) -> None:
     if not QX_PATH.exists():
         add_error(errors, f"缺少生成文件：{QX_PATH}")
         return
+    raw_text = QX_PATH.read_text(encoding="utf-8")
+    if "# ===== CATEGORY: 本地覆盖 (local-overlay) =====" not in raw_text:
+        add_error(errors, "Quantumult X 生成物缺少本地覆盖分类段")
+    for source in sources:
+        if source.get("quantumult_x"):
+            marker = f"# ===== CATEGORY: {category_label(source)} ({source['id']}) ====="
+            if marker not in raw_text:
+                add_error(errors, f"Quantumult X 生成物缺少分类段：{source['id']}")
     allowed_types = set(QX_TYPE_MAP.values()) | {
         "HOST",
         "HOST-SUFFIX",
@@ -243,7 +264,7 @@ def main() -> int:
 
     sources = validate_manifest(manifest, policies, errors)
     validate_mihomo(sources, errors)
-    validate_qx(policies, errors)
+    validate_qx(sources, policies, errors)
     validate_lock(manifest, errors)
     if not REPORT_PATH.exists():
         add_error(errors, f"缺少构建报告：{REPORT_PATH}")

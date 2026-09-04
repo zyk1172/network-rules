@@ -4,6 +4,7 @@
 # Local rules are prepended; proxy nodes, proxy-groups, DNS, rewrites and MitM stay in the base profile.
 
 rule-providers:
+  # ===== CATEGORY: PT / PrivateTracker (nr-private-tracker) =====
   nr-private-tracker:
     type: http
     behavior: "classical"
@@ -11,6 +12,7 @@ rule-providers:
     url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/PrivateTracker/PrivateTracker.yaml"
     path: "./rule-providers/network-rules/private-tracker.yaml"
     interval: 86400
+  # ===== CATEGORY: 广告 (nr-ads) =====
   nr-ads:
     type: http
     behavior: "domain"
@@ -18,6 +20,7 @@ rule-providers:
     url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-ads-all.mrs"
     path: "./rule-providers/network-rules/ads.mrs"
     interval: 86400
+  # ===== CATEGORY: OpenAI / ChatGPT (nr-openai) =====
   nr-openai:
     type: http
     behavior: "domain"
@@ -25,6 +28,7 @@ rule-providers:
     url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/openai.mrs"
     path: "./rule-providers/network-rules/openai.mrs"
     interval: 86400
+  # ===== CATEGORY: Telegram (nr-telegram) =====
   nr-telegram:
     type: http
     behavior: "domain"
@@ -32,6 +36,7 @@ rule-providers:
     url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/telegram.mrs"
     path: "./rule-providers/network-rules/telegram.mrs"
     interval: 86400
+  # ===== CATEGORY: YouTube (nr-youtube) =====
   nr-youtube:
     type: http
     behavior: "domain"
@@ -39,6 +44,7 @@ rule-providers:
     url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/youtube.mrs"
     path: "./rule-providers/network-rules/youtube.mrs"
     interval: 86400
+  # ===== CATEGORY: Apple (nr-apple) =====
   nr-apple:
     type: http
     behavior: "domain"
@@ -46,6 +52,7 @@ rule-providers:
     url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/apple.mrs"
     path: "./rule-providers/network-rules/apple.mrs"
     interval: 86400
+  # ===== CATEGORY: Google (nr-google) =====
   nr-google:
     type: http
     behavior: "domain"
@@ -55,6 +62,7 @@ rule-providers:
     interval: 86400
 
 prepend-rules:
+  # ===== CATEGORY: 本地覆盖 (local-overlay) =====
   - "DOMAIN-KEYWORD,m-team,DIRECT"
   - "DOMAIN-KEYWORD,pttime,DIRECT"
   - "DOMAIN-KEYWORD,ptcafe,DIRECT"
@@ -66,10 +74,17 @@ prepend-rules:
   - "DOMAIN-SUFFIX,hdtime.org,DIRECT"
   - "DOMAIN-SUFFIX,xingyungept.com,DIRECT"
   - "DOMAIN-SUFFIX,ptzone.club,DIRECT"
+  # ===== CATEGORY: PT / PrivateTracker (nr-private-tracker) =====
   - "RULE-SET,nr-private-tracker,DIRECT"
+  # ===== CATEGORY: 广告 (nr-ads) =====
   - "RULE-SET,nr-ads,REJECT"
+  # ===== CATEGORY: OpenAI / ChatGPT (nr-openai) =====
   - "RULE-SET,nr-openai,ChatGPT"
+  # ===== CATEGORY: Telegram (nr-telegram) =====
   - "RULE-SET,nr-telegram,Telegram"
+  # ===== CATEGORY: YouTube (nr-youtube) =====
   - "RULE-SET,nr-youtube,流媒体"
+  # ===== CATEGORY: Apple (nr-apple) =====
   - "RULE-SET,nr-apple,Apple"
+  # ===== CATEGORY: Google (nr-google) =====
   - "RULE-SET,nr-google,Google"
