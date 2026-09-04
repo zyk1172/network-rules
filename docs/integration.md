@@ -24,7 +24,7 @@ https://raw.githubusercontent.com/zyk1172/network-rules/codex/bootstrap-network-
 
 仓库现为公开 MIT 项目，圈 X、Clash Verge 等客户端可以直接匿名读取这些 raw 地址。
 
-如果你的订阅策略组名称不是当前本机配置里的 `ChatGPT`、`AI`、`Gemini`、`Telegram`、`流媒体`、`Apple`、`Google`、`国内直连`，先编辑 `sources/policies.json` 后再构建。规则分类只保留 `ChatGPT`、`Claude`、`Gemini` 三个 AI 服务；其中 `AI` 是当前基础配置中的策略组目标，不是生成物分类。这个映射只影响规则的目标策略，不会修改节点订阅。
+如果你的订阅策略组名称不是当前本机配置里的 `ChatGPT`、`AI`、`Gemini`、`Telegram`、`流媒体`、`Apple`、`Google`、`国外网站`、`国内直连`，先编辑 `sources/policies.json` 后再构建。规则分类只保留 `ChatGPT`、`Claude`、`Gemini` 三个 AI 服务；其中 `AI` 是当前基础配置中的策略组目标，不是生成物分类。这个映射只影响规则的目标策略，不会修改节点订阅。
 
 ## Quantumult X
 
@@ -40,9 +40,9 @@ https://raw.githubusercontent.com/OWNER/REPOSITORY/main/dist/quantumult-x/aggreg
 https://raw.githubusercontent.com/zyk1172/network-rules/codex/bootstrap-network-rules/dist/quantumult-x/aggregate.list, tag=网络规则聚合, update-interval=86400, opt-parser=false, enabled=true
 ```
 
-列表已经把公开分类转换为圈 X 语法，并按本机策略名称映射到 `Gpt`、`💻 Ai`、`Gemini`、`✉️ Telegram`、`📺 Netflix`、`🎬 YouTube`、`🍎 苹果服务` 等策略。现有 `[rewrite_local]`、`[rewrite_remote]` 和 `[mitm]` 不放入这个入口。
+列表已经把公开分类转换为圈 X 语法，并按本机策略名称映射到 `Gpt`、`💻 Ai`、`Gemini`、`✉️ Telegram`、`📺 Netflix`、`🎬 YouTube`、`🍎 苹果服务`、`🌏 国外网站` 等策略。现有 `[rewrite_local]`、`[rewrite_remote]` 和 `[mitm]` 不放入这个入口。
 
-聚合列表不是无分类的连续规则：文件中以 `CATEGORY` 注释段区分“本地覆盖、PT / PrivateTracker、广告、ChatGPT、Claude、Gemini、Telegram、YouTube、Netflix、Apple、Google”。这些注释不会改变圈 X 的规则匹配顺序，但方便审查和定位某一类规则。Mihomo 文件中的 provider 和 `prepend-rules` 也使用同样的分类名称。
+聚合列表不是无分类的连续规则：文件中以 `CATEGORY` 注释段区分“本地覆盖、PT / PrivateTracker、广告、ChatGPT、Claude、Gemini、Telegram、YouTube、Netflix、Apple、Google、国外网站”。国外网站是泛分类，放在专用服务分类之后，只承接前面没有匹配到的条目。这些注释不会改变圈 X 的规则匹配顺序，但方便审查和定位某一类规则。Mihomo 文件中的 provider 和 `prepend-rules` 也使用同样的分类名称。
 
 ## 如何保留个人修改
 
@@ -51,7 +51,7 @@ https://raw.githubusercontent.com/zyk1172/network-rules/codex/bootstrap-network-
 1. 在 `overrides/rules.txt` 增加或删除本地优先规则，格式为 `TYPE,condition,policy-key`。
 2. 在 `sources/policies.json` 调整每个客户端的策略名称。
 
-构建器不会写回这两个文件。生成顺序是“本地覆盖 → PT → 广告 → 服务分类”；同一条件重复出现时保留先出现的规则，并在 `dist/build-report.json` 中记录冲突数量。
+构建器不会写回这两个文件。生成顺序是“本地覆盖 → PT → 广告 → 专用服务分类 → 国外网站泛分类”；同一条件重复出现时保留先出现的规则，并在 `dist/build-report.json` 中记录冲突数量。
 
 `GEOIP`、`GEOIP,CN`、`GEOSITE,cn`、局域网/私有地址、中国大陆兜底、`MATCH` 和固定端口等基础规则，不放入这个公共聚合入口。它们继续留在各客户端自己的基础配置中（按客户端使用各自语法）；本项目只维护需要外部更新或需要跨客户端转换的分类。
 

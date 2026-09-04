@@ -11,7 +11,8 @@
     "youtube": "流媒体",
     "netflix": "流媒体",
     "apple": "Apple",
-    "google": "Google"
+    "google": "Google",
+    "global": "国外网站"
   },
   "quantumult-x": {
     "private-tracker": "direct",
@@ -23,6 +24,7 @@
     "youtube": "🎬 YouTube",
     "netflix": "📺 Netflix",
     "apple": "🍎 苹果服务",
-    "google": "Google"
+    "google": "Google",
+    "global": "🌏 国外网站"
   }
 }

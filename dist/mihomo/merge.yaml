@@ -84,6 +84,14 @@ rule-providers:
     url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.mrs"
     path: "./rule-providers/network-rules/google.mrs"
     interval: 86400
+  # ===== CATEGORY: 国外网站 (nr-blackmatrix-global) =====
+  nr-blackmatrix-global:
+    type: http
+    behavior: "classical"
+    format: "yaml"
+    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Global/Global.yaml"
+    path: "./rule-providers/network-rules/global.yaml"
+    interval: 86400
 
 prepend-rules:
   # ===== CATEGORY: 本地覆盖 (local-overlay) =====
@@ -118,3 +126,5 @@ prepend-rules:
   - "RULE-SET,nr-apple,Apple"
   # ===== CATEGORY: Google (nr-google) =====
   - "RULE-SET,nr-google,Google"
+  # ===== CATEGORY: 国外网站 (nr-blackmatrix-global) =====
+  - "RULE-SET,nr-blackmatrix-global,国外网站"

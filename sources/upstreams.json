@@ -211,6 +211,27 @@
         "path": "./rule-providers/network-rules/google.mrs",
         "policy_key": "google"
       }
+    },
+    {
+      "id": "nr-blackmatrix-global",
+      "name": "Global",
+      "category": "国外网站",
+      "provider": "blackmatrix7/ios_rule_script",
+      "homepage": "https://github.com/blackmatrix7/ios_rule_script",
+      "license": "GPL-2.0",
+      "description": "海外网站泛分类；放在所有专用服务分类之后，只承接未被更具体规则命中的海外站点。",
+      "quantumult_x": {
+        "url": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/Global/Global.list",
+        "format": "qx-list",
+        "policy_key": "global"
+      },
+      "mihomo": {
+        "url": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Global/Global.yaml",
+        "format": "yaml",
+        "behavior": "classical",
+        "path": "./rule-providers/network-rules/global.yaml",
+        "policy_key": "global"
+      }
     }
   ]
 }
