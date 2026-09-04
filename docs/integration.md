@@ -16,6 +16,14 @@
 https://raw.githubusercontent.com/OWNER/REPOSITORY/main/dist/mihomo/merge.yaml
 ```
 
+本项目当前的 GitHub 仓库是 `zyk1172/network-rules`，推送分支是 `codex/bootstrap-network-rules`；在该分支审查完成前，临时地址为：
+
+```text
+https://raw.githubusercontent.com/zyk1172/network-rules/codex/bootstrap-network-rules/dist/mihomo/merge.yaml
+```
+
+仓库现为公开 MIT 项目，圈 X、Clash Verge 等客户端可以直接匿名读取这些 raw 地址。
+
 如果你的订阅策略组名称不是当前本机配置里的 `ChatGPT`、`Telegram`、`流媒体`、`Apple`、`Google`、`国内直连`，先编辑 `sources/policies.json` 后再构建。这个映射只影响规则的目标策略，不会修改节点订阅。
 
 ## Quantumult X
@@ -24,6 +32,12 @@ https://raw.githubusercontent.com/OWNER/REPOSITORY/main/dist/mihomo/merge.yaml
 
 ```text
 https://raw.githubusercontent.com/OWNER/REPOSITORY/main/dist/quantumult-x/aggregate.list, tag=网络规则聚合, update-interval=86400, opt-parser=false, enabled=true
+```
+
+当前分支的临时入口为：
+
+```text
+https://raw.githubusercontent.com/zyk1172/network-rules/codex/bootstrap-network-rules/dist/quantumult-x/aggregate.list, tag=网络规则聚合, update-interval=86400, opt-parser=false, enabled=true
 ```
 
 列表已经把公开分类转换为圈 X 语法，并按本机策略名称映射到 `Gpt`、`✉️ Telegram`、`🎬 YouTube`、`🍎 苹果服务` 等策略。现有 `[rewrite_local]`、`[rewrite_remote]` 和 `[mitm]` 不放入这个入口。

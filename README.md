@@ -36,4 +36,4 @@
 - `dist/quantumult-x/aggregate.list`：圈 X 的单个远程分流列表入口，内部按 PT、广告、Telegram、OpenAI、YouTube、Apple、Google 等分类分段。
 - `.github/workflows/update-rules.yml`：每天拉取上游、重建生成物并创建 Pull Request，等待审查后再合并。
 
-具体接入和本地构建命令见 [`docs/integration.md`](docs/integration.md)，来源和许可证见 [`sources/ATTRIBUTIONS.md`](sources/ATTRIBUTIONS.md)。当前没有 GitHub remote，因此本次只完成了本地项目和自动更新工作流的准备，没有替你创建远程仓库或推送内容。
+具体接入和本地构建命令见 [`docs/integration.md`](docs/integration.md)，来源和许可证见 [`sources/ATTRIBUTIONS.md`](sources/ATTRIBUTIONS.md)。项目已创建并推送到 [zyk1172/network-rules](https://github.com/zyk1172/network-rules)，当前推送分支为 `codex/bootstrap-network-rules`。仓库现为公开项目，采用 [MIT License](LICENSE)；`sources/local/`、`sources/cache/` 等本地快照未纳入版本库。
