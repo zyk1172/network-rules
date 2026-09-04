@@ -24,7 +24,7 @@ https://raw.githubusercontent.com/zyk1172/network-rules/codex/bootstrap-network-
 
 仓库现为公开 MIT 项目，圈 X、Clash Verge 等客户端可以直接匿名读取这些 raw 地址。
 
-如果你的订阅策略组名称不是当前本机配置里的 `ChatGPT`、`Telegram`、`流媒体`、`Apple`、`Google`、`国内直连`，先编辑 `sources/policies.json` 后再构建。这个映射只影响规则的目标策略，不会修改节点订阅。
+如果你的订阅策略组名称不是当前本机配置里的 `ChatGPT`、`AI`、`Telegram`、`流媒体`、`Apple`、`Google`、`国内直连`，先编辑 `sources/policies.json` 后再构建。这个映射只影响规则的目标策略，不会修改节点订阅。
 
 ## Quantumult X
 
@@ -40,9 +40,9 @@ https://raw.githubusercontent.com/OWNER/REPOSITORY/main/dist/quantumult-x/aggreg
 https://raw.githubusercontent.com/zyk1172/network-rules/codex/bootstrap-network-rules/dist/quantumult-x/aggregate.list, tag=网络规则聚合, update-interval=86400, opt-parser=false, enabled=true
 ```
 
-列表已经把公开分类转换为圈 X 语法，并按本机策略名称映射到 `Gpt`、`✉️ Telegram`、`📺 Netflix`、`🎬 YouTube`、`🍎 苹果服务` 等策略。现有 `[rewrite_local]`、`[rewrite_remote]` 和 `[mitm]` 不放入这个入口。
+列表已经把公开分类转换为圈 X 语法，并按本机策略名称映射到 `Gpt`、`💻 Ai`、`✉️ Telegram`、`📺 Netflix`、`🎬 YouTube`、`🍎 苹果服务` 等策略。现有 `[rewrite_local]`、`[rewrite_remote]` 和 `[mitm]` 不放入这个入口。
 
-聚合列表不是无分类的连续规则：文件中以 `CATEGORY` 注释段区分“本地覆盖、PT / PrivateTracker、广告、OpenAI / ChatGPT、Telegram、YouTube、Netflix、Apple、Google”。这些注释不会改变圈 X 的规则匹配顺序，但方便审查和定位某一类规则。Mihomo 文件中的 provider 和 `prepend-rules` 也使用同样的分类名称。
+聚合列表不是无分类的连续规则：文件中以 `CATEGORY` 注释段区分“本地覆盖、PT / PrivateTracker、广告、OpenAI / ChatGPT、Claude、Telegram、YouTube、Netflix、Apple、Google”。这些注释不会改变圈 X 的规则匹配顺序，但方便审查和定位某一类规则。Mihomo 文件中的 provider 和 `prepend-rules` 也使用同样的分类名称。
 
 ## 如何保留个人修改
 

@@ -1200,6 +1200,12 @@ HOST-SUFFIX,host.livekit.cloud,Gpt
 HOST-SUFFIX,turn.livekit.cloud,Gpt
 HOST-SUFFIX,openai.com.cdn.cloudflare.net,Gpt
 
+# ===== CATEGORY: Claude (nr-blackmatrix-claude) =====
+# RULES: 3
+HOST,cdn.usefathom.com,💻 Ai
+HOST-SUFFIX,anthropic.com,💻 Ai
+HOST-SUFFIX,claude.ai,💻 Ai
+
 # ===== CATEGORY: Telegram (nr-telegram) =====
 # RULES: 21
 HOST-SUFFIX,cdn-telegram.org,✉️ Telegram

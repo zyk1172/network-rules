@@ -28,6 +28,14 @@ rule-providers:
     url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/openai.mrs"
     path: "./rule-providers/network-rules/openai.mrs"
     interval: 86400
+  # ===== CATEGORY: Claude (nr-blackmatrix-claude) =====
+  nr-blackmatrix-claude:
+    type: http
+    behavior: "classical"
+    format: "yaml"
+    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Claude/Claude.yaml"
+    path: "./rule-providers/network-rules/claude.yaml"
+    interval: 86400
   # ===== CATEGORY: Telegram (nr-telegram) =====
   nr-telegram:
     type: http
@@ -88,6 +96,8 @@ prepend-rules:
   - "RULE-SET,nr-ads,REJECT"
   # ===== CATEGORY: OpenAI / ChatGPT (nr-openai) =====
   - "RULE-SET,nr-openai,ChatGPT"
+  # ===== CATEGORY: Claude (nr-blackmatrix-claude) =====
+  - "RULE-SET,nr-blackmatrix-claude,AI"
   # ===== CATEGORY: Telegram (nr-telegram) =====
   - "RULE-SET,nr-telegram,Telegram"
   # ===== CATEGORY: YouTube (nr-youtube) =====

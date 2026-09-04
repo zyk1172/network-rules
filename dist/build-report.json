@@ -2,18 +2,19 @@
   "generator": "scripts/build.py",
   "mihomo": {
     "local_rules": 11,
-    "prepend_rules": 19,
+    "prepend_rules": 20,
     "provider_ids": [
       "nr-private-tracker",
       "nr-ads",
       "nr-openai",
+      "nr-blackmatrix-claude",
       "nr-telegram",
       "nr-youtube",
       "nr-blackmatrix-netflix",
       "nr-apple",
       "nr-google"
     ],
-    "providers": 8
+    "providers": 9
   },
   "quantumult_x": {
     "categories": [
@@ -39,6 +40,12 @@
         "id": "nr-openai",
         "label": "OpenAI / ChatGPT",
         "rules": 19
+      },
+      {
+        "candidate_rules": 3,
+        "id": "nr-blackmatrix-claude",
+        "label": "Claude",
+        "rules": 3
       },
       {
         "candidate_rules": 21,
@@ -175,10 +182,11 @@
     ],
     "conflicts": 235,
     "local_rules": 11,
-    "rules": 5171,
+    "rules": 5174,
     "source_rules": {
       "nr-ads": 910,
       "nr-apple": 1785,
+      "nr-blackmatrix-claude": 3,
       "nr-blackmatrix-netflix": 1158,
       "nr-google": 845,
       "nr-openai": 19,
@@ -189,6 +197,7 @@
     "unsupported": {
       "nr-ads": 0,
       "nr-apple": 0,
+      "nr-blackmatrix-claude": 0,
       "nr-blackmatrix-netflix": 0,
       "nr-google": 0,
       "nr-openai": 0,
