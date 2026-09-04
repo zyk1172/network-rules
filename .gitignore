@@ -1,0 +1,10 @@
+.DS_Store
+
+# 本机应用导出的原始配置可能包含订阅 URL、节点和认证信息；只保留在本机，禁止进入 Git。
+sources/local/**
+sources/cache/**
+
+# 运行中的 Clash/Mihomo 配置与缓存快照同样不应进入版本库。
+**/runtime/
+**/*.bak
+**/__pycache__/**

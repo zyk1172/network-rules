@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "description": "同一规则意图在不同客户端中的策略名称映射。修改策略名称时只改这个文件。",
+  "mihomo": {
+    "private-tracker": "DIRECT",
+    "ads": "REJECT",
+    "openai": "ChatGPT",
+    "telegram": "Telegram",
+    "youtube": "流媒体",
+    "apple": "Apple",
+    "google": "Google",
+    "private": "DIRECT",
+    "cn": "国内直连"
+  },
+  "quantumult-x": {
+    "private-tracker": "direct",
+    "ads": "reject",
+    "openai": "Gpt",
+    "telegram": "✉️ Telegram",
+    "youtube": "🎬 YouTube",
+    "apple": "🍎 苹果服务",
+    "google": "Google",
+    "private": "direct",
+    "cn": "direct"
+  }
+}

@@ -1,0 +1,91 @@
+# NAME: network-rules Mihomo merge fragment
+# GENERATED-BY: network-rules-project/scripts/build.py
+# This is a Clash Verge Rev/Mihomo Merge fragment, not a standalone profile.
+# Local rules are prepended; proxy nodes, proxy-groups, DNS, rewrites and MitM stay in the base profile.
+
+rule-providers:
+  nr-private-tracker:
+    type: http
+    behavior: "classical"
+    format: "yaml"
+    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/PrivateTracker/PrivateTracker.yaml"
+    path: "./rule-providers/network-rules/private-tracker.yaml"
+    interval: 86400
+  nr-ads:
+    type: http
+    behavior: "domain"
+    format: "mrs"
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-ads-all.mrs"
+    path: "./rule-providers/network-rules/ads.mrs"
+    interval: 86400
+  nr-openai:
+    type: http
+    behavior: "domain"
+    format: "mrs"
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/openai.mrs"
+    path: "./rule-providers/network-rules/openai.mrs"
+    interval: 86400
+  nr-telegram:
+    type: http
+    behavior: "domain"
+    format: "mrs"
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/telegram.mrs"
+    path: "./rule-providers/network-rules/telegram.mrs"
+    interval: 86400
+  nr-youtube:
+    type: http
+    behavior: "domain"
+    format: "mrs"
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/youtube.mrs"
+    path: "./rule-providers/network-rules/youtube.mrs"
+    interval: 86400
+  nr-apple:
+    type: http
+    behavior: "domain"
+    format: "mrs"
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/apple.mrs"
+    path: "./rule-providers/network-rules/apple.mrs"
+    interval: 86400
+  nr-google:
+    type: http
+    behavior: "domain"
+    format: "mrs"
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.mrs"
+    path: "./rule-providers/network-rules/google.mrs"
+    interval: 86400
+  nr-private:
+    type: http
+    behavior: "domain"
+    format: "mrs"
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.mrs"
+    path: "./rule-providers/network-rules/private.mrs"
+    interval: 86400
+  nr-cn:
+    type: http
+    behavior: "domain"
+    format: "mrs"
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.mrs"
+    path: "./rule-providers/network-rules/cn.mrs"
+    interval: 86400
+
+prepend-rules:
+  - "DOMAIN-KEYWORD,m-team,DIRECT"
+  - "DOMAIN-KEYWORD,pttime,DIRECT"
+  - "DOMAIN-KEYWORD,ptcafe,DIRECT"
+  - "DOMAIN-KEYWORD,hdtime,DIRECT"
+  - "DOMAIN-KEYWORD,xingyungept,DIRECT"
+  - "DOMAIN-KEYWORD,ptzone,DIRECT"
+  - "DOMAIN-SUFFIX,pttime.org,DIRECT"
+  - "DOMAIN-SUFFIX,ptcafe.club,DIRECT"
+  - "DOMAIN-SUFFIX,hdtime.org,DIRECT"
+  - "DOMAIN-SUFFIX,xingyungept.com,DIRECT"
+  - "DOMAIN-SUFFIX,ptzone.club,DIRECT"
+  - "RULE-SET,nr-private-tracker,DIRECT"
+  - "RULE-SET,nr-ads,REJECT"
+  - "RULE-SET,nr-openai,ChatGPT"
+  - "RULE-SET,nr-telegram,Telegram"
+  - "RULE-SET,nr-youtube,流媒体"
+  - "RULE-SET,nr-apple,Apple"
+  - "RULE-SET,nr-google,Google"
+  - "RULE-SET,nr-private,DIRECT"
+  - "RULE-SET,nr-cn,国内直连"

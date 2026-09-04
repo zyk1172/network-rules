@@ -1,0 +1,47 @@
+name: Update upstream network rules
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 3 * * *"
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Build client artifacts
+        run: python3 scripts/build.py
+
+      - name: Validate artifacts
+        run: python3 scripts/validate.py
+
+      - name: Open update pull request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: automation/update-upstream-rules
+          delete-branch: true
+          commit-message: "chore(rules): refresh upstream rules"
+          title: "chore(rules): refresh upstream rules"
+          body: |
+            本 PR 由定时工作流生成。
+
+            - 刷新 sources/upstreams.json 登记的公开规则源
+            - 重建 Quantumult X 与 Mihomo 生成物
+            - 保留 overrides/rules.txt 和 sources/policies.json
+
+            请检查上游变更、规则冲突和许可证信息后再合并。
+          add-paths: |
+            dist/**
+            sources/upstreams.lock.json

@@ -1,0 +1,149 @@
+{
+  "generator": "scripts/build.py",
+  "mihomo": {
+    "local_rules": 11,
+    "prepend_rules": 20,
+    "provider_ids": [
+      "nr-private-tracker",
+      "nr-ads",
+      "nr-openai",
+      "nr-telegram",
+      "nr-youtube",
+      "nr-apple",
+      "nr-google",
+      "nr-private",
+      "nr-cn"
+    ],
+    "providers": 9
+  },
+  "quantumult_x": {
+    "conflict_examples": [
+      {
+        "kept": "HOST,browser-intake-datadoghq.com,reject",
+        "rule": "HOST,browser-intake-datadoghq.com,Gpt",
+        "source": "nr-openai"
+      },
+      {
+        "kept": "HOST,o33249.ingest.sentry.io,reject",
+        "rule": "HOST,o33249.ingest.sentry.io,Gpt",
+        "source": "nr-openai"
+      },
+      {
+        "kept": "HOST,openai.qualtrics.com,reject",
+        "rule": "HOST,openai.qualtrics.com,Gpt",
+        "source": "nr-openai"
+      },
+      {
+        "kept": "HOST-SUFFIX,ads.youtube.com,reject",
+        "rule": "HOST-SUFFIX,ads.youtube.com,🎬 YouTube",
+        "source": "nr-youtube"
+      },
+      {
+        "kept": "HOST-SUFFIX,advertising.apple.com,reject",
+        "rule": "HOST-SUFFIX,advertising.apple.com,🍎 苹果服务",
+        "source": "nr-apple"
+      },
+      {
+        "kept": "HOST-SUFFIX,api-adservices.apple.com,reject",
+        "rule": "HOST-SUFFIX,api-adservices.apple.com,🍎 苹果服务",
+        "source": "nr-apple"
+      },
+      {
+        "kept": "HOST-SUFFIX,iadsdk.apple.com,reject",
+        "rule": "HOST-SUFFIX,iadsdk.apple.com,🍎 苹果服务",
+        "source": "nr-apple"
+      },
+      {
+        "kept": "HOST-SUFFIX,iad.apple.com,reject",
+        "rule": "HOST-SUFFIX,iad.apple.com,🍎 苹果服务",
+        "source": "nr-apple"
+      },
+      {
+        "kept": "HOST-SUFFIX,qwapi.com,reject",
+        "rule": "HOST-SUFFIX,qwapi.com,🍎 苹果服务",
+        "source": "nr-apple"
+      },
+      {
+        "kept": "HOST,yt3.googleusercontent.com,🎬 YouTube",
+        "rule": "HOST,yt3.googleusercontent.com,Google",
+        "source": "nr-google"
+      },
+      {
+        "kept": "HOST-SUFFIX,youtube,🎬 YouTube",
+        "rule": "HOST-SUFFIX,youtube,Google",
+        "source": "nr-google"
+      },
+      {
+        "kept": "HOST-SUFFIX,youtube.dk,🎬 YouTube",
+        "rule": "HOST-SUFFIX,youtube.dk,Google",
+        "source": "nr-google"
+      },
+      {
+        "kept": "HOST-SUFFIX,youtube.de,🎬 YouTube",
+        "rule": "HOST-SUFFIX,youtube.de,Google",
+        "source": "nr-google"
+      },
+      {
+        "kept": "HOST-SUFFIX,youtube.cz,🎬 YouTube",
+        "rule": "HOST-SUFFIX,youtube.cz,Google",
+        "source": "nr-google"
+      },
+      {
+        "kept": "HOST-SUFFIX,youtube.cr,🎬 YouTube",
+        "rule": "HOST-SUFFIX,youtube.cr,Google",
+        "source": "nr-google"
+      },
+      {
+        "kept": "HOST-SUFFIX,youtube.es,🎬 YouTube",
+        "rule": "HOST-SUFFIX,youtube.es,Google",
+        "source": "nr-google"
+      },
+      {
+        "kept": "HOST-SUFFIX,youtube.fi,🎬 YouTube",
+        "rule": "HOST-SUFFIX,youtube.fi,Google",
+        "source": "nr-google"
+      },
+      {
+        "kept": "HOST-SUFFIX,youtube.fr,🎬 YouTube",
+        "rule": "HOST-SUFFIX,youtube.fr,Google",
+        "source": "nr-google"
+      },
+      {
+        "kept": "HOST-SUFFIX,youtube.ge,🎬 YouTube",
+        "rule": "HOST-SUFFIX,youtube.ge,Google",
+        "source": "nr-google"
+      },
+      {
+        "kept": "HOST-SUFFIX,youtube.gr,🎬 YouTube",
+        "rule": "HOST-SUFFIX,youtube.gr,Google",
+        "source": "nr-google"
+      }
+    ],
+    "conflicts": 249,
+    "local_rules": 11,
+    "rules": 115081,
+    "source_rules": {
+      "nr-ads": 910,
+      "nr-apple": 1785,
+      "nr-cn": 110938,
+      "nr-google": 845,
+      "nr-openai": 19,
+      "nr-private": 130,
+      "nr-private-tracker": 245,
+      "nr-telegram": 21,
+      "nr-youtube": 177
+    },
+    "unsupported": {
+      "nr-ads": 0,
+      "nr-apple": 0,
+      "nr-cn": 0,
+      "nr-google": 0,
+      "nr-openai": 0,
+      "nr-private": 0,
+      "nr-private-tracker": 0,
+      "nr-telegram": 0,
+      "nr-youtube": 0
+    }
+  },
+  "schema_version": 1
+}

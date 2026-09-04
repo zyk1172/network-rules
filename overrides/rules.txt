@@ -1,0 +1,20 @@
+# 网络规则项目的本地优先层
+#
+# 格式使用 Mihomo 规则的前三段：TYPE,condition,policy-key。
+# policy-key 必须是 sources/policies.json 中对应客户端都有的键，生成时会转换成各客户端的策略名。
+# 这些规则会排在上游规则之前；上游更新不会覆盖本文件。
+#
+# PT 规则只按域名/关键词维护，不绑定固定 DST-PORT。qBittorrent 更换监听端口属于正常操作，
+# 不应把某个旧端口写进自动更新的公共规则层。
+
+DOMAIN-KEYWORD,m-team,private-tracker
+DOMAIN-KEYWORD,pttime,private-tracker
+DOMAIN-KEYWORD,ptcafe,private-tracker
+DOMAIN-KEYWORD,hdtime,private-tracker
+DOMAIN-KEYWORD,xingyungept,private-tracker
+DOMAIN-KEYWORD,ptzone,private-tracker
+DOMAIN-SUFFIX,pttime.org,private-tracker
+DOMAIN-SUFFIX,ptcafe.club,private-tracker
+DOMAIN-SUFFIX,hdtime.org,private-tracker
+DOMAIN-SUFFIX,xingyungept.com,private-tracker
+DOMAIN-SUFFIX,ptzone.club,private-tracker
