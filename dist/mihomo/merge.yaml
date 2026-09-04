@@ -53,20 +53,6 @@ rule-providers:
     url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.mrs"
     path: "./rule-providers/network-rules/google.mrs"
     interval: 86400
-  nr-private:
-    type: http
-    behavior: "domain"
-    format: "mrs"
-    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.mrs"
-    path: "./rule-providers/network-rules/private.mrs"
-    interval: 86400
-  nr-cn:
-    type: http
-    behavior: "domain"
-    format: "mrs"
-    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.mrs"
-    path: "./rule-providers/network-rules/cn.mrs"
-    interval: 86400
 
 prepend-rules:
   - "DOMAIN-KEYWORD,m-team,DIRECT"
@@ -87,5 +73,3 @@ prepend-rules:
   - "RULE-SET,nr-youtube,流媒体"
   - "RULE-SET,nr-apple,Apple"
   - "RULE-SET,nr-google,Google"
-  - "RULE-SET,nr-private,DIRECT"
-  - "RULE-SET,nr-cn,国内直连"

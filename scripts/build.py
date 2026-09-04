@@ -48,6 +48,9 @@ QX_TYPE_MAP = {
 
 FINAL_TYPES = {"MATCH", "FINAL"}
 
+# Common rule types remain available for pass-through local overrides, but no
+# common GEOIP/CN/LAN category is emitted by the public upstream aggregation.
+
 
 class BuildError(RuntimeError):
     """Raised for an invalid source or an unbuildable artifact."""
@@ -367,7 +370,7 @@ def build_quantumult_x(
     header = [
         "# NAME: network-rules aggregate",
         "# GENERATED-BY: network-rules-project/scripts/build.py",
-        "# ORDER: local overlay -> PT -> ads -> service categories -> private -> China",
+        "# ORDER: local overlay -> PT -> ads -> service categories",
         "# This is a Quantumult X filter list. It does not contain nodes, rewrites or MitM settings.",
     ]
     for source_id in source_sections:

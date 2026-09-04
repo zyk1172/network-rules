@@ -2,7 +2,7 @@
   "generator": "scripts/build.py",
   "mihomo": {
     "local_rules": 11,
-    "prepend_rules": 20,
+    "prepend_rules": 18,
     "provider_ids": [
       "nr-private-tracker",
       "nr-ads",
@@ -10,11 +10,9 @@
       "nr-telegram",
       "nr-youtube",
       "nr-apple",
-      "nr-google",
-      "nr-private",
-      "nr-cn"
+      "nr-google"
     ],
-    "providers": 9
+    "providers": 7
   },
   "quantumult_x": {
     "conflict_examples": [
@@ -119,16 +117,14 @@
         "source": "nr-google"
       }
     ],
-    "conflicts": 249,
+    "conflicts": 235,
     "local_rules": 11,
-    "rules": 115081,
+    "rules": 4013,
     "source_rules": {
       "nr-ads": 910,
       "nr-apple": 1785,
-      "nr-cn": 110938,
       "nr-google": 845,
       "nr-openai": 19,
-      "nr-private": 130,
       "nr-private-tracker": 245,
       "nr-telegram": 21,
       "nr-youtube": 177
@@ -136,10 +132,8 @@
     "unsupported": {
       "nr-ads": 0,
       "nr-apple": 0,
-      "nr-cn": 0,
       "nr-google": 0,
       "nr-openai": 0,
-      "nr-private": 0,
       "nr-private-tracker": 0,
       "nr-telegram": 0,
       "nr-youtube": 0

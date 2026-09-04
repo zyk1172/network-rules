@@ -8,9 +8,7 @@
     "telegram": "Telegram",
     "youtube": "流媒体",
     "apple": "Apple",
-    "google": "Google",
-    "private": "DIRECT",
-    "cn": "国内直连"
+    "google": "Google"
   },
   "quantumult-x": {
     "private-tracker": "direct",
@@ -19,8 +17,6 @@
     "telegram": "✉️ Telegram",
     "youtube": "🎬 YouTube",
     "apple": "🍎 苹果服务",
-    "google": "Google",
-    "private": "direct",
-    "cn": "direct"
+    "google": "Google"
   }
 }

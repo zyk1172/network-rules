@@ -35,7 +35,9 @@ https://raw.githubusercontent.com/OWNER/REPOSITORY/main/dist/quantumult-x/aggreg
 1. 在 `overrides/rules.txt` 增加或删除本地优先规则，格式为 `TYPE,condition,policy-key`。
 2. 在 `sources/policies.json` 调整每个客户端的策略名称。
 
-构建器不会写回这两个文件。生成顺序是“本地覆盖 → PT → 广告 → 服务分类 → private → cn”；同一条件重复出现时保留先出现的规则，并在 `dist/build-report.json` 中记录冲突数量。
+构建器不会写回这两个文件。生成顺序是“本地覆盖 → PT → 广告 → 服务分类”；同一条件重复出现时保留先出现的规则，并在 `dist/build-report.json` 中记录冲突数量。
+
+`GEOIP`、`GEOIP,CN`、`GEOSITE,cn`、局域网/私有地址、中国大陆兜底、`MATCH` 和固定端口等基础规则，不放入这个公共聚合入口。它们继续留在各客户端自己的基础配置中（按客户端使用各自语法）；本项目只维护需要外部更新或需要跨客户端转换的分类。
 
 PT 规则只维护域名和关键词，不固定 qBittorrent 的监听端口。qB 变更端口是正常行为，不应因为端口变化去改公共规则源。
 

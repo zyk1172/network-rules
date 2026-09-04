@@ -141,46 +141,6 @@
         "path": "./rule-providers/network-rules/google.mrs",
         "policy_key": "google"
       }
-    },
-    {
-      "id": "nr-private",
-      "name": "private",
-      "provider": "MetaCubeX/meta-rules-dat",
-      "homepage": "https://github.com/MetaCubeX/meta-rules-dat",
-      "license": "GPL-3.0",
-      "description": "局域网和私有保留域名分类。",
-      "quantumult_x": {
-        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.yaml",
-        "format": "meta-domain-yaml",
-        "policy_key": "private"
-      },
-      "mihomo": {
-        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.mrs",
-        "format": "mrs",
-        "behavior": "domain",
-        "path": "./rule-providers/network-rules/private.mrs",
-        "policy_key": "private"
-      }
-    },
-    {
-      "id": "nr-cn",
-      "name": "cn",
-      "provider": "MetaCubeX/meta-rules-dat",
-      "homepage": "https://github.com/MetaCubeX/meta-rules-dat",
-      "license": "GPL-3.0",
-      "description": "中国大陆域名分类；作为最后的通用直连分类，避免与 ChinaMax 再叠加。",
-      "quantumult_x": {
-        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.yaml",
-        "format": "meta-domain-yaml",
-        "policy_key": "cn"
-      },
-      "mihomo": {
-        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.mrs",
-        "format": "mrs",
-        "behavior": "domain",
-        "path": "./rule-providers/network-rules/cn.mrs",
-        "policy_key": "cn"
-      }
     }
   ]
 }
