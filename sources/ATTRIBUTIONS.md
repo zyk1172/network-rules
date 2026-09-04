@@ -1,19 +1,33 @@
 # 上游来源与许可证
 
-本项目的 `dist/` 生成物会使用下列公开规则源。项目只登记来源、格式和策略映射，不把本机节点订阅、Token、密码或运行时配置纳入公共仓库。
+本项目的原创构建器、canonical model、patch engine、验证器、测试和文档代码使用根目录的 [MIT License](../LICENSE)。这不改变第三方规则数据的权利和义务：`sources/cache/` 中的上游输入，以及从这些输入转换生成的 `dist/` 规则数据，遵循对应上游的许可证、NOTICE 和 attribution 要求。
 
-| 生成物中的分类 | 上游项目 | 上游路径 | 许可证 | 处理方式 |
+## 当前登记来源
+
+| canonical category | 上游项目与链接 | 使用的组件 | 许可证 | 说明 |
 | --- | --- | --- | --- | --- |
-| PT / PrivateTracker | [blackmatrix7/ios_rule_script](https://github.com/blackmatrix7/ios_rule_script) | `rule/QuantumultX/PrivateTracker/PrivateTracker.list`、`rule/Clash/PrivateTracker/PrivateTracker.yaml` | GPL-2.0 | 保留为专门的 PT 源，并在通用广告/地区源之前命中 |
-| Netflix | [blackmatrix7/ios_rule_script](https://github.com/blackmatrix7/ios_rule_script) | `rule/QuantumultX/Netflix/Netflix.list`、`rule/Clash/Netflix/Netflix.yaml` | GPL-2.0 | 使用客户端原生格式补足 Netflix 专用分类，目标映射到现有 Netflix/流媒体策略 |
-| 广告 | [MetaCubeX/meta-rules-dat](https://github.com/MetaCubeX/meta-rules-dat) | `geo/geosite/category-ads-all.{yaml,mrs}` | GPL-3.0 | 通过 Mihomo MRS provider 或转换为 QX 域名规则 |
-| ChatGPT、Telegram、YouTube、Apple、Google | [MetaCubeX/meta-rules-dat](https://github.com/MetaCubeX/meta-rules-dat) | `geo/geosite/<category>.{yaml,mrs}` | GPL-3.0 | 以一个分类一个 provider 的方式接入，避免把同类大列表重复叠加 |
-| Claude | [blackmatrix7/ios_rule_script](https://github.com/blackmatrix7/ios_rule_script) | `rule/QuantumultX/Claude/Claude.list`、`rule/Clash/Claude/Claude.yaml` | GPL-2.0 | 与 OpenAI/ChatGPT 分开维护，映射到本机 AI 策略组 |
-| Gemini | [blackmatrix7/ios_rule_script](https://github.com/blackmatrix7/ios_rule_script) | `rule/QuantumultX/Gemini/Gemini.list`、`rule/Clash/Gemini/Gemini.yaml` | GPL-2.0 | 与 ChatGPT、Claude 分开维护，映射到本机 Gemini 策略组 |
-| 国外网站 | [blackmatrix7/ios_rule_script](https://github.com/blackmatrix7/ios_rule_script) | `rule/QuantumultX/Global/Global.list`、`rule/Clash/Global/Global.yaml` | GPL-2.0 | 作为最后的泛分类，仅接收前面专用规则未覆盖的条目，映射到本机国外网站策略 |
+| `private-tracker` | [blackmatrix7/ios_rule_script](https://github.com/blackmatrix7/ios_rule_script) | `rule/QuantumultX/PrivateTracker/PrivateTracker.list`；`rule/Clash/PrivateTracker/PrivateTracker.yaml` | GPL-2.0 | PT 专用分类；个人 PT 规则在其前面；不绑定 qBittorrent 固定端口 |
+| `ads` | [MetaCubeX/meta-rules-dat](https://github.com/MetaCubeX/meta-rules-dat) | `geo/geosite/category-ads-all.yaml`；对应 `category-ads-all.mrs` 作为锁定审计组件 | GPL-3.0 | 广告优先于服务分类；Mihomo 使用本项目生成 provider |
+| `chatgpt` | [MetaCubeX/meta-rules-dat](https://github.com/MetaCubeX/meta-rules-dat) | `geo/geosite/openai.yaml`；对应 `openai.mrs` 作为锁定审计组件 | GPL-3.0 | canonical ID 使用 `chatgpt`，不再使用 `openai` 作为内部分类 |
+| `claude` | [blackmatrix7/ios_rule_script](https://github.com/blackmatrix7/ios_rule_script) | `rule/QuantumultX/Claude/Claude.list`；`rule/Clash/Claude/Claude.yaml` | GPL-2.0 | Claude/Anthropic 专用分类 |
+| `gemini` | [blackmatrix7/ios_rule_script](https://github.com/blackmatrix7/ios_rule_script) | `rule/QuantumultX/Gemini/Gemini.list`；`rule/Clash/Gemini/Gemini.yaml` | GPL-2.0 | Gemini 专用分类；通过 patch 优先于 Google 通用分类 |
+| `telegram` | [MetaCubeX/meta-rules-dat](https://github.com/MetaCubeX/meta-rules-dat) | `geo/geosite/telegram.yaml`；对应 `telegram.mrs` 作为锁定审计组件 | GPL-3.0 | Telegram 分类 |
+| `youtube` | [MetaCubeX/meta-rules-dat](https://github.com/MetaCubeX/meta-rules-dat) | `geo/geosite/youtube.yaml`；对应 `youtube.mrs` 作为锁定审计组件 | GPL-3.0 | YouTube 优先于 Google 通用分类 |
+| `netflix` | [blackmatrix7/ios_rule_script](https://github.com/blackmatrix7/ios_rule_script) | `rule/QuantumultX/Netflix/Netflix.list`；`rule/Clash/Netflix/Netflix_Classical.yaml` | GPL-2.0 | 使用上游 README 建议可单独使用的 Classical 组件 |
+| `apple` | [MetaCubeX/meta-rules-dat](https://github.com/MetaCubeX/meta-rules-dat) | `geo/geosite/apple.yaml`；对应 `apple.mrs` 作为锁定审计组件 | GPL-3.0 | Apple 专用分类 |
+| `google` | [MetaCubeX/meta-rules-dat](https://github.com/MetaCubeX/meta-rules-dat) | `geo/geosite/google.yaml`；对应 `google.mrs` 作为锁定审计组件 | GPL-3.0 | Google 通用分类，放在专用服务之后 |
+| `global`（默认 disabled） | [blackmatrix7/ios_rule_script](https://github.com/blackmatrix7/ios_rule_script) | `rule/QuantumultX/Global/Global.list`；`rule/Clash/Global/Global_Classical.yaml` | GPL-2.0 | 已审计但默认不生成；避免 35k 泛规则与基础 FINAL/MATCH 重复，不做 10k 任意截断 |
 
-blackmatrix7 的 PT 规则 README 还列出了 ACL4SSR PrivateTracker 与 trackerslist 等数据来源；本项目不再把这些已被上游收录的列表重复接入。该项目的 `rule/` 是按客户端和分类拆分的目录，不能把目录本身当作单一规则文件；当前按白名单接入 PT、ChatGPT、Claude、Gemini、Netflix 和国外网站，国外网站泛分类放在所有专用分类之后，后续分类仍需逐项评估。`ACL4SSR/ACL4SSR` 和 `loyalsoldier/v2ray-rules-dat` 暂作为参考源，不进入默认生成链，以免许可证和分类重复增加维护成本。
+上游文件和最终构建时使用的 SHA-256 见 [`upstreams.lock.json`](upstreams.lock.json)。组件结构和 BlackMatrix7 README 配置建议的审查结论见 [`component-audit.md`](component-audit.md)。
 
-`GEOIP`、`GEOIP,CN`、`GEOSITE,cn`、局域网/私有地址、中国大陆兜底和 `MATCH` 等基础能力由各客户端自己的配置承担，因此不作为本项目的上游生成物。
+## 衍生生成物边界
 
-公开发布本仓库或生成物前，请按各上游仓库当前的 LICENSE、NOTICE 和来源说明复核再分发要求；本文件不是法律意见。
+`dist/quantumult-x/aggregate.list` 和 `dist/mihomo/providers/*.yaml` 是从上述第三方规则输入经过规范化、去重、patch 和客户端语法转换得到的衍生数据，不应被根目录 MIT License 单独解释为 MIT。`dist/mihomo/merge.yaml` 主要是本项目的配置编译代码生成的入口片段，但其中的规则 provider 指向仍承载上游数据许可义务。
+
+不要擅自修改或替换第三方许可证文本。公开分发、重新打包或新增上游时，请重新检查上游仓库当前的 LICENSE、README、NOTICE 和 attribution 要求；本文件不是法律意见。
+
+## 未纳入默认链的来源
+
+BlackMatrix7 的 README 可能进一步引用 ACL4SSR、trackerslist 等数据源；本项目不重复接入已经被当前上游收录的列表。`ACL4SSR/ACL4SSR`、`loyalsoldier/v2ray-rules-dat` 等仅作为候选参考，不进入默认生成链，以免在未完成许可证和分类重叠审查前扩大衍生数据范围。
+
+`GEOIP`、`GEOIP,CN`、`GEOSITE,cn`、LAN/private、中国大陆兜底以及 `MATCH/FINAL` 属于客户端基础配置能力，不是本项目登记的第三方规则生成物。

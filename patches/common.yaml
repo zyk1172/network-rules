@@ -1,0 +1,29 @@
+version: 1
+patches:
+  - id: gemini-google-overlap
+    action: priority
+    match:
+      type: domain
+      value: ai.google.dev
+    prefer: gemini
+    over:
+      - google
+      - global
+    reason: Gemini 专用端点必须优先于 Google 通用分类。
+    added: 2026-09-05
+    auto_drop_when_fixed: true
+    required: true
+
+  - id: youtube-google-overlap
+    action: priority
+    match:
+      type: domain-suffix
+      value: youtube.com
+    prefer: youtube
+    over:
+      - google
+      - global
+    reason: YouTube 服务域名必须优先于 Google 通用分类。
+    added: 2026-09-05
+    auto_drop_when_fixed: true
+    required: true

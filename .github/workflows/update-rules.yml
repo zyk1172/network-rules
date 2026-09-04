@@ -21,11 +21,23 @@ jobs:
         with:
           python-version: "3.x"
 
+      - name: Install build dependencies
+        run: python3 -m pip install --disable-pip-version-check --no-input -r requirements.txt
+
+      - name: Compile Python modules
+        run: python3 -m py_compile scripts/*.py
+
       - name: Build client artifacts
         run: python3 scripts/build.py
 
       - name: Validate artifacts
         run: python3 scripts/validate.py
+
+      - name: Run semantic routing tests
+        run: python3 -m unittest discover -s tests -v
+
+      - name: Prepare update summary
+        run: python3 scripts/update_summary.py > update-summary.md
 
       - name: Open update pull request
         uses: peter-evans/create-pull-request@v7
@@ -34,14 +46,7 @@ jobs:
           delete-branch: true
           commit-message: "chore(rules): refresh upstream rules"
           title: "chore(rules): refresh upstream rules"
-          body: |
-            本 PR 由定时工作流生成。
-
-            - 刷新 sources/upstreams.json 登记的公开规则源
-            - 重建 Quantumult X 与 Mihomo 生成物
-            - 保留 overrides/rules.txt 和 sources/policies.json
-
-            请检查上游变更、规则冲突和许可证信息后再合并。
+          body-path: update-summary.md
           add-paths: |
             dist/**
             sources/upstreams.lock.json

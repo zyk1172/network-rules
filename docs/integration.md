@@ -1,86 +1,113 @@
-# 单入口接入方式
+# 客户端接入与维护
 
-本项目的“单入口”是每个客户端各自一个入口，不是把圈 X、Clash 和小火箭强行使用同一种语法：
+本项目对外提供每个客户端一个入口，对内通过 canonical rule model 统一规则意图。入口只包含规则和策略映射，不包含节点、订阅、DNS、TUN、rewrite 或 MitM 配置。
 
-- Clash Verge / Mihomo：使用 `dist/mihomo/merge.yaml` 作为一个 Merge 配置片段。
-- Quantumult X：使用 `dist/quantumult-x/aggregate.list` 作为一个远程分流列表。
-- Shadowrocket：暂不自动生成，等确认小火箭现有策略组名称后再接入，避免把 `proxy` 误映射成错误的策略。
+## Clash Verge Rev / Mihomo
 
-## Clash Verge / Mihomo
-
-`dist/mihomo/merge.yaml` 不是独立订阅，也不包含节点。它只声明公开 `rule-providers`，并通过 `prepend-rules` 把本地覆盖和这些规则集放到当前订阅规则链的前面；节点、策略组、DNS、TUN、重写和 MitM 继续由现有配置负责。
-
-发布仓库后，在 Clash Verge Rev 中添加一个远程 Merge 配置，填入：
+使用 `dist/mihomo/merge.yaml` 作为一个远程 Merge 配置片段：
 
 ```text
-https://raw.githubusercontent.com/OWNER/REPOSITORY/main/dist/mihomo/merge.yaml
+https://raw.githubusercontent.com/zyk1172/network-rules/main/dist/mihomo/merge.yaml
 ```
 
-本项目当前的 GitHub 仓库是 `zyk1172/network-rules`，推送分支是 `codex/bootstrap-network-rules`；在该分支审查完成前，临时地址为：
+它不是独立订阅，不含节点。Merge 文件中的 `rule-providers` URL 全部指向本仓库自己生成并审核后的：
 
 ```text
-https://raw.githubusercontent.com/zyk1172/network-rules/codex/bootstrap-network-rules/dist/mihomo/merge.yaml
+dist/mihomo/providers/<category>.yaml
 ```
 
-仓库现为公开 MIT 项目，圈 X、Clash Verge 等客户端可以直接匿名读取这些 raw 地址。
+因此 Mihomo 不会绕过本项目直接拉取 BlackMatrix7 或 MetaCubeX 的原始 provider。每个 provider 都由 canonical 规则生成，采用 Mihomo `classical` YAML 格式；策略名称只出现在 `merge.yaml` 的 `RULE-SET` 中，规则数据本身不绑定 Mihomo 策略。
 
-如果你的订阅策略组名称不是当前本机配置里的 `ChatGPT`、`AI`、`Gemini`、`Telegram`、`流媒体`、`Apple`、`Google`、`国外网站`、`国内直连`，先编辑 `sources/policies.json` 后再构建。规则分类只保留 `ChatGPT`、`Claude`、`Gemini` 三个 AI 服务；其中 `AI` 是当前基础配置中的策略组目标，不是生成物分类。这个映射只影响规则的目标策略，不会修改节点订阅。
+节点、proxy-groups、DNS、TUN、rewrite 和 MitM 继续使用现有基础配置。合并顺序由 `prepend-rules` 控制：个人覆盖在前，然后按 category priority 引用本项目 providers。qBittorrent 改监听端口不需要改这套公共域名/IP 规则。
+
+当前默认分类顺序为：
+
+```text
+personal override → private-tracker → ads → chatgpt → claude → gemini
+→ telegram → youtube → netflix → apple → google → FINAL/MATCH
+```
+
+其中 `FINAL/MATCH` 仍由用户基础配置决定；本项目默认关闭 `global` 泛分类。
+
+如果本机策略组名称不同，只修改 [`sources/policies.json`](../sources/policies.json) 后重新构建。例如：
+
+```json
+{
+  "mihomo": {
+    "chatgpt": "ChatGPT",
+    "claude": "AI",
+    "gemini": "Gemini"
+  }
+}
+```
+
+当前 AI 规则分类只保留 `chatgpt`、`claude`、`gemini` 三个服务；`AI` 若存在，只是基础配置中的策略组名，不是 canonical category。
 
 ## Quantumult X
 
-把 `dist/quantumult-x/entry.example.conf` 中的示例行加入 `[filter_remote]`，并将其中的仓库占位符换成你的 GitHub 路径。它最终只需要一个远程列表入口：
+把 `dist/quantumult-x/entry.example.conf` 中的行加入 Quantumult X 的 `[filter_remote]`，正式发布地址为：
 
 ```text
-https://raw.githubusercontent.com/OWNER/REPOSITORY/main/dist/quantumult-x/aggregate.list, tag=网络规则聚合, update-interval=86400, opt-parser=false, enabled=true
+https://raw.githubusercontent.com/zyk1172/network-rules/main/dist/quantumult-x/aggregate.list, tag=网络规则聚合, update-interval=86400, opt-parser=false, enabled=true
 ```
 
-当前分支的临时入口为：
+列表由同一份 canonical rule set 生成，再把稳定 category ID 转换为 QX `HOST`、`HOST-SUFFIX`、`IP-CIDR` 等语法，并映射到 QX 策略名称。现有 `[rewrite_local]`、`[rewrite_remote]` 和 `[mitm]` 不放入这个远程列表。
 
-```text
-https://raw.githubusercontent.com/zyk1172/network-rules/codex/bootstrap-network-rules/dist/quantumult-x/aggregate.list, tag=网络规则聚合, update-interval=86400, opt-parser=false, enabled=true
-```
+canonical vocabulary 可以比单个客户端更宽。比如当前 Mihomo core 没有 `USER-AGENT` 规则适配器，因此 Netflix 的 `Argo*` User-Agent 规则会保留在 QX 产物，并在 Mihomo 的 `unsupported_rules` 报告中明确记录，不会伪装成可用的 Mihomo 规则；Mihomo 支持的 `DOMAIN-WILDCARD`、`PROCESS-NAME` 等类型仍会生成。
 
-列表已经把公开分类转换为圈 X 语法，并按本机策略名称映射到 `Gpt`、`💻 Ai`、`Gemini`、`✉️ Telegram`、`📺 Netflix`、`🎬 YouTube`、`🍎 苹果服务`、`🌏 国外网站` 等策略。现有 `[rewrite_local]`、`[rewrite_remote]` 和 `[mitm]` 不放入这个入口。
+## 分类、策略与个人规则
 
-### 规则规模
+`sources/upstreams.json` 中的 `id` 是稳定 canonical category，例如 `netflix`，不是客户端显示名。`sources/policies.json` 才负责将其映射为 QX 的 `📺 Netflix` 或 Mihomo 的 `流媒体`。这样同一规则事实不会因为客户端策略组名称不同而被复制成两套来源。
 
-为兼顾 iOS 端加载速度，`国外网站`泛分类在 Quantumult X 生成物中默认最多输出 10,000 条；专用分类和本地覆盖不受此限制。构建器仍会完整拉取并锁定上游文件，`dist/build-report.json` 会记录候选数量、实际输出数量和截断数量，因此上游更新不会被静默覆盖。
+个人规则和上游修补分开：
 
-截断时优先保留非 `HOST-SUFFIX` 规则（例如精确域名、关键词、IP-CIDR 和 User-Agent），再按上游顺序补足 `HOST-SUFFIX`；最后仍按上游原顺序输出，不进行基于个人访问记录的“热门网站”推断。由于跨分类重复规则会优先保留前面的专用分类，实际输出可能略低于上限。
+- [`overrides/rules.txt`](../overrides/rules.txt)：个人优先规则，保留本地习惯；不随上游更新覆盖。
+- [`patches/`](../patches/)：上游缺失、错误分类、错误类型和跨分类优先级修复；每条 patch 需要 reason，并在报告中追踪是否仍然匹配。
 
-当前缓存基线下，圈 X 聚合列表实际为 14,060 条：专用分类 5,184 条，国外网站 8,876 条；上限场景最多约 15,184 条。若需要完整泛分类，可在 `sources/upstreams.json` 中调整或移除 `quantumult_x.max_rules`，但 iOS 端的配置加载和更新会更重。
+不要直接编辑 `dist/`。如果上游已经自行修复，构建器会将 patch 标记为 `obsolete_candidate`；关键 patch 的失效会让验证失败，人工确认后再删除或更新 patch。
 
-Clash Verge / Mihomo 不使用这个圈 X 上限，而是继续通过远程 `rule-providers` 加载完整分类；这是针对 macOS 与 iOS 不同运行环境的独立处理。纯域名或 IP 规则可以使用 Mihomo 的 `mrs` 格式，包含关键词、User-Agent 或进程规则的混合源仍保持 `classical` 格式。
+## Global 与规则规模
 
-聚合列表不是无分类的连续规则：文件中以 `CATEGORY` 注释段区分“本地覆盖、PT / PrivateTracker、广告、ChatGPT、Claude、Gemini、Telegram、YouTube、Netflix、Apple、Google、国外网站”。国外网站是泛分类，放在专用服务分类之后，只承接前面没有匹配到的条目。这些注释不会改变圈 X 的规则匹配顺序，但方便审查和定位某一类规则。Mihomo 文件中的 provider 和 `prepend-rules` 也使用同样的分类名称。
+默认不发布约 35k 条 `global` 泛规则，也不再按上游顺序任意截断到 10,000 条。当前基础配置已经负责中国大陆、局域网、private、`GEOIP CN` 和最终国外网站策略，未知流量由 `FINAL/MATCH` 处理。
 
-## 如何保留个人修改
+这不是遗漏，而是明确的架构取舍：专用分类负责可解释的路由，基础配置负责兜底。若以后确实需要“国外网站名单”，应选择更窄的来源，设计稳定的过滤/分类标准并单独评估性能，不能把列表前 N 条当作长期重要度排序。
 
-只改这两个地方：
+## 上游组件选择
 
-1. 在 `overrides/rules.txt` 增加或删除本地优先规则，格式为 `TYPE,condition,policy-key`。
-2. 在 `sources/policies.json` 调整每个客户端的策略名称。
+一个 category/client 可以声明多个组件。BlackMatrix7 的组件不能只看同名 `.yaml`：
 
-构建器不会写回这两个文件。生成顺序是“本地覆盖 → PT → 广告 → 专用服务分类 → 国外网站泛分类”；同一条件重复出现时保留先出现的规则，并在 `dist/build-report.json` 中记录冲突数量。
+- Global 使用上游 README 建议可单独使用的 `Global_Classical.yaml`（但默认禁用）。
+- Netflix 使用可单独使用的 `Netflix_Classical.yaml`。
+- Claude、Gemini、PrivateTracker 使用各自的完整 classical YAML。
+- MetaCubeX 的域名 YAML 作为 canonical 域名输入；其 MRS 组件会锁定并审计，但二进制 MRS 不直接作为本项目 canonical parser 的事实来源，生成的 Mihomo provider 仍来自已解析的 canonical model。
 
-`GEOIP`、`GEOIP,CN`、`GEOSITE,cn`、局域网/私有地址、中国大陆兜底、`MATCH` 和固定端口等基础规则，不放入这个公共聚合入口。它们继续留在各客户端自己的基础配置中（按客户端使用各自语法）；本项目只维护需要外部更新或需要跨客户端转换的分类。
+具体 URL、格式、`behavior`、完整性标记和许可证登记在 [`sources/upstreams.json`](../sources/upstreams.json)；组件 hash 在 [`sources/upstreams.lock.json`](../sources/upstreams.lock.json)。
 
-PT 规则只维护域名和关键词，不固定 qBittorrent 的监听端口。qB 变更端口是正常行为，不应因为端口变化去改公共规则源。
-
-## 本地构建和自动更新
-
-在项目根目录执行：
+## 构建、验证和语义测试
 
 ```bash
+python3 -m pip install -r requirements.txt
 python3 scripts/build.py
 python3 scripts/validate.py
+python3 -m py_compile scripts/*.py
+python3 -m unittest discover -s tests -v
 ```
 
-网络不可用但之前已有缓存时，可以显式使用：
+离线只应在已有缓存时显式使用：
 
 ```bash
 python3 scripts/build.py --offline
 python3 scripts/validate.py
 ```
 
-`.github/workflows/update-rules.yml` 每天拉取上游并重建生成物；有变化时创建更新分支和 Pull Request。工作流不会直接覆盖 `main`，也不会修改 `sources/local/`。
+`tests/routing-cases.json` 会验证 ChatGPT、Claude、Gemini、YouTube、Netflix、PT、广告以及 Gemini/Google、YouTube/Google 冲突。测试只评估规则匹配，不测试真实节点可用性；真实客户端加载和运行时效果仍需在 Clash Verge / Quantumult X 中单独验收。
+
+## 自动更新
+
+GitHub Actions 每日执行：
+
+```text
+FETCH → build → validate → semantic tests → create/update PR
+```
+
+更新 PR 会附带 `scripts/update_summary.py` 根据 `dist/build-report.json` 生成的摘要，显示上游组件、canonical 计数、patch 状态、冲突和两端产物数量。工作流不会自动合并；人工审查后才能合并。
