@@ -2,17 +2,18 @@
   "generator": "scripts/build.py",
   "mihomo": {
     "local_rules": 11,
-    "prepend_rules": 18,
+    "prepend_rules": 19,
     "provider_ids": [
       "nr-private-tracker",
       "nr-ads",
       "nr-openai",
       "nr-telegram",
       "nr-youtube",
+      "nr-blackmatrix-netflix",
       "nr-apple",
       "nr-google"
     ],
-    "providers": 7
+    "providers": 8
   },
   "quantumult_x": {
     "categories": [
@@ -50,6 +51,12 @@
         "id": "nr-youtube",
         "label": "YouTube",
         "rules": 177
+      },
+      {
+        "candidate_rules": 1158,
+        "id": "nr-blackmatrix-netflix",
+        "label": "Netflix",
+        "rules": 1158
       },
       {
         "candidate_rules": 1792,
@@ -168,10 +175,11 @@
     ],
     "conflicts": 235,
     "local_rules": 11,
-    "rules": 4013,
+    "rules": 5171,
     "source_rules": {
       "nr-ads": 910,
       "nr-apple": 1785,
+      "nr-blackmatrix-netflix": 1158,
       "nr-google": 845,
       "nr-openai": 19,
       "nr-private-tracker": 245,
@@ -181,6 +189,7 @@
     "unsupported": {
       "nr-ads": 0,
       "nr-apple": 0,
+      "nr-blackmatrix-netflix": 0,
       "nr-google": 0,
       "nr-openai": 0,
       "nr-private-tracker": 0,

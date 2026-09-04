@@ -7,6 +7,7 @@
     "openai": "ChatGPT",
     "telegram": "Telegram",
     "youtube": "流媒体",
+    "netflix": "流媒体",
     "apple": "Apple",
     "google": "Google"
   },
@@ -16,6 +17,7 @@
     "openai": "Gpt",
     "telegram": "✉️ Telegram",
     "youtube": "🎬 YouTube",
+    "netflix": "📺 Netflix",
     "apple": "🍎 苹果服务",
     "google": "Google"
   }

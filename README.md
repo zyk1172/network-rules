@@ -29,7 +29,7 @@
 
 已加入第一版“公开上游 + 本地覆盖”流水线：
 
-- `sources/upstreams.json`：登记 MetaCubeX/meta-rules-dat 和 blackmatrix7/ios_rule_script 的公开源、格式、许可证和适配路径。
+- `sources/upstreams.json`：登记 MetaCubeX/meta-rules-dat 和 blackmatrix7/ios_rule_script 的公开源、格式、许可证和适配路径；BlackMatrix7 当前按白名单接入 PT 与 Netflix。
 - `sources/policies.json`：把同一分类映射到 Mihomo 和 Quantumult X 各自的策略名称。
 - `overrides/rules.txt`：个人规则优先层，当前先收录 PT 域名/关键词；它不会被上游更新覆盖。
 - `dist/mihomo/merge.yaml`：Clash Verge Rev / Mihomo 的单个 Merge 入口。

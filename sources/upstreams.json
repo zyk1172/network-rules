@@ -108,6 +108,27 @@
       }
     },
     {
+      "id": "nr-blackmatrix-netflix",
+      "name": "Netflix",
+      "category": "Netflix",
+      "provider": "blackmatrix7/ios_rule_script",
+      "homepage": "https://github.com/blackmatrix7/ios_rule_script",
+      "license": "GPL-2.0",
+      "description": "Netflix 专用域名规则；使用 BlackMatrix7 的原生圈 X 与 Clash 分类文件，补足本机原有 Netflix 策略组。",
+      "quantumult_x": {
+        "url": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/Netflix/Netflix.list",
+        "format": "qx-list",
+        "policy_key": "netflix"
+      },
+      "mihomo": {
+        "url": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Netflix/Netflix.yaml",
+        "format": "yaml",
+        "behavior": "classical",
+        "path": "./rule-providers/network-rules/netflix.yaml",
+        "policy_key": "netflix"
+      }
+    },
+    {
       "id": "nr-apple",
       "name": "apple",
       "category": "Apple",
