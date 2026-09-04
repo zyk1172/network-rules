@@ -1178,7 +1178,7 @@ HOST-SUFFIX,supersonic.com,reject
 HOST-SUFFIX,supersonicads.com,reject
 HOST-SUFFIX,supersonicads-a.akamaihd.net,reject
 
-# ===== CATEGORY: OpenAI / ChatGPT (nr-openai) =====
+# ===== CATEGORY: ChatGPT (nr-openai) =====
 # RULES: 19
 HOST,openaiapi-site.azureedge.net,Gpt
 HOST,openaiassets.blob.core.windows.net,Gpt
@@ -1205,6 +1205,22 @@ HOST-SUFFIX,openai.com.cdn.cloudflare.net,Gpt
 HOST,cdn.usefathom.com,💻 Ai
 HOST-SUFFIX,anthropic.com,💻 Ai
 HOST-SUFFIX,claude.ai,💻 Ai
+
+# ===== CATEGORY: Gemini (nr-blackmatrix-gemini) =====
+# RULES: 13
+HOST,ai.google.dev,Gemini
+HOST,alkalimakersuite-pa.clients6.google.com,Gemini
+HOST,makersuite.google.com,Gemini
+HOST-SUFFIX,bard.google.com,Gemini
+HOST-SUFFIX,deepmind.com,Gemini
+HOST-SUFFIX,deepmind.google,Gemini
+HOST-SUFFIX,gemini.google.com,Gemini
+HOST-SUFFIX,generativeai.google,Gemini
+HOST-SUFFIX,proactivebackend-pa.googleapis.com,Gemini
+HOST-SUFFIX,apis.google.com,Gemini
+HOST-KEYWORD,colab,Gemini
+HOST-KEYWORD,developerprofiles,Gemini
+HOST-KEYWORD,generativelanguage,Gemini
 
 # ===== CATEGORY: Telegram (nr-telegram) =====
 # RULES: 21
@@ -4360,16 +4376,14 @@ HOST,itunesconnect.apple.com,🍎 苹果服务
 HOST,osxapps.itunes.g.aaplimg.com,🍎 苹果服务
 
 # ===== CATEGORY: Google (nr-google) =====
-# RULES: 845
+# RULES: 842
 HOST,google-ohttp-relay-safebrowsing.fastly-edge.com,Google
 HOST,alt7-mtalk.google.com,Google
 HOST,alt8-mtalk.google.com,Google
 HOST,mtalk-dev.google.com,Google
 HOST,mtalk-staging.google.com,Google
 HOST,mtalk4.google.com,Google
-HOST,ai.google.dev,Google
 HOST,alkalicore-pa.clients6.google.com,Google
-HOST,alkalimakersuite-pa.clients6.google.com,Google
 HOST,webchannel-alkalimakersuite-pa.clients6.google.com,Google
 HOST,cloudaicompanion.googleapis.com,Google
 HOST,cloudcode-pa.googleapis.com,Google
@@ -4876,7 +4890,6 @@ HOST-SUFFIX,godoc.org,Google
 HOST-SUFFIX,golang.com,Google
 HOST-SUFFIX,golang.net,Google
 HOST-SUFFIX,golang.org,Google
-HOST-SUFFIX,deepmind.com,Google
 HOST-SUFFIX,ai.studio,Google
 HOST-SUFFIX,google.ad,Google
 HOST-SUFFIX,v8project.org,Google

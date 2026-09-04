@@ -47,11 +47,11 @@
     {
       "id": "nr-openai",
       "name": "openai",
-      "category": "OpenAI / ChatGPT",
+      "category": "ChatGPT",
       "provider": "MetaCubeX/meta-rules-dat",
       "homepage": "https://github.com/MetaCubeX/meta-rules-dat",
       "license": "GPL-3.0",
-      "description": "OpenAI/ChatGPT 域名分类，放在 Google 通用分类之前。",
+      "description": "ChatGPT/OpenAI 域名分类，放在 Google 通用分类之前。",
       "quantumult_x": {
         "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/openai.yaml",
         "format": "meta-domain-yaml",
@@ -84,6 +84,27 @@
         "behavior": "classical",
         "path": "./rule-providers/network-rules/claude.yaml",
         "policy_key": "claude"
+      }
+    },
+    {
+      "id": "nr-blackmatrix-gemini",
+      "name": "Gemini",
+      "category": "Gemini",
+      "provider": "blackmatrix7/ios_rule_script",
+      "homepage": "https://github.com/blackmatrix7/ios_rule_script",
+      "license": "GPL-2.0",
+      "description": "Gemini 专用域名规则；与 ChatGPT、Claude 分开维护，映射到现有 Gemini 策略组。",
+      "quantumult_x": {
+        "url": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/Gemini/Gemini.list",
+        "format": "qx-list",
+        "policy_key": "gemini"
+      },
+      "mihomo": {
+        "url": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Gemini/Gemini.yaml",
+        "format": "yaml",
+        "behavior": "classical",
+        "path": "./rule-providers/network-rules/gemini.yaml",
+        "policy_key": "gemini"
       }
     },
     {

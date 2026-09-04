@@ -2,19 +2,20 @@
   "generator": "scripts/build.py",
   "mihomo": {
     "local_rules": 11,
-    "prepend_rules": 20,
+    "prepend_rules": 21,
     "provider_ids": [
       "nr-private-tracker",
       "nr-ads",
       "nr-openai",
       "nr-blackmatrix-claude",
+      "nr-blackmatrix-gemini",
       "nr-telegram",
       "nr-youtube",
       "nr-blackmatrix-netflix",
       "nr-apple",
       "nr-google"
     ],
-    "providers": 9
+    "providers": 10
   },
   "quantumult_x": {
     "categories": [
@@ -38,7 +39,7 @@
       {
         "candidate_rules": 22,
         "id": "nr-openai",
-        "label": "OpenAI / ChatGPT",
+        "label": "ChatGPT",
         "rules": 19
       },
       {
@@ -46,6 +47,12 @@
         "id": "nr-blackmatrix-claude",
         "label": "Claude",
         "rules": 3
+      },
+      {
+        "candidate_rules": 13,
+        "id": "nr-blackmatrix-gemini",
+        "label": "Gemini",
+        "rules": 13
       },
       {
         "candidate_rules": 21,
@@ -75,7 +82,7 @@
         "candidate_rules": 1071,
         "id": "nr-google",
         "label": "Google",
-        "rules": 845
+        "rules": 842
       }
     ],
     "conflict_examples": [
@@ -125,6 +132,16 @@
         "source": "nr-apple"
       },
       {
+        "kept": "HOST,ai.google.dev,Gemini",
+        "rule": "HOST,ai.google.dev,Google",
+        "source": "nr-google"
+      },
+      {
+        "kept": "HOST,alkalimakersuite-pa.clients6.google.com,Gemini",
+        "rule": "HOST,alkalimakersuite-pa.clients6.google.com,Google",
+        "source": "nr-google"
+      },
+      {
         "kept": "HOST,yt3.googleusercontent.com,🎬 YouTube",
         "rule": "HOST,yt3.googleusercontent.com,Google",
         "source": "nr-google"
@@ -168,27 +185,18 @@
         "kept": "HOST-SUFFIX,youtube.fr,🎬 YouTube",
         "rule": "HOST-SUFFIX,youtube.fr,Google",
         "source": "nr-google"
-      },
-      {
-        "kept": "HOST-SUFFIX,youtube.ge,🎬 YouTube",
-        "rule": "HOST-SUFFIX,youtube.ge,Google",
-        "source": "nr-google"
-      },
-      {
-        "kept": "HOST-SUFFIX,youtube.gr,🎬 YouTube",
-        "rule": "HOST-SUFFIX,youtube.gr,Google",
-        "source": "nr-google"
       }
     ],
-    "conflicts": 235,
+    "conflicts": 238,
     "local_rules": 11,
-    "rules": 5174,
+    "rules": 5184,
     "source_rules": {
       "nr-ads": 910,
       "nr-apple": 1785,
       "nr-blackmatrix-claude": 3,
+      "nr-blackmatrix-gemini": 13,
       "nr-blackmatrix-netflix": 1158,
-      "nr-google": 845,
+      "nr-google": 842,
       "nr-openai": 19,
       "nr-private-tracker": 245,
       "nr-telegram": 21,
@@ -198,6 +206,7 @@
       "nr-ads": 0,
       "nr-apple": 0,
       "nr-blackmatrix-claude": 0,
+      "nr-blackmatrix-gemini": 0,
       "nr-blackmatrix-netflix": 0,
       "nr-google": 0,
       "nr-openai": 0,

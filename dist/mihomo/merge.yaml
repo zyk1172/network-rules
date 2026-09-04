@@ -20,7 +20,7 @@ rule-providers:
     url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-ads-all.mrs"
     path: "./rule-providers/network-rules/ads.mrs"
     interval: 86400
-  # ===== CATEGORY: OpenAI / ChatGPT (nr-openai) =====
+  # ===== CATEGORY: ChatGPT (nr-openai) =====
   nr-openai:
     type: http
     behavior: "domain"
@@ -35,6 +35,14 @@ rule-providers:
     format: "yaml"
     url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Claude/Claude.yaml"
     path: "./rule-providers/network-rules/claude.yaml"
+    interval: 86400
+  # ===== CATEGORY: Gemini (nr-blackmatrix-gemini) =====
+  nr-blackmatrix-gemini:
+    type: http
+    behavior: "classical"
+    format: "yaml"
+    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Gemini/Gemini.yaml"
+    path: "./rule-providers/network-rules/gemini.yaml"
     interval: 86400
   # ===== CATEGORY: Telegram (nr-telegram) =====
   nr-telegram:
@@ -94,10 +102,12 @@ prepend-rules:
   - "RULE-SET,nr-private-tracker,DIRECT"
   # ===== CATEGORY: 广告 (nr-ads) =====
   - "RULE-SET,nr-ads,REJECT"
-  # ===== CATEGORY: OpenAI / ChatGPT (nr-openai) =====
+  # ===== CATEGORY: ChatGPT (nr-openai) =====
   - "RULE-SET,nr-openai,ChatGPT"
   # ===== CATEGORY: Claude (nr-blackmatrix-claude) =====
   - "RULE-SET,nr-blackmatrix-claude,AI"
+  # ===== CATEGORY: Gemini (nr-blackmatrix-gemini) =====
+  - "RULE-SET,nr-blackmatrix-gemini,Gemini"
   # ===== CATEGORY: Telegram (nr-telegram) =====
   - "RULE-SET,nr-telegram,Telegram"
   # ===== CATEGORY: YouTube (nr-youtube) =====
