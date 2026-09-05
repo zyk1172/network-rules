@@ -1,185 +1,334 @@
 {
-  "schema_version": 1,
-  "description": "公开规则上游清单。规则目标由 sources/policies.json 决定，本文件不保存任何节点或订阅信息。",
+  "schema_version": 2,
+  "description": "公开上游清单。每个稳定分类拥有唯一 authoritative canonical 输入，并可按客户端声明一个或多个 audit reference 或 client-only extra 组件；生成物由本项目编译，不直接透传上游 URL。",
+  "publication": {
+    "repository": "zyk1172/network-rules",
+    "ref": "main"
+  },
   "sources": [
     {
-      "id": "nr-private-tracker",
-      "name": "PrivateTracker",
+      "id": "private-tracker",
+      "category": "PT / PrivateTracker",
+      "priority": 10,
+      "enabled": true,
       "provider": "blackmatrix7/ios_rule_script",
       "homepage": "https://github.com/blackmatrix7/ios_rule_script",
       "license": "GPL-2.0",
-      "description": "PT tracker 域名与 IP 规则；作为专门源保留，优先于广告和通用地区规则。",
-      "quantumult_x": {
-        "url": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/PrivateTracker/PrivateTracker.list",
-        "format": "qx-list",
-        "policy_key": "private-tracker"
-      },
-      "mihomo": {
-        "url": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/PrivateTracker/PrivateTracker.yaml",
-        "format": "yaml",
-        "behavior": "classical",
-        "path": "./rule-providers/network-rules/private-tracker.yaml",
-        "policy_key": "private-tracker"
+      "description": "PT tracker 域名与 IP 规则；作为专门源保留，优先于广告和通用分类。",
+      "components": {
+        "quantumult-x": [
+          {
+            "id": "blackmatrix-private-tracker-qx",
+            "url": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/PrivateTracker/PrivateTracker.list",
+            "format": "qx-list",
+            "role": "canonical-authoritative"
+          }
+        ],
+        "mihomo": [
+          {
+            "id": "blackmatrix-private-tracker-classical",
+            "url": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/PrivateTracker/PrivateTracker.yaml",
+            "format": "mihomo-yaml",
+            "behavior": "classical",
+            "role": "audit-reference",
+            "complete": true
+          }
+        ]
       }
     },
     {
-      "id": "nr-ads",
-      "name": "category-ads-all",
+      "id": "ads",
+      "category": "广告",
+      "priority": 20,
+      "enabled": true,
       "provider": "MetaCubeX/meta-rules-dat",
       "homepage": "https://github.com/MetaCubeX/meta-rules-dat",
       "license": "GPL-3.0",
-      "description": "综合广告域名源；放在地区直连规则之前，避免广告域名被国内规则提前放行。",
-      "quantumult_x": {
-        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-ads-all.yaml",
-        "format": "meta-domain-yaml",
-        "policy_key": "ads"
-      },
-      "mihomo": {
-        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-ads-all.mrs",
-        "format": "mrs",
-        "behavior": "domain",
-        "path": "./rule-providers/network-rules/ads.mrs",
-        "policy_key": "ads"
+      "description": "综合广告域名源；在服务分类之前命中，避免广告域名被专用或通用分类放行。",
+      "components": {
+        "quantumult-x": [
+          {
+            "id": "metacubex-ads-domain",
+            "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-ads-all.yaml",
+            "format": "meta-domain-yaml",
+            "role": "canonical-authoritative"
+          }
+        ],
+        "mihomo": [
+          {
+            "id": "metacubex-ads-mrs",
+            "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-ads-all.mrs",
+            "format": "mrs",
+            "behavior": "domain",
+            "role": "audit-reference"
+          }
+        ]
       }
     },
     {
-      "id": "nr-openai",
-      "name": "openai",
+      "id": "chatgpt",
+      "category": "ChatGPT",
+      "priority": 30,
+      "enabled": true,
       "provider": "MetaCubeX/meta-rules-dat",
       "homepage": "https://github.com/MetaCubeX/meta-rules-dat",
       "license": "GPL-3.0",
-      "description": "OpenAI/ChatGPT 域名分类，放在 Google 通用分类之前。",
-      "quantumult_x": {
-        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/openai.yaml",
-        "format": "meta-domain-yaml",
-        "policy_key": "openai"
-      },
-      "mihomo": {
-        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/openai.mrs",
-        "format": "mrs",
-        "behavior": "domain",
-        "path": "./rule-providers/network-rules/openai.mrs",
-        "policy_key": "openai"
+      "description": "ChatGPT/OpenAI 域名分类，放在其他通用 Google 规则之前。",
+      "components": {
+        "quantumult-x": [
+          {
+            "id": "metacubex-chatgpt-domain",
+            "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/openai.yaml",
+            "format": "meta-domain-yaml",
+            "role": "canonical-authoritative"
+          }
+        ],
+        "mihomo": [
+          {
+            "id": "metacubex-chatgpt-mrs",
+            "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/openai.mrs",
+            "format": "mrs",
+            "behavior": "domain",
+            "role": "audit-reference"
+          }
+        ]
       }
     },
     {
-      "id": "nr-telegram",
-      "name": "telegram",
+      "id": "claude",
+      "category": "Claude",
+      "priority": 40,
+      "enabled": true,
+      "provider": "blackmatrix7/ios_rule_script",
+      "homepage": "https://github.com/blackmatrix7/ios_rule_script",
+      "license": "GPL-2.0",
+      "description": "Claude/Anthropic 专用域名规则，与 ChatGPT 和 Gemini 分开维护。",
+      "components": {
+        "quantumult-x": [
+          {
+            "id": "blackmatrix-claude-qx",
+            "url": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/Claude/Claude.list",
+            "format": "qx-list",
+            "role": "canonical-authoritative"
+          }
+        ],
+        "mihomo": [
+          {
+            "id": "blackmatrix-claude-classical",
+            "url": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Claude/Claude.yaml",
+            "format": "mihomo-yaml",
+            "behavior": "classical",
+            "role": "audit-reference",
+            "complete": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "gemini",
+      "category": "Gemini",
+      "priority": 50,
+      "enabled": true,
+      "provider": "blackmatrix7/ios_rule_script",
+      "homepage": "https://github.com/blackmatrix7/ios_rule_script",
+      "license": "GPL-2.0",
+      "description": "Gemini 专用域名规则，与 ChatGPT 和 Claude 分开维护。",
+      "components": {
+        "quantumult-x": [
+          {
+            "id": "blackmatrix-gemini-qx",
+            "url": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/Gemini/Gemini.list",
+            "format": "qx-list",
+            "role": "canonical-authoritative"
+          }
+        ],
+        "mihomo": [
+          {
+            "id": "blackmatrix-gemini-classical",
+            "url": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Gemini/Gemini.yaml",
+            "format": "mihomo-yaml",
+            "behavior": "classical",
+            "role": "audit-reference",
+            "complete": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "telegram",
+      "category": "Telegram",
+      "priority": 60,
+      "enabled": true,
       "provider": "MetaCubeX/meta-rules-dat",
       "homepage": "https://github.com/MetaCubeX/meta-rules-dat",
       "license": "GPL-3.0",
       "description": "Telegram 域名分类。",
-      "quantumult_x": {
-        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/telegram.yaml",
-        "format": "meta-domain-yaml",
-        "policy_key": "telegram"
-      },
-      "mihomo": {
-        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/telegram.mrs",
-        "format": "mrs",
-        "behavior": "domain",
-        "path": "./rule-providers/network-rules/telegram.mrs",
-        "policy_key": "telegram"
+      "components": {
+        "quantumult-x": [
+          {
+            "id": "metacubex-telegram-domain",
+            "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/telegram.yaml",
+            "format": "meta-domain-yaml",
+            "role": "canonical-authoritative"
+          }
+        ],
+        "mihomo": [
+          {
+            "id": "metacubex-telegram-mrs",
+            "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/telegram.mrs",
+            "format": "mrs",
+            "behavior": "domain",
+            "role": "audit-reference"
+          }
+        ]
       }
     },
     {
-      "id": "nr-youtube",
-      "name": "youtube",
+      "id": "youtube",
+      "category": "YouTube",
+      "priority": 70,
+      "enabled": true,
       "provider": "MetaCubeX/meta-rules-dat",
       "homepage": "https://github.com/MetaCubeX/meta-rules-dat",
       "license": "GPL-3.0",
-      "description": "YouTube 域名分类。",
-      "quantumult_x": {
-        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/youtube.yaml",
-        "format": "meta-domain-yaml",
-        "policy_key": "youtube"
-      },
-      "mihomo": {
-        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/youtube.mrs",
-        "format": "mrs",
-        "behavior": "domain",
-        "path": "./rule-providers/network-rules/youtube.mrs",
-        "policy_key": "youtube"
+      "description": "YouTube 域名分类，优先于 Google 通用分类。",
+      "components": {
+        "quantumult-x": [
+          {
+            "id": "metacubex-youtube-domain",
+            "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/youtube.yaml",
+            "format": "meta-domain-yaml",
+            "role": "canonical-authoritative"
+          }
+        ],
+        "mihomo": [
+          {
+            "id": "metacubex-youtube-mrs",
+            "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/youtube.mrs",
+            "format": "mrs",
+            "behavior": "domain",
+            "role": "audit-reference"
+          }
+        ]
       }
     },
     {
-      "id": "nr-apple",
-      "name": "apple",
-      "provider": "MetaCubeX/meta-rules-dat",
-      "homepage": "https://github.com/MetaCubeX/meta-rules-dat",
-      "license": "GPL-3.0",
-      "description": "Apple 域名分类；中国 Apple 单独分类未强行覆盖当前 Apple 策略意图。",
-      "quantumult_x": {
-        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/apple.yaml",
-        "format": "meta-domain-yaml",
-        "policy_key": "apple"
-      },
-      "mihomo": {
-        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/apple.mrs",
-        "format": "mrs",
-        "behavior": "domain",
-        "path": "./rule-providers/network-rules/apple.mrs",
-        "policy_key": "apple"
+      "id": "netflix",
+      "category": "Netflix",
+      "priority": 80,
+      "enabled": true,
+      "provider": "blackmatrix7/ios_rule_script",
+      "homepage": "https://github.com/blackmatrix7/ios_rule_script",
+      "license": "GPL-2.0",
+      "description": "Netflix 专用规则；采用上游明确建议可单独使用的 Netflix_Classical.yaml 作为 Mihomo 组件。",
+      "components": {
+        "quantumult-x": [
+          {
+            "id": "blackmatrix-netflix-qx",
+            "url": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/Netflix/Netflix.list",
+            "format": "qx-list",
+            "role": "canonical-authoritative"
+          }
+        ],
+        "mihomo": [
+          {
+            "id": "blackmatrix-netflix-classical",
+            "url": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Netflix/Netflix_Classical.yaml",
+            "format": "mihomo-yaml",
+            "behavior": "classical",
+            "role": "client-only-extra",
+            "complete": true
+          }
+        ]
       }
     },
     {
-      "id": "nr-google",
-      "name": "google",
+      "id": "apple",
+      "category": "Apple",
+      "priority": 90,
+      "enabled": true,
       "provider": "MetaCubeX/meta-rules-dat",
       "homepage": "https://github.com/MetaCubeX/meta-rules-dat",
       "license": "GPL-3.0",
-      "description": "Google 通用域名分类；放在 OpenAI 之后，避免 ChatGPT 域名被通用 Google 规则抢先命中。",
-      "quantumult_x": {
-        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.yaml",
-        "format": "meta-domain-yaml",
-        "policy_key": "google"
-      },
-      "mihomo": {
-        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.mrs",
-        "format": "mrs",
-        "behavior": "domain",
-        "path": "./rule-providers/network-rules/google.mrs",
-        "policy_key": "google"
+      "description": "Apple 域名分类；中国大陆基础直连规则仍由客户端基础配置承担。",
+      "components": {
+        "quantumult-x": [
+          {
+            "id": "metacubex-apple-domain",
+            "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/apple.yaml",
+            "format": "meta-domain-yaml",
+            "role": "canonical-authoritative"
+          }
+        ],
+        "mihomo": [
+          {
+            "id": "metacubex-apple-mrs",
+            "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/apple.mrs",
+            "format": "mrs",
+            "behavior": "domain",
+            "role": "audit-reference"
+          }
+        ]
       }
     },
     {
-      "id": "nr-private",
-      "name": "private",
+      "id": "google",
+      "category": "Google",
+      "priority": 100,
+      "enabled": true,
       "provider": "MetaCubeX/meta-rules-dat",
       "homepage": "https://github.com/MetaCubeX/meta-rules-dat",
       "license": "GPL-3.0",
-      "description": "局域网和私有保留域名分类。",
-      "quantumult_x": {
-        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.yaml",
-        "format": "meta-domain-yaml",
-        "policy_key": "private"
-      },
-      "mihomo": {
-        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.mrs",
-        "format": "mrs",
-        "behavior": "domain",
-        "path": "./rule-providers/network-rules/private.mrs",
-        "policy_key": "private"
+      "description": "Google 通用域名分类；放在 ChatGPT、Claude、Gemini 和 YouTube 之后。",
+      "components": {
+        "quantumult-x": [
+          {
+            "id": "metacubex-google-domain",
+            "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.yaml",
+            "format": "meta-domain-yaml",
+            "role": "canonical-authoritative"
+          }
+        ],
+        "mihomo": [
+          {
+            "id": "metacubex-google-mrs",
+            "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.mrs",
+            "format": "mrs",
+            "behavior": "domain",
+            "role": "audit-reference"
+          }
+        ]
       }
     },
     {
-      "id": "nr-cn",
-      "name": "cn",
-      "provider": "MetaCubeX/meta-rules-dat",
-      "homepage": "https://github.com/MetaCubeX/meta-rules-dat",
-      "license": "GPL-3.0",
-      "description": "中国大陆域名分类；作为最后的通用直连分类，避免与 ChinaMax 再叠加。",
-      "quantumult_x": {
-        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.yaml",
-        "format": "meta-domain-yaml",
-        "policy_key": "cn"
-      },
-      "mihomo": {
-        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.mrs",
-        "format": "mrs",
-        "behavior": "domain",
-        "path": "./rule-providers/network-rules/cn.mrs",
-        "policy_key": "cn"
+      "id": "global",
+      "category": "国外网站",
+      "priority": 1000,
+      "enabled": false,
+      "provider": "blackmatrix7/ios_rule_script",
+      "homepage": "https://github.com/blackmatrix7/ios_rule_script",
+      "license": "GPL-2.0",
+      "description": "海外网站泛分类。默认关闭，因为各客户端基础配置已经以 FINAL/MATCH 处理未知流量；如确实需要，可显式启用完整组件，不再任意截断。",
+      "disabled_reason": "避免 35k 级泛规则与客户端基础 FINAL/MATCH 重复，并避免按上游排序任意截断造成覆盖漂移。",
+      "components": {
+        "quantumult-x": [
+          {
+            "id": "blackmatrix-global-qx",
+            "url": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/Global/Global.list",
+            "format": "qx-list",
+            "role": "canonical-authoritative"
+          }
+        ],
+        "mihomo": [
+          {
+            "id": "blackmatrix-global-classical",
+            "url": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Global/Global_Classical.yaml",
+            "format": "mihomo-yaml",
+            "behavior": "classical",
+            "role": "audit-reference",
+            "complete": true
+          }
+        ]
       }
     }
   ]

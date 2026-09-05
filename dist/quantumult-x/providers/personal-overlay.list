@@ -1,0 +1,31 @@
+# NAME: network-rules Quantumult X category provider
+# GENERATED-BY: network-rules-project/scripts/build.py
+# ===== CATEGORY: 本地覆盖 (personal-overlay) =====
+# PUBLICATION-SCOPE: one category only; do not combine another license scope in this file
+# THIRD-PARTY-SOURCE: overrides/rules.txt
+# LICENSE-SCOPE: user-owned
+# SOURCE-OF-TRUTH: canonical rule model after patches, deduplication and conflict resolution
+# This is a Quantumult X filter list. It does not contain nodes, rewrites or MitM settings.
+# RULES: 11
+# CANONICAL-CATEGORY: private-tracker
+HOST-KEYWORD,m-team,direct
+# CANONICAL-CATEGORY: private-tracker
+HOST-KEYWORD,pttime,direct
+# CANONICAL-CATEGORY: private-tracker
+HOST-KEYWORD,ptcafe,direct
+# CANONICAL-CATEGORY: private-tracker
+HOST-KEYWORD,hdtime,direct
+# CANONICAL-CATEGORY: private-tracker
+HOST-KEYWORD,xingyungept,direct
+# CANONICAL-CATEGORY: private-tracker
+HOST-KEYWORD,ptzone,direct
+# CANONICAL-CATEGORY: private-tracker
+HOST-SUFFIX,pttime.org,direct
+# CANONICAL-CATEGORY: private-tracker
+HOST-SUFFIX,ptcafe.club,direct
+# CANONICAL-CATEGORY: private-tracker
+HOST-SUFFIX,hdtime.org,direct
+# CANONICAL-CATEGORY: private-tracker
+HOST-SUFFIX,xingyungept.com,direct
+# CANONICAL-CATEGORY: private-tracker
+HOST-SUFFIX,ptzone.club,direct

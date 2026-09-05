@@ -1,149 +1,4970 @@
 {
-  "generator": "scripts/build.py",
-  "mihomo": {
-    "local_rules": 11,
-    "prepend_rules": 20,
-    "provider_ids": [
-      "nr-private-tracker",
-      "nr-ads",
-      "nr-openai",
-      "nr-telegram",
-      "nr-youtube",
-      "nr-apple",
-      "nr-google",
-      "nr-private",
-      "nr-cn"
-    ],
-    "providers": 9
+  "canonical_rules": {
+    "after_dedup": 5422,
+    "after_patch": 5427,
+    "final": 5184,
+    "normalized": 5427,
+    "raw": 5427
   },
-  "quantumult_x": {
-    "conflict_examples": [
-      {
-        "kept": "HOST,browser-intake-datadoghq.com,reject",
-        "rule": "HOST,browser-intake-datadoghq.com,Gpt",
-        "source": "nr-openai"
-      },
-      {
-        "kept": "HOST,o33249.ingest.sentry.io,reject",
-        "rule": "HOST,o33249.ingest.sentry.io,Gpt",
-        "source": "nr-openai"
-      },
-      {
-        "kept": "HOST,openai.qualtrics.com,reject",
-        "rule": "HOST,openai.qualtrics.com,Gpt",
-        "source": "nr-openai"
-      },
-      {
-        "kept": "HOST-SUFFIX,ads.youtube.com,reject",
-        "rule": "HOST-SUFFIX,ads.youtube.com,🎬 YouTube",
-        "source": "nr-youtube"
-      },
-      {
-        "kept": "HOST-SUFFIX,advertising.apple.com,reject",
-        "rule": "HOST-SUFFIX,advertising.apple.com,🍎 苹果服务",
-        "source": "nr-apple"
-      },
-      {
-        "kept": "HOST-SUFFIX,api-adservices.apple.com,reject",
-        "rule": "HOST-SUFFIX,api-adservices.apple.com,🍎 苹果服务",
-        "source": "nr-apple"
-      },
-      {
-        "kept": "HOST-SUFFIX,iadsdk.apple.com,reject",
-        "rule": "HOST-SUFFIX,iadsdk.apple.com,🍎 苹果服务",
-        "source": "nr-apple"
-      },
-      {
-        "kept": "HOST-SUFFIX,iad.apple.com,reject",
-        "rule": "HOST-SUFFIX,iad.apple.com,🍎 苹果服务",
-        "source": "nr-apple"
-      },
-      {
-        "kept": "HOST-SUFFIX,qwapi.com,reject",
-        "rule": "HOST-SUFFIX,qwapi.com,🍎 苹果服务",
-        "source": "nr-apple"
-      },
-      {
-        "kept": "HOST,yt3.googleusercontent.com,🎬 YouTube",
-        "rule": "HOST,yt3.googleusercontent.com,Google",
-        "source": "nr-google"
-      },
-      {
-        "kept": "HOST-SUFFIX,youtube,🎬 YouTube",
-        "rule": "HOST-SUFFIX,youtube,Google",
-        "source": "nr-google"
-      },
-      {
-        "kept": "HOST-SUFFIX,youtube.dk,🎬 YouTube",
-        "rule": "HOST-SUFFIX,youtube.dk,Google",
-        "source": "nr-google"
-      },
-      {
-        "kept": "HOST-SUFFIX,youtube.de,🎬 YouTube",
-        "rule": "HOST-SUFFIX,youtube.de,Google",
-        "source": "nr-google"
-      },
-      {
-        "kept": "HOST-SUFFIX,youtube.cz,🎬 YouTube",
-        "rule": "HOST-SUFFIX,youtube.cz,Google",
-        "source": "nr-google"
-      },
-      {
-        "kept": "HOST-SUFFIX,youtube.cr,🎬 YouTube",
-        "rule": "HOST-SUFFIX,youtube.cr,Google",
-        "source": "nr-google"
-      },
-      {
-        "kept": "HOST-SUFFIX,youtube.es,🎬 YouTube",
-        "rule": "HOST-SUFFIX,youtube.es,Google",
-        "source": "nr-google"
-      },
-      {
-        "kept": "HOST-SUFFIX,youtube.fi,🎬 YouTube",
-        "rule": "HOST-SUFFIX,youtube.fi,Google",
-        "source": "nr-google"
-      },
-      {
-        "kept": "HOST-SUFFIX,youtube.fr,🎬 YouTube",
-        "rule": "HOST-SUFFIX,youtube.fr,Google",
-        "source": "nr-google"
-      },
-      {
-        "kept": "HOST-SUFFIX,youtube.ge,🎬 YouTube",
-        "rule": "HOST-SUFFIX,youtube.ge,Google",
-        "source": "nr-google"
-      },
-      {
-        "kept": "HOST-SUFFIX,youtube.gr,🎬 YouTube",
-        "rule": "HOST-SUFFIX,youtube.gr,Google",
-        "source": "nr-google"
-      }
-    ],
-    "conflicts": 249,
-    "local_rules": 11,
-    "rules": 115081,
-    "source_rules": {
-      "nr-ads": 910,
-      "nr-apple": 1785,
-      "nr-cn": 110938,
-      "nr-google": 845,
-      "nr-openai": 19,
-      "nr-private": 130,
-      "nr-private-tracker": 245,
-      "nr-telegram": 21,
-      "nr-youtube": 177
+  "categories": [
+    {
+      "after_dedup": 11,
+      "after_patch": 11,
+      "components": [
+        {
+          "client": "canonical",
+          "contributes_to_canonical": true,
+          "id": "overrides/rules.txt",
+          "parsed_rules": 11,
+          "role": "canonical-authoritative"
+        }
+      ],
+      "final": 11,
+      "id": "personal-overlay",
+      "label": "本地覆盖",
+      "normalized": 11,
+      "raw_rules": 11,
+      "status": "enabled"
     },
-    "unsupported": {
-      "nr-ads": 0,
-      "nr-apple": 0,
-      "nr-cn": 0,
-      "nr-google": 0,
-      "nr-openai": 0,
-      "nr-private": 0,
-      "nr-private-tracker": 0,
-      "nr-telegram": 0,
-      "nr-youtube": 0
+    {
+      "after_dedup": 245,
+      "after_patch": 248,
+      "audit_reference_rules": 248,
+      "authoritative_component": {
+        "client": "quantumult-x",
+        "id": "blackmatrix-private-tracker-qx"
+      },
+      "client_only_extra_rules": 0,
+      "components": [
+        {
+          "bytes": 10025,
+          "cache": "sources/cache/private-tracker.quantumult-x.blackmatrix-private-tracker-qx.list",
+          "category": "private-tracker",
+          "client": "quantumult-x",
+          "complete": false,
+          "contributes_to_canonical": true,
+          "coverage_against_authoritative": {
+            "extra": 0,
+            "extra_examples": [],
+            "missing": 0,
+            "missing_examples": []
+          },
+          "format": "qx-list",
+          "id": "blackmatrix-private-tracker-qx",
+          "parsed_rules": 248,
+          "raw_rules": 248,
+          "role": "canonical-authoritative",
+          "stale_cache": false,
+          "unsupported_rules": 0
+        },
+        {
+          "bytes": 7802,
+          "cache": "sources/cache/private-tracker.mihomo.blackmatrix-private-tracker-classical.yaml",
+          "category": "private-tracker",
+          "client": "mihomo",
+          "complete": true,
+          "contributes_to_canonical": false,
+          "coverage_against_authoritative": {
+            "extra": 0,
+            "extra_examples": [],
+            "missing": 0,
+            "missing_examples": []
+          },
+          "format": "mihomo-yaml",
+          "id": "blackmatrix-private-tracker-classical",
+          "parsed_rules": 248,
+          "raw_rules": 248,
+          "role": "audit-reference",
+          "stale_cache": false,
+          "unsupported_rules": 0
+        }
+      ],
+      "final": 245,
+      "id": "private-tracker",
+      "label": "PT / PrivateTracker",
+      "normalized": 248,
+      "raw_rules": 248,
+      "status": "enabled",
+      "unsupported_rules": 0
+    },
+    {
+      "after_dedup": 910,
+      "after_patch": 910,
+      "audit_reference_rules": 0,
+      "authoritative_component": {
+        "client": "quantumult-x",
+        "id": "metacubex-ads-domain"
+      },
+      "client_only_extra_rules": 0,
+      "components": [
+        {
+          "bytes": 23078,
+          "cache": "sources/cache/ads.quantumult-x.metacubex-ads-domain.yaml",
+          "category": "ads",
+          "client": "quantumult-x",
+          "complete": false,
+          "contributes_to_canonical": true,
+          "coverage_against_authoritative": {
+            "extra": 0,
+            "extra_examples": [],
+            "missing": 0,
+            "missing_examples": []
+          },
+          "format": "meta-domain-yaml",
+          "id": "metacubex-ads-domain",
+          "parsed_rules": 910,
+          "raw_rules": 910,
+          "role": "canonical-authoritative",
+          "stale_cache": false,
+          "unsupported_rules": 0
+        },
+        {
+          "bytes": 8330,
+          "cache": "sources/cache/ads.mihomo.metacubex-ads-mrs.mrs",
+          "category": "ads",
+          "client": "mihomo",
+          "complete": false,
+          "contributes_to_canonical": false,
+          "format": "mrs",
+          "id": "metacubex-ads-mrs",
+          "parsed_rules": null,
+          "role": "audit-reference",
+          "stale_cache": false,
+          "unsupported_rules": 0
+        }
+      ],
+      "final": 910,
+      "id": "ads",
+      "label": "广告",
+      "normalized": 910,
+      "raw_rules": 910,
+      "status": "enabled",
+      "unsupported_rules": 0
+    },
+    {
+      "after_dedup": 22,
+      "after_patch": 22,
+      "audit_reference_rules": 0,
+      "authoritative_component": {
+        "client": "quantumult-x",
+        "id": "metacubex-chatgpt-domain"
+      },
+      "client_only_extra_rules": 0,
+      "components": [
+        {
+          "bytes": 664,
+          "cache": "sources/cache/chatgpt.quantumult-x.metacubex-chatgpt-domain.yaml",
+          "category": "chatgpt",
+          "client": "quantumult-x",
+          "complete": false,
+          "contributes_to_canonical": true,
+          "coverage_against_authoritative": {
+            "extra": 0,
+            "extra_examples": [],
+            "missing": 0,
+            "missing_examples": []
+          },
+          "format": "meta-domain-yaml",
+          "id": "metacubex-chatgpt-domain",
+          "parsed_rules": 22,
+          "raw_rules": 22,
+          "role": "canonical-authoritative",
+          "stale_cache": false,
+          "unsupported_rules": 0
+        },
+        {
+          "bytes": 415,
+          "cache": "sources/cache/chatgpt.mihomo.metacubex-chatgpt-mrs.mrs",
+          "category": "chatgpt",
+          "client": "mihomo",
+          "complete": false,
+          "contributes_to_canonical": false,
+          "format": "mrs",
+          "id": "metacubex-chatgpt-mrs",
+          "parsed_rules": null,
+          "role": "audit-reference",
+          "stale_cache": false,
+          "unsupported_rules": 0
+        }
+      ],
+      "final": 19,
+      "id": "chatgpt",
+      "label": "ChatGPT",
+      "normalized": 22,
+      "raw_rules": 22,
+      "status": "enabled",
+      "unsupported_rules": 0
+    },
+    {
+      "after_dedup": 3,
+      "after_patch": 3,
+      "audit_reference_rules": 3,
+      "authoritative_component": {
+        "client": "quantumult-x",
+        "id": "blackmatrix-claude-qx"
+      },
+      "client_only_extra_rules": 0,
+      "components": [
+        {
+          "bytes": 255,
+          "cache": "sources/cache/claude.quantumult-x.blackmatrix-claude-qx.list",
+          "category": "claude",
+          "client": "quantumult-x",
+          "complete": false,
+          "contributes_to_canonical": true,
+          "coverage_against_authoritative": {
+            "extra": 0,
+            "extra_examples": [],
+            "missing": 0,
+            "missing_examples": []
+          },
+          "format": "qx-list",
+          "id": "blackmatrix-claude-qx",
+          "parsed_rules": 3,
+          "raw_rules": 3,
+          "role": "canonical-authoritative",
+          "stale_cache": false,
+          "unsupported_rules": 0
+        },
+        {
+          "bytes": 265,
+          "cache": "sources/cache/claude.mihomo.blackmatrix-claude-classical.yaml",
+          "category": "claude",
+          "client": "mihomo",
+          "complete": true,
+          "contributes_to_canonical": false,
+          "coverage_against_authoritative": {
+            "extra": 0,
+            "extra_examples": [],
+            "missing": 0,
+            "missing_examples": []
+          },
+          "format": "mihomo-yaml",
+          "id": "blackmatrix-claude-classical",
+          "parsed_rules": 3,
+          "raw_rules": 3,
+          "role": "audit-reference",
+          "stale_cache": false,
+          "unsupported_rules": 0
+        }
+      ],
+      "final": 3,
+      "id": "claude",
+      "label": "Claude",
+      "normalized": 3,
+      "raw_rules": 3,
+      "status": "enabled",
+      "unsupported_rules": 0
+    },
+    {
+      "after_dedup": 13,
+      "after_patch": 13,
+      "audit_reference_rules": 13,
+      "authoritative_component": {
+        "client": "quantumult-x",
+        "id": "blackmatrix-gemini-qx"
+      },
+      "client_only_extra_rules": 0,
+      "components": [
+        {
+          "bytes": 664,
+          "cache": "sources/cache/gemini.quantumult-x.blackmatrix-gemini-qx.list",
+          "category": "gemini",
+          "client": "quantumult-x",
+          "complete": false,
+          "contributes_to_canonical": true,
+          "coverage_against_authoritative": {
+            "extra": 0,
+            "extra_examples": [],
+            "missing": 0,
+            "missing_examples": []
+          },
+          "format": "qx-list",
+          "id": "blackmatrix-gemini-qx",
+          "parsed_rules": 13,
+          "raw_rules": 13,
+          "role": "canonical-authoritative",
+          "stale_cache": false,
+          "unsupported_rules": 0
+        },
+        {
+          "bytes": 666,
+          "cache": "sources/cache/gemini.mihomo.blackmatrix-gemini-classical.yaml",
+          "category": "gemini",
+          "client": "mihomo",
+          "complete": true,
+          "contributes_to_canonical": false,
+          "coverage_against_authoritative": {
+            "extra": 0,
+            "extra_examples": [],
+            "missing": 0,
+            "missing_examples": []
+          },
+          "format": "mihomo-yaml",
+          "id": "blackmatrix-gemini-classical",
+          "parsed_rules": 13,
+          "raw_rules": 13,
+          "role": "audit-reference",
+          "stale_cache": false,
+          "unsupported_rules": 0
+        }
+      ],
+      "final": 13,
+      "id": "gemini",
+      "label": "Gemini",
+      "normalized": 13,
+      "raw_rules": 13,
+      "status": "enabled",
+      "unsupported_rules": 0
+    },
+    {
+      "after_dedup": 21,
+      "after_patch": 21,
+      "audit_reference_rules": 0,
+      "authoritative_component": {
+        "client": "quantumult-x",
+        "id": "metacubex-telegram-domain"
+      },
+      "client_only_extra_rules": 0,
+      "components": [
+        {
+          "bytes": 429,
+          "cache": "sources/cache/telegram.quantumult-x.metacubex-telegram-domain.yaml",
+          "category": "telegram",
+          "client": "quantumult-x",
+          "complete": false,
+          "contributes_to_canonical": true,
+          "coverage_against_authoritative": {
+            "extra": 0,
+            "extra_examples": [],
+            "missing": 0,
+            "missing_examples": []
+          },
+          "format": "meta-domain-yaml",
+          "id": "metacubex-telegram-domain",
+          "parsed_rules": 21,
+          "raw_rules": 21,
+          "role": "canonical-authoritative",
+          "stale_cache": false,
+          "unsupported_rules": 0
+        },
+        {
+          "bytes": 274,
+          "cache": "sources/cache/telegram.mihomo.metacubex-telegram-mrs.mrs",
+          "category": "telegram",
+          "client": "mihomo",
+          "complete": false,
+          "contributes_to_canonical": false,
+          "format": "mrs",
+          "id": "metacubex-telegram-mrs",
+          "parsed_rules": null,
+          "role": "audit-reference",
+          "stale_cache": false,
+          "unsupported_rules": 0
+        }
+      ],
+      "final": 21,
+      "id": "telegram",
+      "label": "Telegram",
+      "normalized": 21,
+      "raw_rules": 21,
+      "status": "enabled",
+      "unsupported_rules": 0
+    },
+    {
+      "after_dedup": 178,
+      "after_patch": 178,
+      "audit_reference_rules": 0,
+      "authoritative_component": {
+        "client": "quantumult-x",
+        "id": "metacubex-youtube-domain"
+      },
+      "client_only_extra_rules": 0,
+      "components": [
+        {
+          "bytes": 3821,
+          "cache": "sources/cache/youtube.quantumult-x.metacubex-youtube-domain.yaml",
+          "category": "youtube",
+          "client": "quantumult-x",
+          "complete": false,
+          "contributes_to_canonical": true,
+          "coverage_against_authoritative": {
+            "extra": 0,
+            "extra_examples": [],
+            "missing": 0,
+            "missing_examples": []
+          },
+          "format": "meta-domain-yaml",
+          "id": "metacubex-youtube-domain",
+          "parsed_rules": 178,
+          "raw_rules": 178,
+          "role": "canonical-authoritative",
+          "stale_cache": false,
+          "unsupported_rules": 0
+        },
+        {
+          "bytes": 1366,
+          "cache": "sources/cache/youtube.mihomo.metacubex-youtube-mrs.mrs",
+          "category": "youtube",
+          "client": "mihomo",
+          "complete": false,
+          "contributes_to_canonical": false,
+          "format": "mrs",
+          "id": "metacubex-youtube-mrs",
+          "parsed_rules": null,
+          "role": "audit-reference",
+          "stale_cache": false,
+          "unsupported_rules": 0
+        }
+      ],
+      "final": 177,
+      "id": "youtube",
+      "label": "YouTube",
+      "normalized": 178,
+      "raw_rules": 178,
+      "status": "enabled",
+      "unsupported_rules": 0
+    },
+    {
+      "after_dedup": 1158,
+      "after_patch": 1158,
+      "audit_reference_rules": 0,
+      "authoritative_component": {
+        "client": "quantumult-x",
+        "id": "blackmatrix-netflix-qx"
+      },
+      "client_only_extra_rules": 1157,
+      "components": [
+        {
+          "bytes": 37297,
+          "cache": "sources/cache/netflix.quantumult-x.blackmatrix-netflix-qx.list",
+          "category": "netflix",
+          "client": "quantumult-x",
+          "complete": false,
+          "contributes_to_canonical": true,
+          "coverage_against_authoritative": {
+            "extra": 0,
+            "extra_examples": [],
+            "missing": 0,
+            "missing_examples": []
+          },
+          "format": "qx-list",
+          "id": "blackmatrix-netflix-qx",
+          "parsed_rules": 1158,
+          "raw_rules": 1158,
+          "role": "canonical-authoritative",
+          "stale_cache": false,
+          "unsupported_rules": 0
+        },
+        {
+          "bytes": 32719,
+          "cache": "sources/cache/netflix.mihomo.blackmatrix-netflix-classical.yaml",
+          "category": "netflix",
+          "client": "mihomo",
+          "complete": true,
+          "contributes_to_canonical": false,
+          "coverage_against_authoritative": {
+            "extra": 1,
+            "extra_examples": [
+              [
+                "process-name",
+                "com.netflix.mediaclient"
+              ]
+            ],
+            "missing": 2,
+            "missing_examples": [
+              [
+                "domain-wildcard",
+                "netflixdnstest*.com"
+              ],
+              [
+                "user-agent",
+                "Argo*"
+              ]
+            ]
+          },
+          "format": "mihomo-yaml",
+          "id": "blackmatrix-netflix-classical",
+          "parsed_rules": 1157,
+          "raw_rules": 1157,
+          "role": "client-only-extra",
+          "stale_cache": false,
+          "unsupported_rules": 0
+        }
+      ],
+      "final": 1158,
+      "id": "netflix",
+      "label": "Netflix",
+      "normalized": 1158,
+      "raw_rules": 1158,
+      "status": "enabled",
+      "unsupported_rules": 0
+    },
+    {
+      "after_dedup": 1790,
+      "after_patch": 1792,
+      "audit_reference_rules": 0,
+      "authoritative_component": {
+        "client": "quantumult-x",
+        "id": "metacubex-apple-domain"
+      },
+      "client_only_extra_rules": 0,
+      "components": [
+        {
+          "bytes": 47622,
+          "cache": "sources/cache/apple.quantumult-x.metacubex-apple-domain.yaml",
+          "category": "apple",
+          "client": "quantumult-x",
+          "complete": false,
+          "contributes_to_canonical": true,
+          "coverage_against_authoritative": {
+            "extra": 0,
+            "extra_examples": [],
+            "missing": 0,
+            "missing_examples": []
+          },
+          "format": "meta-domain-yaml",
+          "id": "metacubex-apple-domain",
+          "parsed_rules": 1792,
+          "raw_rules": 1792,
+          "role": "canonical-authoritative",
+          "stale_cache": false,
+          "unsupported_rules": 0
+        },
+        {
+          "bytes": 17859,
+          "cache": "sources/cache/apple.mihomo.metacubex-apple-mrs.mrs",
+          "category": "apple",
+          "client": "mihomo",
+          "complete": false,
+          "contributes_to_canonical": false,
+          "format": "mrs",
+          "id": "metacubex-apple-mrs",
+          "parsed_rules": null,
+          "role": "audit-reference",
+          "stale_cache": false,
+          "unsupported_rules": 0
+        }
+      ],
+      "final": 1785,
+      "id": "apple",
+      "label": "Apple",
+      "normalized": 1792,
+      "raw_rules": 1792,
+      "status": "enabled",
+      "unsupported_rules": 0
+    },
+    {
+      "after_dedup": 1071,
+      "after_patch": 1071,
+      "audit_reference_rules": 0,
+      "authoritative_component": {
+        "client": "quantumult-x",
+        "id": "metacubex-google-domain"
+      },
+      "client_only_extra_rules": 0,
+      "components": [
+        {
+          "bytes": 24667,
+          "cache": "sources/cache/google.quantumult-x.metacubex-google-domain.yaml",
+          "category": "google",
+          "client": "quantumult-x",
+          "complete": false,
+          "contributes_to_canonical": true,
+          "coverage_against_authoritative": {
+            "extra": 0,
+            "extra_examples": [],
+            "missing": 0,
+            "missing_examples": []
+          },
+          "format": "meta-domain-yaml",
+          "id": "metacubex-google-domain",
+          "parsed_rules": 1071,
+          "raw_rules": 1071,
+          "role": "canonical-authoritative",
+          "stale_cache": false,
+          "unsupported_rules": 0
+        },
+        {
+          "bytes": 8871,
+          "cache": "sources/cache/google.mihomo.metacubex-google-mrs.mrs",
+          "category": "google",
+          "client": "mihomo",
+          "complete": false,
+          "contributes_to_canonical": false,
+          "format": "mrs",
+          "id": "metacubex-google-mrs",
+          "parsed_rules": null,
+          "role": "audit-reference",
+          "stale_cache": false,
+          "unsupported_rules": 0
+        }
+      ],
+      "final": 842,
+      "id": "google",
+      "label": "Google",
+      "normalized": 1071,
+      "raw_rules": 1071,
+      "status": "enabled",
+      "unsupported_rules": 0
+    },
+    {
+      "after_dedup": 0,
+      "after_patch": 0,
+      "audit_reference_rules": 0,
+      "authoritative_component": null,
+      "client_only_extra_rules": 0,
+      "components": [],
+      "final": 0,
+      "id": "global",
+      "label": "国外网站",
+      "normalized": 0,
+      "raw_rules": 0,
+      "status": "disabled",
+      "unsupported_rules": 0
+    }
+  ],
+  "client_only_extras": {
+    "mihomo": {
+      "netflix": 1
+    },
+    "quantumult-x": {}
+  },
+  "client_outputs": {
+    "mihomo": {
+      "artifact": "dist/mihomo/merge.yaml",
+      "canonical_personal_rules": 11,
+      "canonical_provider_rules": {
+        "ads": 910,
+        "apple": 1785,
+        "chatgpt": 19,
+        "claude": 3,
+        "gemini": 13,
+        "google": 842,
+        "netflix": 1157,
+        "private-tracker": 245,
+        "telegram": 21,
+        "youtube": 177
+      },
+      "canonical_rules": 5183,
+      "client_only_extra_rules": {
+        "ads": 0,
+        "apple": 0,
+        "chatgpt": 0,
+        "claude": 0,
+        "gemini": 0,
+        "google": 0,
+        "netflix": 1,
+        "private-tracker": 0,
+        "telegram": 0,
+        "youtube": 0
+      },
+      "personal_rules": 11,
+      "prepend_rules": 21,
+      "provider_directory": "dist/mihomo/providers",
+      "provider_ids": [
+        "private-tracker",
+        "ads",
+        "chatgpt",
+        "claude",
+        "gemini",
+        "telegram",
+        "youtube",
+        "netflix",
+        "apple",
+        "google"
+      ],
+      "provider_rules": {
+        "ads": 910,
+        "apple": 1785,
+        "chatgpt": 19,
+        "claude": 3,
+        "gemini": 13,
+        "google": 842,
+        "netflix": 1158,
+        "private-tracker": 245,
+        "telegram": 21,
+        "youtube": 177
+      },
+      "providers": 10,
+      "source": "canonical-plus-explicit-client-extras",
+      "unsupported_rules": {
+        "by_type": {
+          "user-agent": 1
+        },
+        "examples": [
+          {
+            "category": "netflix",
+            "reason": "unsupported by mihomo client adapter",
+            "role": "canonical-authoritative",
+            "type": "user-agent",
+            "value": "Argo*"
+          }
+        ],
+        "total": 1
+      }
+    },
+    "quantumult-x": {
+      "artifact_mode": "category-scoped-license-separated",
+      "artifacts": [
+        "dist/quantumult-x/providers/personal-overlay.list",
+        "dist/quantumult-x/providers/private-tracker.list",
+        "dist/quantumult-x/providers/ads.list",
+        "dist/quantumult-x/providers/chatgpt.list",
+        "dist/quantumult-x/providers/claude.list",
+        "dist/quantumult-x/providers/gemini.list",
+        "dist/quantumult-x/providers/telegram.list",
+        "dist/quantumult-x/providers/youtube.list",
+        "dist/quantumult-x/providers/netflix.list",
+        "dist/quantumult-x/providers/apple.list",
+        "dist/quantumult-x/providers/google.list"
+      ],
+      "canonical_rules": 5184,
+      "categories": [
+        {
+          "artifact": "dist/quantumult-x/providers/personal-overlay.list",
+          "canonical_rules": 11,
+          "client_only_extra_rules": 0,
+          "id": "personal-overlay",
+          "label": "本地覆盖",
+          "license_scope": "user-owned",
+          "rules": 11,
+          "upstream": "overrides/rules.txt"
+        },
+        {
+          "artifact": "dist/quantumult-x/providers/private-tracker.list",
+          "canonical_rules": 245,
+          "client_only_extra_rules": 0,
+          "id": "private-tracker",
+          "label": "PT / PrivateTracker",
+          "license_scope": "GPL-2.0",
+          "rules": 245,
+          "upstream": "blackmatrix7/ios_rule_script"
+        },
+        {
+          "artifact": "dist/quantumult-x/providers/ads.list",
+          "canonical_rules": 910,
+          "client_only_extra_rules": 0,
+          "id": "ads",
+          "label": "广告",
+          "license_scope": "GPL-3.0",
+          "rules": 910,
+          "upstream": "MetaCubeX/meta-rules-dat"
+        },
+        {
+          "artifact": "dist/quantumult-x/providers/chatgpt.list",
+          "canonical_rules": 19,
+          "client_only_extra_rules": 0,
+          "id": "chatgpt",
+          "label": "ChatGPT",
+          "license_scope": "GPL-3.0",
+          "rules": 19,
+          "upstream": "MetaCubeX/meta-rules-dat"
+        },
+        {
+          "artifact": "dist/quantumult-x/providers/claude.list",
+          "canonical_rules": 3,
+          "client_only_extra_rules": 0,
+          "id": "claude",
+          "label": "Claude",
+          "license_scope": "GPL-2.0",
+          "rules": 3,
+          "upstream": "blackmatrix7/ios_rule_script"
+        },
+        {
+          "artifact": "dist/quantumult-x/providers/gemini.list",
+          "canonical_rules": 13,
+          "client_only_extra_rules": 0,
+          "id": "gemini",
+          "label": "Gemini",
+          "license_scope": "GPL-2.0",
+          "rules": 13,
+          "upstream": "blackmatrix7/ios_rule_script"
+        },
+        {
+          "artifact": "dist/quantumult-x/providers/telegram.list",
+          "canonical_rules": 21,
+          "client_only_extra_rules": 0,
+          "id": "telegram",
+          "label": "Telegram",
+          "license_scope": "GPL-3.0",
+          "rules": 21,
+          "upstream": "MetaCubeX/meta-rules-dat"
+        },
+        {
+          "artifact": "dist/quantumult-x/providers/youtube.list",
+          "canonical_rules": 177,
+          "client_only_extra_rules": 0,
+          "id": "youtube",
+          "label": "YouTube",
+          "license_scope": "GPL-3.0",
+          "rules": 177,
+          "upstream": "MetaCubeX/meta-rules-dat"
+        },
+        {
+          "artifact": "dist/quantumult-x/providers/netflix.list",
+          "canonical_rules": 1158,
+          "client_only_extra_rules": 0,
+          "id": "netflix",
+          "label": "Netflix",
+          "license_scope": "GPL-2.0",
+          "rules": 1158,
+          "upstream": "blackmatrix7/ios_rule_script"
+        },
+        {
+          "artifact": "dist/quantumult-x/providers/apple.list",
+          "canonical_rules": 1785,
+          "client_only_extra_rules": 0,
+          "id": "apple",
+          "label": "Apple",
+          "license_scope": "GPL-3.0",
+          "rules": 1785,
+          "upstream": "MetaCubeX/meta-rules-dat"
+        },
+        {
+          "artifact": "dist/quantumult-x/providers/google.list",
+          "canonical_rules": 842,
+          "client_only_extra_rules": 0,
+          "id": "google",
+          "label": "Google",
+          "license_scope": "GPL-3.0",
+          "rules": 842,
+          "upstream": "MetaCubeX/meta-rules-dat"
+        }
+      ],
+      "client_only_extra_rules": 0,
+      "mixed_derivative": false,
+      "rules": 5184
     }
   },
-  "schema_version": 1
+  "conflicts": {
+    "examples": [
+      {
+        "appearances": [
+          {
+            "category": "gemini",
+            "component": "blackmatrix-gemini-qx",
+            "source": "blackmatrix7/ios_rule_script",
+            "source_rule": "HOST,ai.google.dev,Gemini"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "ai.google.dev"
+          }
+        ],
+        "appeared_in": [
+          "gemini",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "priority patch gemini-google-overlap: Gemini 专用端点必须优先于 Google 通用分类。",
+        "rule": {
+          "type": "domain",
+          "value": "ai.google.dev"
+        },
+        "selected": "gemini"
+      },
+      {
+        "appearances": [
+          {
+            "category": "youtube",
+            "component": "metacubex-youtube-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.youtube.com"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.youtube.com"
+          }
+        ],
+        "appeared_in": [
+          "youtube",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "priority patch youtube-google-overlap: YouTube 服务域名必须优先于 Google 通用分类。",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "youtube.com"
+        },
+        "selected": "youtube"
+      },
+      {
+        "appearances": [
+          {
+            "category": "gemini",
+            "component": "blackmatrix-gemini-qx",
+            "source": "blackmatrix7/ios_rule_script",
+            "source_rule": "HOST,alkalimakersuite-pa.clients6.google.com,Gemini"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "alkalimakersuite-pa.clients6.google.com"
+          }
+        ],
+        "appeared_in": [
+          "gemini",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: gemini=50",
+        "rule": {
+          "type": "domain",
+          "value": "alkalimakersuite-pa.clients6.google.com"
+        },
+        "selected": "gemini"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "analytics.google.com"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "analytics.google.com"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain",
+          "value": "analytics.google.com"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "browser-intake-datadoghq.com"
+          },
+          {
+            "category": "chatgpt",
+            "component": "metacubex-chatgpt-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "browser-intake-datadoghq.com"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "chatgpt"
+        ],
+        "dropped": [
+          "chatgpt"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain",
+          "value": "browser-intake-datadoghq.com"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "o33249.ingest.sentry.io"
+          },
+          {
+            "category": "chatgpt",
+            "component": "metacubex-chatgpt-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "o33249.ingest.sentry.io"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "chatgpt"
+        ],
+        "dropped": [
+          "chatgpt"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain",
+          "value": "o33249.ingest.sentry.io"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "openai.qualtrics.com"
+          },
+          {
+            "category": "chatgpt",
+            "component": "metacubex-chatgpt-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "openai.qualtrics.com"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "chatgpt"
+        ],
+        "dropped": [
+          "chatgpt"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain",
+          "value": "openai.qualtrics.com"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "youtube",
+            "component": "metacubex-youtube-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "yt3.googleusercontent.com"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "yt3.googleusercontent.com"
+          }
+        ],
+        "appeared_in": [
+          "youtube",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: youtube=70",
+        "rule": {
+          "type": "domain",
+          "value": "yt3.googleusercontent.com"
+        },
+        "selected": "youtube"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.2mdn-cn.net"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.2mdn-cn.net"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "2mdn-cn.net"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.2mdn.net"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.2mdn.net"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "2mdn.net"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.admob-cn.com"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.admob-cn.com"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "admob-cn.com"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.admob.com"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.admob.com"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "admob.com"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.ads.youtube.com"
+          },
+          {
+            "category": "youtube",
+            "component": "metacubex-youtube-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.ads.youtube.com"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.ads.youtube.com"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "youtube",
+          "google"
+        ],
+        "dropped": [
+          "youtube",
+          "google"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "ads.youtube.com"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.adsense.com"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.adsense.com"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "adsense.com"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.adsensecustomsearchads.com"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.adsensecustomsearchads.com"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "adsensecustomsearchads.com"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.adsenseformobileapps.com"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.adsenseformobileapps.com"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "adsenseformobileapps.com"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.adservice.google.com"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.adservice.google.com"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "adservice.google.com"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.adtrafficquality.google"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.adtrafficquality.google"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "adtrafficquality.google"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.advertisercommunity.com"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.advertisercommunity.com"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "advertisercommunity.com"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.advertiserscommunity.com"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.advertiserscommunity.com"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "advertiserscommunity.com"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.advertising.apple.com"
+          },
+          {
+            "category": "apple",
+            "component": "metacubex-apple-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.advertising.apple.com"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "apple"
+        ],
+        "dropped": [
+          "apple"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "advertising.apple.com"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.adwords-community.com"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.adwords-community.com"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "adwords-community.com"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.adwords.com"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.adwords.com"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "adwords.com"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.adwordsexpress.com"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.adwordsexpress.com"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "adwordsexpress.com"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.analytics-alv.google.com"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.analytics-alv.google.com"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "analytics-alv.google.com"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.api-adservices.apple.com"
+          },
+          {
+            "category": "apple",
+            "component": "metacubex-apple-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.api-adservices.apple.com"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "apple"
+        ],
+        "dropped": [
+          "apple"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "api-adservices.apple.com"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.app-ads-services.com"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.app-ads-services.com"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "app-ads-services.com"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.app-analytics-services-att.com"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.app-analytics-services-att.com"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "app-analytics-services-att.com"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.app-analytics-services.com"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.app-analytics-services.com"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "app-analytics-services.com"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.app-measurement-cn.com"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.app-measurement-cn.com"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "app-measurement-cn.com"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.app-measurement.com"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.app-measurement.com"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "app-measurement.com"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "gemini",
+            "component": "blackmatrix-gemini-qx",
+            "source": "blackmatrix7/ios_rule_script",
+            "source_rule": "HOST-SUFFIX,deepmind.com,Gemini"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.deepmind.com"
+          }
+        ],
+        "appeared_in": [
+          "gemini",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: gemini=50",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "deepmind.com"
+        },
+        "selected": "gemini"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.doubleclick-cn.net"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.doubleclick-cn.net"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "doubleclick-cn.net"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.doubleclick.cn"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.doubleclick.cn"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "doubleclick.cn"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.doubleclick.com"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.doubleclick.com"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "doubleclick.com"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.doubleclick.net"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.doubleclick.net"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "doubleclick.net"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.fcmatch.google.com"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.fcmatch.google.com"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "fcmatch.google.com"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "youtube",
+            "component": "metacubex-youtube-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.ggpht.cn"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.ggpht.cn"
+          }
+        ],
+        "appeared_in": [
+          "youtube",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: youtube=70",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "ggpht.cn"
+        },
+        "selected": "youtube"
+      },
+      {
+        "appearances": [
+          {
+            "category": "youtube",
+            "component": "metacubex-youtube-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.ggpht.com"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.ggpht.com"
+          }
+        ],
+        "appeared_in": [
+          "youtube",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: youtube=70",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "ggpht.com"
+        },
+        "selected": "youtube"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.google-analytics-cn.com"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.google-analytics-cn.com"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "google-analytics-cn.com"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.google-analytics.com"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.google-analytics.com"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "google-analytics.com"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.googleadapis.com"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.googleadapis.com"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "googleadapis.com"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.googleadapis.l.google.com"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.googleadapis.l.google.com"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "googleadapis.l.google.com"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.googleads-cn.com"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.googleads-cn.com"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "googleads-cn.com"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.googleads.com"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.googleads.com"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "googleads.com"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.googleadservices-cn.com"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.googleadservices-cn.com"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "googleadservices-cn.com"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.googleadservices.com"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.googleadservices.com"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "googleadservices.com"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.googleadsserving.cn"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.googleadsserving.cn"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "googleadsserving.cn"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.googleanalytics.com"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.googleanalytics.com"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "googleanalytics.com"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.googleoptimize-cn.com"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.googleoptimize-cn.com"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "googleoptimize-cn.com"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.googleoptimize.com"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.googleoptimize.com"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "googleoptimize.com"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.googlesyndication-cn.com"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.googlesyndication-cn.com"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "googlesyndication-cn.com"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.googlesyndication.com"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.googlesyndication.com"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "googlesyndication.com"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.googletagmanager-cn.com"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.googletagmanager-cn.com"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "googletagmanager-cn.com"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.googletagmanager.com"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.googletagmanager.com"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "googletagmanager.com"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.googletagservices-cn.com"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.googletagservices-cn.com"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "googletagservices-cn.com"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.googletagservices.com"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.googletagservices.com"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "googletagservices.com"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.googletraveladservices-cn.com"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.googletraveladservices-cn.com"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "googletraveladservices-cn.com"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.googletraveladservices.com"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.googletraveladservices.com"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "googletraveladservices.com"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.googlevads-cn.com"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.googlevads-cn.com"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "googlevads-cn.com"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "youtube",
+            "component": "metacubex-youtube-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.googlevideo.com"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.googlevideo.com"
+          }
+        ],
+        "appeared_in": [
+          "youtube",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: youtube=70",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "googlevideo.com"
+        },
+        "selected": "youtube"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.iad.apple.com"
+          },
+          {
+            "category": "apple",
+            "component": "metacubex-apple-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.iad.apple.com"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "apple"
+        ],
+        "dropped": [
+          "apple"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "iad.apple.com"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.iadsdk.apple.com"
+          },
+          {
+            "category": "apple",
+            "component": "metacubex-apple-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.iadsdk.apple.com"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "apple"
+        ],
+        "dropped": [
+          "apple"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "iadsdk.apple.com"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.mail-ads.google.com"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.mail-ads.google.com"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "mail-ads.google.com"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.marketingplatform.google.com"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.marketingplatform.google.com"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "marketingplatform.google.com"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.mobileads.google.com"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.mobileads.google.com"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "mobileads.google.com"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.pagead.l.google.com"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.pagead.l.google.com"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "pagead.l.google.com"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.partnerad.l.google.com"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.partnerad.l.google.com"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "partnerad.l.google.com"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.qwapi.com"
+          },
+          {
+            "category": "apple",
+            "component": "metacubex-apple-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.qwapi.com"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "apple"
+        ],
+        "dropped": [
+          "apple"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "qwapi.com"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.urchin.com"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.urchin.com"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "urchin.com"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "youtube",
+            "component": "metacubex-youtube-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.withyoutube.com"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.withyoutube.com"
+          }
+        ],
+        "appeared_in": [
+          "youtube",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: youtube=70",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "withyoutube.com"
+        },
+        "selected": "youtube"
+      },
+      {
+        "appearances": [
+          {
+            "category": "youtube",
+            "component": "metacubex-youtube-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.youtu.be"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.youtu.be"
+          }
+        ],
+        "appeared_in": [
+          "youtube",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: youtube=70",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "youtu.be"
+        },
+        "selected": "youtube"
+      },
+      {
+        "appearances": [
+          {
+            "category": "youtube",
+            "component": "metacubex-youtube-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.youtube"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.youtube"
+          }
+        ],
+        "appeared_in": [
+          "youtube",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: youtube=70",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "youtube"
+        },
+        "selected": "youtube"
+      },
+      {
+        "appearances": [
+          {
+            "category": "youtube",
+            "component": "metacubex-youtube-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.youtube-nocookie.com"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.youtube-nocookie.com"
+          }
+        ],
+        "appeared_in": [
+          "youtube",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: youtube=70",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "youtube-nocookie.com"
+        },
+        "selected": "youtube"
+      },
+      {
+        "appearances": [
+          {
+            "category": "youtube",
+            "component": "metacubex-youtube-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.youtube.ae"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.youtube.ae"
+          }
+        ],
+        "appeared_in": [
+          "youtube",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: youtube=70",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "youtube.ae"
+        },
+        "selected": "youtube"
+      },
+      {
+        "appearances": [
+          {
+            "category": "youtube",
+            "component": "metacubex-youtube-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.youtube.al"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.youtube.al"
+          }
+        ],
+        "appeared_in": [
+          "youtube",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: youtube=70",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "youtube.al"
+        },
+        "selected": "youtube"
+      },
+      {
+        "appearances": [
+          {
+            "category": "youtube",
+            "component": "metacubex-youtube-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.youtube.am"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.youtube.am"
+          }
+        ],
+        "appeared_in": [
+          "youtube",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: youtube=70",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "youtube.am"
+        },
+        "selected": "youtube"
+      },
+      {
+        "appearances": [
+          {
+            "category": "youtube",
+            "component": "metacubex-youtube-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.youtube.at"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.youtube.at"
+          }
+        ],
+        "appeared_in": [
+          "youtube",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: youtube=70",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "youtube.at"
+        },
+        "selected": "youtube"
+      },
+      {
+        "appearances": [
+          {
+            "category": "youtube",
+            "component": "metacubex-youtube-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.youtube.az"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.youtube.az"
+          }
+        ],
+        "appeared_in": [
+          "youtube",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: youtube=70",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "youtube.az"
+        },
+        "selected": "youtube"
+      },
+      {
+        "appearances": [
+          {
+            "category": "youtube",
+            "component": "metacubex-youtube-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.youtube.ba"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.youtube.ba"
+          }
+        ],
+        "appeared_in": [
+          "youtube",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: youtube=70",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "youtube.ba"
+        },
+        "selected": "youtube"
+      },
+      {
+        "appearances": [
+          {
+            "category": "youtube",
+            "component": "metacubex-youtube-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.youtube.be"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.youtube.be"
+          }
+        ],
+        "appeared_in": [
+          "youtube",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: youtube=70",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "youtube.be"
+        },
+        "selected": "youtube"
+      },
+      {
+        "appearances": [
+          {
+            "category": "youtube",
+            "component": "metacubex-youtube-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.youtube.bg"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.youtube.bg"
+          }
+        ],
+        "appeared_in": [
+          "youtube",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: youtube=70",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "youtube.bg"
+        },
+        "selected": "youtube"
+      },
+      {
+        "appearances": [
+          {
+            "category": "youtube",
+            "component": "metacubex-youtube-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.youtube.bh"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.youtube.bh"
+          }
+        ],
+        "appeared_in": [
+          "youtube",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: youtube=70",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "youtube.bh"
+        },
+        "selected": "youtube"
+      },
+      {
+        "appearances": [
+          {
+            "category": "youtube",
+            "component": "metacubex-youtube-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.youtube.bo"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.youtube.bo"
+          }
+        ],
+        "appeared_in": [
+          "youtube",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: youtube=70",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "youtube.bo"
+        },
+        "selected": "youtube"
+      },
+      {
+        "appearances": [
+          {
+            "category": "youtube",
+            "component": "metacubex-youtube-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.youtube.by"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.youtube.by"
+          }
+        ],
+        "appeared_in": [
+          "youtube",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: youtube=70",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "youtube.by"
+        },
+        "selected": "youtube"
+      },
+      {
+        "appearances": [
+          {
+            "category": "youtube",
+            "component": "metacubex-youtube-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.youtube.ca"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.youtube.ca"
+          }
+        ],
+        "appeared_in": [
+          "youtube",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: youtube=70",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "youtube.ca"
+        },
+        "selected": "youtube"
+      },
+      {
+        "appearances": [
+          {
+            "category": "youtube",
+            "component": "metacubex-youtube-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.youtube.cat"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.youtube.cat"
+          }
+        ],
+        "appeared_in": [
+          "youtube",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: youtube=70",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "youtube.cat"
+        },
+        "selected": "youtube"
+      },
+      {
+        "appearances": [
+          {
+            "category": "youtube",
+            "component": "metacubex-youtube-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.youtube.ch"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.youtube.ch"
+          }
+        ],
+        "appeared_in": [
+          "youtube",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: youtube=70",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "youtube.ch"
+        },
+        "selected": "youtube"
+      },
+      {
+        "appearances": [
+          {
+            "category": "youtube",
+            "component": "metacubex-youtube-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.youtube.cl"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.youtube.cl"
+          }
+        ],
+        "appeared_in": [
+          "youtube",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: youtube=70",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "youtube.cl"
+        },
+        "selected": "youtube"
+      },
+      {
+        "appearances": [
+          {
+            "category": "youtube",
+            "component": "metacubex-youtube-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.youtube.co"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.youtube.co"
+          }
+        ],
+        "appeared_in": [
+          "youtube",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: youtube=70",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "youtube.co"
+        },
+        "selected": "youtube"
+      },
+      {
+        "appearances": [
+          {
+            "category": "youtube",
+            "component": "metacubex-youtube-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.youtube.co.ae"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.youtube.co.ae"
+          }
+        ],
+        "appeared_in": [
+          "youtube",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: youtube=70",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "youtube.co.ae"
+        },
+        "selected": "youtube"
+      },
+      {
+        "appearances": [
+          {
+            "category": "youtube",
+            "component": "metacubex-youtube-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.youtube.co.at"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.youtube.co.at"
+          }
+        ],
+        "appeared_in": [
+          "youtube",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: youtube=70",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "youtube.co.at"
+        },
+        "selected": "youtube"
+      },
+      {
+        "appearances": [
+          {
+            "category": "youtube",
+            "component": "metacubex-youtube-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.youtube.co.cr"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.youtube.co.cr"
+          }
+        ],
+        "appeared_in": [
+          "youtube",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: youtube=70",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "youtube.co.cr"
+        },
+        "selected": "youtube"
+      },
+      {
+        "appearances": [
+          {
+            "category": "youtube",
+            "component": "metacubex-youtube-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.youtube.co.hu"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.youtube.co.hu"
+          }
+        ],
+        "appeared_in": [
+          "youtube",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: youtube=70",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "youtube.co.hu"
+        },
+        "selected": "youtube"
+      },
+      {
+        "appearances": [
+          {
+            "category": "youtube",
+            "component": "metacubex-youtube-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.youtube.co.id"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.youtube.co.id"
+          }
+        ],
+        "appeared_in": [
+          "youtube",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: youtube=70",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "youtube.co.id"
+        },
+        "selected": "youtube"
+      },
+      {
+        "appearances": [
+          {
+            "category": "youtube",
+            "component": "metacubex-youtube-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.youtube.co.il"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.youtube.co.il"
+          }
+        ],
+        "appeared_in": [
+          "youtube",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: youtube=70",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "youtube.co.il"
+        },
+        "selected": "youtube"
+      },
+      {
+        "appearances": [
+          {
+            "category": "youtube",
+            "component": "metacubex-youtube-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.youtube.co.in"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.youtube.co.in"
+          }
+        ],
+        "appeared_in": [
+          "youtube",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: youtube=70",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "youtube.co.in"
+        },
+        "selected": "youtube"
+      },
+      {
+        "appearances": [
+          {
+            "category": "youtube",
+            "component": "metacubex-youtube-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.youtube.co.jp"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.youtube.co.jp"
+          }
+        ],
+        "appeared_in": [
+          "youtube",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: youtube=70",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "youtube.co.jp"
+        },
+        "selected": "youtube"
+      },
+      {
+        "appearances": [
+          {
+            "category": "youtube",
+            "component": "metacubex-youtube-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.youtube.co.ke"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.youtube.co.ke"
+          }
+        ],
+        "appeared_in": [
+          "youtube",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: youtube=70",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "youtube.co.ke"
+        },
+        "selected": "youtube"
+      },
+      {
+        "appearances": [
+          {
+            "category": "youtube",
+            "component": "metacubex-youtube-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.youtube.co.kr"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.youtube.co.kr"
+          }
+        ],
+        "appeared_in": [
+          "youtube",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: youtube=70",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "youtube.co.kr"
+        },
+        "selected": "youtube"
+      }
+    ],
+    "resolved": 237,
+    "total": 237
+  },
+  "dropped_rules": {
+    "by_reason": {
+      "client-unsupported": 1,
+      "conflict": 238,
+      "duplicate": 5,
+      "patch-remove": 0
+    },
+    "examples": [
+      {
+        "category": "private-tracker",
+        "dropped": {
+          "component": "blackmatrix-private-tracker-qx",
+          "source": "blackmatrix7/ios_rule_script"
+        },
+        "kept": {
+          "component": "overrides/rules.txt",
+          "source": "personal-rules"
+        },
+        "reason": "duplicate",
+        "type": "domain-suffix",
+        "value": "hdtime.org"
+      },
+      {
+        "category": "private-tracker",
+        "dropped": {
+          "component": "blackmatrix-private-tracker-qx",
+          "source": "blackmatrix7/ios_rule_script"
+        },
+        "kept": {
+          "component": "overrides/rules.txt",
+          "source": "personal-rules"
+        },
+        "reason": "duplicate",
+        "type": "domain-suffix",
+        "value": "pttime.org"
+      },
+      {
+        "category": "private-tracker",
+        "dropped": {
+          "component": "blackmatrix-private-tracker-qx",
+          "source": "blackmatrix7/ios_rule_script"
+        },
+        "kept": {
+          "component": "overrides/rules.txt",
+          "source": "personal-rules"
+        },
+        "reason": "duplicate",
+        "type": "domain-keyword",
+        "value": "m-team"
+      },
+      {
+        "category": "apple",
+        "dropped": {
+          "component": "metacubex-apple-domain",
+          "source": "MetaCubeX/meta-rules-dat"
+        },
+        "kept": {
+          "component": "metacubex-apple-domain",
+          "source": "MetaCubeX/meta-rules-dat"
+        },
+        "reason": "duplicate",
+        "type": "domain",
+        "value": "np-edge.itunes.apple.com"
+      },
+      {
+        "category": "apple",
+        "dropped": {
+          "component": "metacubex-apple-domain",
+          "source": "MetaCubeX/meta-rules-dat"
+        },
+        "kept": {
+          "component": "metacubex-apple-domain",
+          "source": "MetaCubeX/meta-rules-dat"
+        },
+        "reason": "duplicate",
+        "type": "domain",
+        "value": "play-edge.itunes.apple.com"
+      },
+      {
+        "appearances": [
+          {
+            "category": "gemini",
+            "component": "blackmatrix-gemini-qx",
+            "source": "blackmatrix7/ios_rule_script",
+            "source_rule": "HOST,ai.google.dev,Gemini"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "ai.google.dev"
+          }
+        ],
+        "appeared_in": [
+          "gemini",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "priority patch gemini-google-overlap: Gemini 专用端点必须优先于 Google 通用分类。",
+        "rule": {
+          "type": "domain",
+          "value": "ai.google.dev"
+        },
+        "selected": "gemini"
+      },
+      {
+        "appearances": [
+          {
+            "category": "youtube",
+            "component": "metacubex-youtube-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.youtube.com"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.youtube.com"
+          }
+        ],
+        "appeared_in": [
+          "youtube",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "priority patch youtube-google-overlap: YouTube 服务域名必须优先于 Google 通用分类。",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "youtube.com"
+        },
+        "selected": "youtube"
+      },
+      {
+        "appearances": [
+          {
+            "category": "gemini",
+            "component": "blackmatrix-gemini-qx",
+            "source": "blackmatrix7/ios_rule_script",
+            "source_rule": "HOST,alkalimakersuite-pa.clients6.google.com,Gemini"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "alkalimakersuite-pa.clients6.google.com"
+          }
+        ],
+        "appeared_in": [
+          "gemini",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: gemini=50",
+        "rule": {
+          "type": "domain",
+          "value": "alkalimakersuite-pa.clients6.google.com"
+        },
+        "selected": "gemini"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "analytics.google.com"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "analytics.google.com"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain",
+          "value": "analytics.google.com"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "browser-intake-datadoghq.com"
+          },
+          {
+            "category": "chatgpt",
+            "component": "metacubex-chatgpt-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "browser-intake-datadoghq.com"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "chatgpt"
+        ],
+        "dropped": [
+          "chatgpt"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain",
+          "value": "browser-intake-datadoghq.com"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "o33249.ingest.sentry.io"
+          },
+          {
+            "category": "chatgpt",
+            "component": "metacubex-chatgpt-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "o33249.ingest.sentry.io"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "chatgpt"
+        ],
+        "dropped": [
+          "chatgpt"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain",
+          "value": "o33249.ingest.sentry.io"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "openai.qualtrics.com"
+          },
+          {
+            "category": "chatgpt",
+            "component": "metacubex-chatgpt-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "openai.qualtrics.com"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "chatgpt"
+        ],
+        "dropped": [
+          "chatgpt"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain",
+          "value": "openai.qualtrics.com"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "youtube",
+            "component": "metacubex-youtube-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "yt3.googleusercontent.com"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "yt3.googleusercontent.com"
+          }
+        ],
+        "appeared_in": [
+          "youtube",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: youtube=70",
+        "rule": {
+          "type": "domain",
+          "value": "yt3.googleusercontent.com"
+        },
+        "selected": "youtube"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.2mdn-cn.net"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.2mdn-cn.net"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "2mdn-cn.net"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.2mdn.net"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.2mdn.net"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "2mdn.net"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.admob-cn.com"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.admob-cn.com"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "admob-cn.com"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.admob.com"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.admob.com"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "admob.com"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.ads.youtube.com"
+          },
+          {
+            "category": "youtube",
+            "component": "metacubex-youtube-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.ads.youtube.com"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.ads.youtube.com"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "youtube",
+          "google"
+        ],
+        "dropped": [
+          "youtube",
+          "google"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "ads.youtube.com"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.adsense.com"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.adsense.com"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "adsense.com"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.adsensecustomsearchads.com"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.adsensecustomsearchads.com"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "adsensecustomsearchads.com"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.adsenseformobileapps.com"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.adsenseformobileapps.com"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "adsenseformobileapps.com"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.adservice.google.com"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.adservice.google.com"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "adservice.google.com"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.adtrafficquality.google"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.adtrafficquality.google"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "adtrafficquality.google"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.advertisercommunity.com"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.advertisercommunity.com"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "advertisercommunity.com"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.advertiserscommunity.com"
+          },
+          {
+            "category": "google",
+            "component": "metacubex-google-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "+.advertiserscommunity.com"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "google"
+        ],
+        "dropped": [
+          "google"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain-suffix",
+          "value": "advertiserscommunity.com"
+        },
+        "selected": "ads"
+      },
+      {
+        "category": "netflix",
+        "reason": "unsupported by mihomo client adapter",
+        "role": "canonical-authoritative",
+        "type": "user-agent",
+        "value": "Argo*"
+      }
+    ],
+    "total": 244
+  },
+  "duplicates": {
+    "examples": [
+      {
+        "category": "private-tracker",
+        "dropped": {
+          "component": "blackmatrix-private-tracker-qx",
+          "source": "blackmatrix7/ios_rule_script"
+        },
+        "kept": {
+          "component": "overrides/rules.txt",
+          "source": "personal-rules"
+        },
+        "type": "domain-suffix",
+        "value": "hdtime.org"
+      },
+      {
+        "category": "private-tracker",
+        "dropped": {
+          "component": "blackmatrix-private-tracker-qx",
+          "source": "blackmatrix7/ios_rule_script"
+        },
+        "kept": {
+          "component": "overrides/rules.txt",
+          "source": "personal-rules"
+        },
+        "type": "domain-suffix",
+        "value": "pttime.org"
+      },
+      {
+        "category": "private-tracker",
+        "dropped": {
+          "component": "blackmatrix-private-tracker-qx",
+          "source": "blackmatrix7/ios_rule_script"
+        },
+        "kept": {
+          "component": "overrides/rules.txt",
+          "source": "personal-rules"
+        },
+        "type": "domain-keyword",
+        "value": "m-team"
+      },
+      {
+        "category": "apple",
+        "dropped": {
+          "component": "metacubex-apple-domain",
+          "source": "MetaCubeX/meta-rules-dat"
+        },
+        "kept": {
+          "component": "metacubex-apple-domain",
+          "source": "MetaCubeX/meta-rules-dat"
+        },
+        "type": "domain",
+        "value": "np-edge.itunes.apple.com"
+      },
+      {
+        "category": "apple",
+        "dropped": {
+          "component": "metacubex-apple-domain",
+          "source": "MetaCubeX/meta-rules-dat"
+        },
+        "kept": {
+          "component": "metacubex-apple-domain",
+          "source": "MetaCubeX/meta-rules-dat"
+        },
+        "type": "domain",
+        "value": "play-edge.itunes.apple.com"
+      }
+    ],
+    "total": 5
+  },
+  "generator": "scripts/build.py",
+  "obsolete_patch_candidates": [],
+  "patches": {
+    "applied": 2,
+    "details": [
+      {
+        "action": "priority",
+        "affected": 1,
+        "auto_drop_when_fixed": true,
+        "file": "patches/common.yaml",
+        "id": "gemini-google-overlap",
+        "matched": 1,
+        "reason": "Gemini 专用端点必须优先于 Google 通用分类。",
+        "required": true,
+        "status": "applied"
+      },
+      {
+        "action": "priority",
+        "affected": 1,
+        "auto_drop_when_fixed": true,
+        "file": "patches/common.yaml",
+        "id": "youtube-google-overlap",
+        "matched": 1,
+        "reason": "YouTube 服务域名必须优先于 Google 通用分类。",
+        "required": true,
+        "status": "applied"
+      }
+    ],
+    "failed": 0,
+    "obsolete_candidates": 0
+  },
+  "schema_version": 2,
+  "unsupported_rules": {
+    "client_outputs": {
+      "mihomo": {
+        "by_type": {
+          "user-agent": 1
+        },
+        "examples": [
+          {
+            "category": "netflix",
+            "reason": "unsupported by mihomo client adapter",
+            "role": "canonical-authoritative",
+            "type": "user-agent",
+            "value": "Argo*"
+          }
+        ],
+        "total": 1
+      }
+    },
+    "total": 1,
+    "upstream_components": []
+  },
+  "upstreams": {
+    "component_count": 20,
+    "components": [
+      {
+        "bytes": 10025,
+        "cache": "sources/cache/private-tracker.quantumult-x.blackmatrix-private-tracker-qx.list",
+        "category": "private-tracker",
+        "client": "quantumult-x",
+        "complete": false,
+        "contributes_to_canonical": true,
+        "coverage_against_authoritative": {
+          "extra": 0,
+          "extra_examples": [],
+          "missing": 0,
+          "missing_examples": []
+        },
+        "format": "qx-list",
+        "id": "blackmatrix-private-tracker-qx",
+        "parsed_rules": 248,
+        "raw_rules": 248,
+        "role": "canonical-authoritative",
+        "stale_cache": false,
+        "unsupported_rules": 0
+      },
+      {
+        "bytes": 7802,
+        "cache": "sources/cache/private-tracker.mihomo.blackmatrix-private-tracker-classical.yaml",
+        "category": "private-tracker",
+        "client": "mihomo",
+        "complete": true,
+        "contributes_to_canonical": false,
+        "coverage_against_authoritative": {
+          "extra": 0,
+          "extra_examples": [],
+          "missing": 0,
+          "missing_examples": []
+        },
+        "format": "mihomo-yaml",
+        "id": "blackmatrix-private-tracker-classical",
+        "parsed_rules": 248,
+        "raw_rules": 248,
+        "role": "audit-reference",
+        "stale_cache": false,
+        "unsupported_rules": 0
+      },
+      {
+        "bytes": 23078,
+        "cache": "sources/cache/ads.quantumult-x.metacubex-ads-domain.yaml",
+        "category": "ads",
+        "client": "quantumult-x",
+        "complete": false,
+        "contributes_to_canonical": true,
+        "coverage_against_authoritative": {
+          "extra": 0,
+          "extra_examples": [],
+          "missing": 0,
+          "missing_examples": []
+        },
+        "format": "meta-domain-yaml",
+        "id": "metacubex-ads-domain",
+        "parsed_rules": 910,
+        "raw_rules": 910,
+        "role": "canonical-authoritative",
+        "stale_cache": false,
+        "unsupported_rules": 0
+      },
+      {
+        "bytes": 8330,
+        "cache": "sources/cache/ads.mihomo.metacubex-ads-mrs.mrs",
+        "category": "ads",
+        "client": "mihomo",
+        "complete": false,
+        "contributes_to_canonical": false,
+        "format": "mrs",
+        "id": "metacubex-ads-mrs",
+        "parsed_rules": null,
+        "role": "audit-reference",
+        "stale_cache": false,
+        "unsupported_rules": 0
+      },
+      {
+        "bytes": 664,
+        "cache": "sources/cache/chatgpt.quantumult-x.metacubex-chatgpt-domain.yaml",
+        "category": "chatgpt",
+        "client": "quantumult-x",
+        "complete": false,
+        "contributes_to_canonical": true,
+        "coverage_against_authoritative": {
+          "extra": 0,
+          "extra_examples": [],
+          "missing": 0,
+          "missing_examples": []
+        },
+        "format": "meta-domain-yaml",
+        "id": "metacubex-chatgpt-domain",
+        "parsed_rules": 22,
+        "raw_rules": 22,
+        "role": "canonical-authoritative",
+        "stale_cache": false,
+        "unsupported_rules": 0
+      },
+      {
+        "bytes": 415,
+        "cache": "sources/cache/chatgpt.mihomo.metacubex-chatgpt-mrs.mrs",
+        "category": "chatgpt",
+        "client": "mihomo",
+        "complete": false,
+        "contributes_to_canonical": false,
+        "format": "mrs",
+        "id": "metacubex-chatgpt-mrs",
+        "parsed_rules": null,
+        "role": "audit-reference",
+        "stale_cache": false,
+        "unsupported_rules": 0
+      },
+      {
+        "bytes": 255,
+        "cache": "sources/cache/claude.quantumult-x.blackmatrix-claude-qx.list",
+        "category": "claude",
+        "client": "quantumult-x",
+        "complete": false,
+        "contributes_to_canonical": true,
+        "coverage_against_authoritative": {
+          "extra": 0,
+          "extra_examples": [],
+          "missing": 0,
+          "missing_examples": []
+        },
+        "format": "qx-list",
+        "id": "blackmatrix-claude-qx",
+        "parsed_rules": 3,
+        "raw_rules": 3,
+        "role": "canonical-authoritative",
+        "stale_cache": false,
+        "unsupported_rules": 0
+      },
+      {
+        "bytes": 265,
+        "cache": "sources/cache/claude.mihomo.blackmatrix-claude-classical.yaml",
+        "category": "claude",
+        "client": "mihomo",
+        "complete": true,
+        "contributes_to_canonical": false,
+        "coverage_against_authoritative": {
+          "extra": 0,
+          "extra_examples": [],
+          "missing": 0,
+          "missing_examples": []
+        },
+        "format": "mihomo-yaml",
+        "id": "blackmatrix-claude-classical",
+        "parsed_rules": 3,
+        "raw_rules": 3,
+        "role": "audit-reference",
+        "stale_cache": false,
+        "unsupported_rules": 0
+      },
+      {
+        "bytes": 664,
+        "cache": "sources/cache/gemini.quantumult-x.blackmatrix-gemini-qx.list",
+        "category": "gemini",
+        "client": "quantumult-x",
+        "complete": false,
+        "contributes_to_canonical": true,
+        "coverage_against_authoritative": {
+          "extra": 0,
+          "extra_examples": [],
+          "missing": 0,
+          "missing_examples": []
+        },
+        "format": "qx-list",
+        "id": "blackmatrix-gemini-qx",
+        "parsed_rules": 13,
+        "raw_rules": 13,
+        "role": "canonical-authoritative",
+        "stale_cache": false,
+        "unsupported_rules": 0
+      },
+      {
+        "bytes": 666,
+        "cache": "sources/cache/gemini.mihomo.blackmatrix-gemini-classical.yaml",
+        "category": "gemini",
+        "client": "mihomo",
+        "complete": true,
+        "contributes_to_canonical": false,
+        "coverage_against_authoritative": {
+          "extra": 0,
+          "extra_examples": [],
+          "missing": 0,
+          "missing_examples": []
+        },
+        "format": "mihomo-yaml",
+        "id": "blackmatrix-gemini-classical",
+        "parsed_rules": 13,
+        "raw_rules": 13,
+        "role": "audit-reference",
+        "stale_cache": false,
+        "unsupported_rules": 0
+      },
+      {
+        "bytes": 429,
+        "cache": "sources/cache/telegram.quantumult-x.metacubex-telegram-domain.yaml",
+        "category": "telegram",
+        "client": "quantumult-x",
+        "complete": false,
+        "contributes_to_canonical": true,
+        "coverage_against_authoritative": {
+          "extra": 0,
+          "extra_examples": [],
+          "missing": 0,
+          "missing_examples": []
+        },
+        "format": "meta-domain-yaml",
+        "id": "metacubex-telegram-domain",
+        "parsed_rules": 21,
+        "raw_rules": 21,
+        "role": "canonical-authoritative",
+        "stale_cache": false,
+        "unsupported_rules": 0
+      },
+      {
+        "bytes": 274,
+        "cache": "sources/cache/telegram.mihomo.metacubex-telegram-mrs.mrs",
+        "category": "telegram",
+        "client": "mihomo",
+        "complete": false,
+        "contributes_to_canonical": false,
+        "format": "mrs",
+        "id": "metacubex-telegram-mrs",
+        "parsed_rules": null,
+        "role": "audit-reference",
+        "stale_cache": false,
+        "unsupported_rules": 0
+      },
+      {
+        "bytes": 3821,
+        "cache": "sources/cache/youtube.quantumult-x.metacubex-youtube-domain.yaml",
+        "category": "youtube",
+        "client": "quantumult-x",
+        "complete": false,
+        "contributes_to_canonical": true,
+        "coverage_against_authoritative": {
+          "extra": 0,
+          "extra_examples": [],
+          "missing": 0,
+          "missing_examples": []
+        },
+        "format": "meta-domain-yaml",
+        "id": "metacubex-youtube-domain",
+        "parsed_rules": 178,
+        "raw_rules": 178,
+        "role": "canonical-authoritative",
+        "stale_cache": false,
+        "unsupported_rules": 0
+      },
+      {
+        "bytes": 1366,
+        "cache": "sources/cache/youtube.mihomo.metacubex-youtube-mrs.mrs",
+        "category": "youtube",
+        "client": "mihomo",
+        "complete": false,
+        "contributes_to_canonical": false,
+        "format": "mrs",
+        "id": "metacubex-youtube-mrs",
+        "parsed_rules": null,
+        "role": "audit-reference",
+        "stale_cache": false,
+        "unsupported_rules": 0
+      },
+      {
+        "bytes": 37297,
+        "cache": "sources/cache/netflix.quantumult-x.blackmatrix-netflix-qx.list",
+        "category": "netflix",
+        "client": "quantumult-x",
+        "complete": false,
+        "contributes_to_canonical": true,
+        "coverage_against_authoritative": {
+          "extra": 0,
+          "extra_examples": [],
+          "missing": 0,
+          "missing_examples": []
+        },
+        "format": "qx-list",
+        "id": "blackmatrix-netflix-qx",
+        "parsed_rules": 1158,
+        "raw_rules": 1158,
+        "role": "canonical-authoritative",
+        "stale_cache": false,
+        "unsupported_rules": 0
+      },
+      {
+        "bytes": 32719,
+        "cache": "sources/cache/netflix.mihomo.blackmatrix-netflix-classical.yaml",
+        "category": "netflix",
+        "client": "mihomo",
+        "complete": true,
+        "contributes_to_canonical": false,
+        "coverage_against_authoritative": {
+          "extra": 1,
+          "extra_examples": [
+            [
+              "process-name",
+              "com.netflix.mediaclient"
+            ]
+          ],
+          "missing": 2,
+          "missing_examples": [
+            [
+              "domain-wildcard",
+              "netflixdnstest*.com"
+            ],
+            [
+              "user-agent",
+              "Argo*"
+            ]
+          ]
+        },
+        "format": "mihomo-yaml",
+        "id": "blackmatrix-netflix-classical",
+        "parsed_rules": 1157,
+        "raw_rules": 1157,
+        "role": "client-only-extra",
+        "stale_cache": false,
+        "unsupported_rules": 0
+      },
+      {
+        "bytes": 47622,
+        "cache": "sources/cache/apple.quantumult-x.metacubex-apple-domain.yaml",
+        "category": "apple",
+        "client": "quantumult-x",
+        "complete": false,
+        "contributes_to_canonical": true,
+        "coverage_against_authoritative": {
+          "extra": 0,
+          "extra_examples": [],
+          "missing": 0,
+          "missing_examples": []
+        },
+        "format": "meta-domain-yaml",
+        "id": "metacubex-apple-domain",
+        "parsed_rules": 1792,
+        "raw_rules": 1792,
+        "role": "canonical-authoritative",
+        "stale_cache": false,
+        "unsupported_rules": 0
+      },
+      {
+        "bytes": 17859,
+        "cache": "sources/cache/apple.mihomo.metacubex-apple-mrs.mrs",
+        "category": "apple",
+        "client": "mihomo",
+        "complete": false,
+        "contributes_to_canonical": false,
+        "format": "mrs",
+        "id": "metacubex-apple-mrs",
+        "parsed_rules": null,
+        "role": "audit-reference",
+        "stale_cache": false,
+        "unsupported_rules": 0
+      },
+      {
+        "bytes": 24667,
+        "cache": "sources/cache/google.quantumult-x.metacubex-google-domain.yaml",
+        "category": "google",
+        "client": "quantumult-x",
+        "complete": false,
+        "contributes_to_canonical": true,
+        "coverage_against_authoritative": {
+          "extra": 0,
+          "extra_examples": [],
+          "missing": 0,
+          "missing_examples": []
+        },
+        "format": "meta-domain-yaml",
+        "id": "metacubex-google-domain",
+        "parsed_rules": 1071,
+        "raw_rules": 1071,
+        "role": "canonical-authoritative",
+        "stale_cache": false,
+        "unsupported_rules": 0
+      },
+      {
+        "bytes": 8871,
+        "cache": "sources/cache/google.mihomo.metacubex-google-mrs.mrs",
+        "category": "google",
+        "client": "mihomo",
+        "complete": false,
+        "contributes_to_canonical": false,
+        "format": "mrs",
+        "id": "metacubex-google-mrs",
+        "parsed_rules": null,
+        "role": "audit-reference",
+        "stale_cache": false,
+        "unsupported_rules": 0
+      }
+    ],
+    "disabled_categories": [
+      "global"
+    ],
+    "enabled_categories": [
+      "private-tracker",
+      "ads",
+      "chatgpt",
+      "claude",
+      "gemini",
+      "telegram",
+      "youtube",
+      "netflix",
+      "apple",
+      "google"
+    ],
+    "roles": {
+      "audit-reference": 9,
+      "canonical-authoritative": 10,
+      "client-only-extra": 1
+    }
+  }
 }

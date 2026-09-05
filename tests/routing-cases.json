@@ -1,0 +1,52 @@
+[
+  {
+    "id": "chatgpt",
+    "host": "chatgpt.com",
+    "expected_category": "chatgpt"
+  },
+  {
+    "id": "claude",
+    "host": "api.anthropic.com",
+    "expected_category": "claude"
+  },
+  {
+    "id": "gemini",
+    "host": "gemini.google.com",
+    "expected_category": "gemini"
+  },
+  {
+    "id": "gemini-google-conflict",
+    "host": "ai.google.dev",
+    "expected_category": "gemini"
+  },
+  {
+    "id": "youtube",
+    "host": "youtube.com",
+    "expected_category": "youtube"
+  },
+  {
+    "id": "youtube-google-conflict",
+    "host": "www.youtube.com",
+    "expected_category": "youtube"
+  },
+  {
+    "id": "netflix",
+    "host": "netflix.com",
+    "expected_category": "netflix"
+  },
+  {
+    "id": "private-tracker",
+    "host": "pttime.org",
+    "expected_category": "private-tracker"
+  },
+  {
+    "id": "ads",
+    "host": "applovin.com",
+    "expected_category": "ads"
+  },
+  {
+    "id": "unknown-flow",
+    "host": "example.invalid",
+    "expected_category": null
+  }
+]

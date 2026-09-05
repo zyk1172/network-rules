@@ -1,0 +1,12 @@
+# NAME: network-rules Quantumult X category provider
+# GENERATED-BY: network-rules-project/scripts/build.py
+# ===== CATEGORY: Claude (claude) =====
+# PUBLICATION-SCOPE: one category only; do not combine another license scope in this file
+# THIRD-PARTY-SOURCE: blackmatrix7/ios_rule_script
+# LICENSE-SCOPE: GPL-2.0
+# SOURCE-OF-TRUTH: canonical rule model after patches, deduplication and conflict resolution
+# This is a Quantumult X filter list. It does not contain nodes, rewrites or MitM settings.
+# RULES: 3
+HOST,cdn.usefathom.com,💻 Ai
+HOST-SUFFIX,anthropic.com,💻 Ai
+HOST-SUFFIX,claude.ai,💻 Ai

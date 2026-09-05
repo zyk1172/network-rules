@@ -1,91 +1,132 @@
 # NAME: network-rules Mihomo merge fragment
 # GENERATED-BY: network-rules-project/scripts/build.py
+# SOURCE-OF-TRUTH: canonical rule model after patches, deduplication and conflict resolution
 # This is a Clash Verge Rev/Mihomo Merge fragment, not a standalone profile.
-# Local rules are prepended; proxy nodes, proxy-groups, DNS, rewrites and MitM stay in the base profile.
+# Nodes, proxy-groups, DNS, rewrites and MitM stay in the base profile.
 
 rule-providers:
-  nr-private-tracker:
+  # ===== CATEGORY: PT / PrivateTracker (private-tracker) =====
+  private-tracker:
     type: http
     behavior: "classical"
     format: "yaml"
-    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/PrivateTracker/PrivateTracker.yaml"
+    url: "https://raw.githubusercontent.com/zyk1172/network-rules/main/dist/mihomo/providers/private-tracker.yaml"
     path: "./rule-providers/network-rules/private-tracker.yaml"
     interval: 86400
-  nr-ads:
+  # ===== CATEGORY: 广告 (ads) =====
+  ads:
     type: http
-    behavior: "domain"
-    format: "mrs"
-    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-ads-all.mrs"
-    path: "./rule-providers/network-rules/ads.mrs"
+    behavior: "classical"
+    format: "yaml"
+    url: "https://raw.githubusercontent.com/zyk1172/network-rules/main/dist/mihomo/providers/ads.yaml"
+    path: "./rule-providers/network-rules/ads.yaml"
     interval: 86400
-  nr-openai:
+  # ===== CATEGORY: ChatGPT (chatgpt) =====
+  chatgpt:
     type: http
-    behavior: "domain"
-    format: "mrs"
-    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/openai.mrs"
-    path: "./rule-providers/network-rules/openai.mrs"
+    behavior: "classical"
+    format: "yaml"
+    url: "https://raw.githubusercontent.com/zyk1172/network-rules/main/dist/mihomo/providers/chatgpt.yaml"
+    path: "./rule-providers/network-rules/chatgpt.yaml"
     interval: 86400
-  nr-telegram:
+  # ===== CATEGORY: Claude (claude) =====
+  claude:
     type: http
-    behavior: "domain"
-    format: "mrs"
-    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/telegram.mrs"
-    path: "./rule-providers/network-rules/telegram.mrs"
+    behavior: "classical"
+    format: "yaml"
+    url: "https://raw.githubusercontent.com/zyk1172/network-rules/main/dist/mihomo/providers/claude.yaml"
+    path: "./rule-providers/network-rules/claude.yaml"
     interval: 86400
-  nr-youtube:
+  # ===== CATEGORY: Gemini (gemini) =====
+  gemini:
     type: http
-    behavior: "domain"
-    format: "mrs"
-    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/youtube.mrs"
-    path: "./rule-providers/network-rules/youtube.mrs"
+    behavior: "classical"
+    format: "yaml"
+    url: "https://raw.githubusercontent.com/zyk1172/network-rules/main/dist/mihomo/providers/gemini.yaml"
+    path: "./rule-providers/network-rules/gemini.yaml"
     interval: 86400
-  nr-apple:
+  # ===== CATEGORY: Telegram (telegram) =====
+  telegram:
     type: http
-    behavior: "domain"
-    format: "mrs"
-    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/apple.mrs"
-    path: "./rule-providers/network-rules/apple.mrs"
+    behavior: "classical"
+    format: "yaml"
+    url: "https://raw.githubusercontent.com/zyk1172/network-rules/main/dist/mihomo/providers/telegram.yaml"
+    path: "./rule-providers/network-rules/telegram.yaml"
     interval: 86400
-  nr-google:
+  # ===== CATEGORY: YouTube (youtube) =====
+  youtube:
     type: http
-    behavior: "domain"
-    format: "mrs"
-    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.mrs"
-    path: "./rule-providers/network-rules/google.mrs"
+    behavior: "classical"
+    format: "yaml"
+    url: "https://raw.githubusercontent.com/zyk1172/network-rules/main/dist/mihomo/providers/youtube.yaml"
+    path: "./rule-providers/network-rules/youtube.yaml"
     interval: 86400
-  nr-private:
+  # ===== CATEGORY: Netflix (netflix) =====
+  netflix:
     type: http
-    behavior: "domain"
-    format: "mrs"
-    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.mrs"
-    path: "./rule-providers/network-rules/private.mrs"
+    behavior: "classical"
+    format: "yaml"
+    url: "https://raw.githubusercontent.com/zyk1172/network-rules/main/dist/mihomo/providers/netflix.yaml"
+    path: "./rule-providers/network-rules/netflix.yaml"
     interval: 86400
-  nr-cn:
+  # ===== CATEGORY: Apple (apple) =====
+  apple:
     type: http
-    behavior: "domain"
-    format: "mrs"
-    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.mrs"
-    path: "./rule-providers/network-rules/cn.mrs"
+    behavior: "classical"
+    format: "yaml"
+    url: "https://raw.githubusercontent.com/zyk1172/network-rules/main/dist/mihomo/providers/apple.yaml"
+    path: "./rule-providers/network-rules/apple.yaml"
+    interval: 86400
+  # ===== CATEGORY: Google (google) =====
+  google:
+    type: http
+    behavior: "classical"
+    format: "yaml"
+    url: "https://raw.githubusercontent.com/zyk1172/network-rules/main/dist/mihomo/providers/google.yaml"
+    path: "./rule-providers/network-rules/google.yaml"
     interval: 86400
 
 prepend-rules:
+  # ===== CATEGORY: 本地覆盖 (personal-overlay) =====
+  # CANONICAL-CATEGORY: private-tracker
   - "DOMAIN-KEYWORD,m-team,DIRECT"
+  # CANONICAL-CATEGORY: private-tracker
   - "DOMAIN-KEYWORD,pttime,DIRECT"
+  # CANONICAL-CATEGORY: private-tracker
   - "DOMAIN-KEYWORD,ptcafe,DIRECT"
+  # CANONICAL-CATEGORY: private-tracker
   - "DOMAIN-KEYWORD,hdtime,DIRECT"
+  # CANONICAL-CATEGORY: private-tracker
   - "DOMAIN-KEYWORD,xingyungept,DIRECT"
+  # CANONICAL-CATEGORY: private-tracker
   - "DOMAIN-KEYWORD,ptzone,DIRECT"
+  # CANONICAL-CATEGORY: private-tracker
   - "DOMAIN-SUFFIX,pttime.org,DIRECT"
+  # CANONICAL-CATEGORY: private-tracker
   - "DOMAIN-SUFFIX,ptcafe.club,DIRECT"
+  # CANONICAL-CATEGORY: private-tracker
   - "DOMAIN-SUFFIX,hdtime.org,DIRECT"
+  # CANONICAL-CATEGORY: private-tracker
   - "DOMAIN-SUFFIX,xingyungept.com,DIRECT"
+  # CANONICAL-CATEGORY: private-tracker
   - "DOMAIN-SUFFIX,ptzone.club,DIRECT"
-  - "RULE-SET,nr-private-tracker,DIRECT"
-  - "RULE-SET,nr-ads,REJECT"
-  - "RULE-SET,nr-openai,ChatGPT"
-  - "RULE-SET,nr-telegram,Telegram"
-  - "RULE-SET,nr-youtube,流媒体"
-  - "RULE-SET,nr-apple,Apple"
-  - "RULE-SET,nr-google,Google"
-  - "RULE-SET,nr-private,DIRECT"
-  - "RULE-SET,nr-cn,国内直连"
+  # ===== CATEGORY: PT / PrivateTracker (private-tracker) =====
+  - "RULE-SET,private-tracker,DIRECT"
+  # ===== CATEGORY: 广告 (ads) =====
+  - "RULE-SET,ads,REJECT"
+  # ===== CATEGORY: ChatGPT (chatgpt) =====
+  - "RULE-SET,chatgpt,ChatGPT"
+  # ===== CATEGORY: Claude (claude) =====
+  - "RULE-SET,claude,AI"
+  # ===== CATEGORY: Gemini (gemini) =====
+  - "RULE-SET,gemini,Gemini"
+  # ===== CATEGORY: Telegram (telegram) =====
+  - "RULE-SET,telegram,Telegram"
+  # ===== CATEGORY: YouTube (youtube) =====
+  - "RULE-SET,youtube,流媒体"
+  # ===== CATEGORY: Netflix (netflix) =====
+  - "RULE-SET,netflix,流媒体"
+  # ===== CATEGORY: Apple (apple) =====
+  - "RULE-SET,apple,Apple"
+  # ===== CATEGORY: Google (google) =====
+  - "RULE-SET,google,Google"

@@ -1,26 +1,30 @@
 {
-  "schema_version": 1,
-  "description": "同一规则意图在不同客户端中的策略名称映射。修改策略名称时只改这个文件。",
+  "schema_version": 2,
+  "description": "canonical category ID 到各客户端策略名称的映射。规则本身不保存客户端策略名。",
   "mihomo": {
     "private-tracker": "DIRECT",
     "ads": "REJECT",
-    "openai": "ChatGPT",
+    "chatgpt": "ChatGPT",
+    "claude": "AI",
+    "gemini": "Gemini",
     "telegram": "Telegram",
     "youtube": "流媒体",
+    "netflix": "流媒体",
     "apple": "Apple",
     "google": "Google",
-    "private": "DIRECT",
-    "cn": "国内直连"
+    "global": "国外网站"
   },
   "quantumult-x": {
     "private-tracker": "direct",
     "ads": "reject",
-    "openai": "Gpt",
+    "chatgpt": "Gpt",
+    "claude": "💻 Ai",
+    "gemini": "Gemini",
     "telegram": "✉️ Telegram",
     "youtube": "🎬 YouTube",
+    "netflix": "📺 Netflix",
     "apple": "🍎 苹果服务",
     "google": "Google",
-    "private": "direct",
-    "cn": "direct"
+    "global": "🌏 国外网站"
   }
 }

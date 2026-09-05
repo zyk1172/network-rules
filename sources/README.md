@@ -1,24 +1,70 @@
-# 配置来源
+# 来源清单与锁定信息
 
 ## 本机原始快照
 
 `sources/local/` 保存本次从本机应用或用户指定导出复制的原始文件，默认不进入 Git：
 
-- `quantumult-x/quantumult_20260905020418.conf`：用户指定的圈X导出。
-- `quantumult-x/default.conf`：通过 Finder 从圈X App Group 的 `configuration/default.conf` 复制的快照；与上面的导出内容 SHA-256 相同。
+- `quantumult-x/quantumult_20260905020418.conf`：用户指定的圈 X 导出。
+- `quantumult-x/default.conf`：从圈 X App Group 复制的快照。
 - `clash-verge/master.yaml`：用户指定的桌面 `clash-master-config/master.yaml`，README 标注为脱敏导出。
 
-Clash 运行目录中的生成配置没有复制进来，因为它包含运行时节点/订阅相关数据；本次仅以只读方式与桌面脱敏导出比较。
+这些文件只用于本地分析，可能包含订阅 URL、节点信息或其他认证数据。不得把它们或从中提取出的敏感字段提交到公共仓库。
 
-## 安全边界
+## `upstreams.json` schema v2
 
-不要把 `sources/local/` 下的内容提交到公共或共享仓库。后续应从这些原始快照中提取不含凭据的规则源，再放入可追踪的规范目录。
+清单把“规则事实来源”和“客户端输入组件”分开描述。每个稳定 category 使用 canonical ID，并支持：
 
-## 公开上游与缓存
+```text
+category → client → 1..N upstream components
+```
 
-- `upstreams.json` 是公开 GitHub 上游清单，包含客户端输入格式、规则分类和来源许可证。
-- `policies.json` 是本机策略组名称到规则分类的映射；它不包含节点 URL。
-- `upstreams.lock.json` 记录每次构建实际读取的公开文件 SHA-256 和字节数，用于审查自动更新是否只改变了上游规则。
-- `cache/` 是构建时的本地缓存，已加入 Git 忽略；它不是发布内容。
+组件最少包含：
 
-个人需要优先于上游的规则放在项目根目录的 `overrides/rules.txt`，不要直接编辑生成的 `dist/` 文件。生成流程和客户端接入说明见 `docs/integration.md`。
+```json
+{
+  "id": "blackmatrix-netflix-classical",
+  "url": "https://raw.githubusercontent.com/...",
+  "format": "mihomo-yaml",
+  "behavior": "classical",
+  "role": "client-only-extra",
+  "complete": true
+}
+```
+
+每个 category 必须恰好声明一个 `canonical-authoritative` 组件，作为共享 canonical model 的唯一事实入口。其他组件必须明确声明角色：
+
+- `canonical-authoritative`：进入共享 canonical model，参与 patch、去重和跨分类冲突解决；
+- `audit-reference`：下载、锁定、解析并与 authoritative source 对照，只用于发现上游差异，不会自动进入 canonical；
+- `client-only-extra`：只在它所在的客户端输出，不进入共享 canonical，也不会自动传播到其他客户端。
+
+不能再使用含义模糊的 `canonical: true/false`。这样 QX 与 Mihomo 的上游差异会被明确建模，而不是默认取两个客户端规则的并集。
+
+允许的输入格式：
+
+- `qx-list`：Quantumult X typed list，策略字段在 canonical 化时丢弃。
+- `meta-domain-yaml`：MetaCubeX `payload` 域名列表，转换 `+.example.com`、`full:`、`keyword:` 等表达式。
+- `mihomo-yaml` / `yaml`：含 `payload` 的 Mihomo classical、domain 或 ipcidr 规则。
+- `mrs`：二进制 provider，仅锁定和审计，不作为当前 canonical parser 输入。
+
+Quantumult X 公开产物位于 `dist/quantumult-x/providers/*.list`，按 category 分文件；Mihomo 公开产物位于 `dist/mihomo/providers/*.yaml`，通过 `dist/mihomo/merge.yaml` 统一接入。QX 分类文件不会把不同上游许可证物理合并成旧式 `aggregate.list`。
+
+规则类型在 `scripts/rule_model.py` 中统一为 `domain`、`domain-suffix`、`domain-keyword`、`domain-wildcard`、`ip-cidr`、`ip-cidr6`、`user-agent`、`process-name`，客户端策略名称只在生成阶段使用 `policies.json` 映射。
+
+## 锁定信息与缓存
+
+`upstreams.lock.json` 是构建产生的公开上游输入锁定信息，记录 category/client/component、URL、字节数、SHA-256、上游更新时间和是否使用陈旧缓存。它不记录节点订阅或本地运行配置。
+
+`cache/` 是构建时的本地缓存，已加入 Git 忽略；它不是发布内容。自动更新工作流正常访问网络，不使用陈旧缓存。`--offline` 适用于已有完整缓存的本地重复构建，`--allow-stale` 只适用于临时排障，必须审查报告中的 `stale_cache`。
+
+## 个人覆盖与上游修补
+
+- [`../overrides/rules.txt`](../overrides/rules.txt)：个人规则优先层，例如 PT 域名和关键词；不绑定 qBittorrent 固定监听端口。
+- [`../patches/`](../patches/)：上游补丁层，支持 add/remove/reclassify/replace/priority，必须填写 reason。
+
+二者都在生成 `dist/` 之前应用。patch 如果不再匹配会写入 `dist/build-report.json`，不会自动无声删除；关键 patch 失效时验证失败，等待人工审查。
+
+## 当前默认来源
+
+默认生成链包含 PT、广告、ChatGPT、Claude、Gemini、Telegram、YouTube、Netflix、Apple 和 Google。`global`（国外网站泛分类）保留在清单中但默认关闭，因为基础配置已经使用 FINAL/MATCH 处理未知流量；不再用 10,000 条任意截断解决 35k 级泛列表的性能问题。
+
+上游组件组合及 BlackMatrix7 的 Global、Netflix、Claude、Gemini、PrivateTracker 结构审查记录见 [`component-audit.md`](component-audit.md)。许可证和 attribution 边界见 [`ATTRIBUTIONS.md`](ATTRIBUTIONS.md)。
