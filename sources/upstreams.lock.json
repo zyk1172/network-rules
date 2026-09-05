@@ -16,7 +16,7 @@
           "metacubex-ads-domain": {
             "bytes": 23078,
             "role": "canonical-authoritative",
-            "sha256": "4f7e2ec4a1728e89f615d3466fb501bae476799d3310c61b213fe71ebbf0cd8b",
+            "sha256": "6a22393af2845461045485ba1514b24cdaa688744cd0b35df383965d59672fb7",
             "stale_cache": false,
             "upstream_updated": null,
             "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-ads-all.yaml"
@@ -41,7 +41,7 @@
           "metacubex-apple-domain": {
             "bytes": 47622,
             "role": "canonical-authoritative",
-            "sha256": "ecf986257a5613a77b5f4d0fd79b4cf90bec1a6257f9faffd907b1735514c895",
+            "sha256": "f1d9b4709abc43520f57d0d7448b9a097f8071a2790ee2183c4ee17c2f3a7f65",
             "stale_cache": false,
             "upstream_updated": null,
             "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/apple.yaml"
@@ -148,7 +148,7 @@
           "metacubex-google-domain": {
             "bytes": 24667,
             "role": "canonical-authoritative",
-            "sha256": "4268dcc67f27e744e08430e1a78879eac6e3327fa6cf5cdbbdaf89e9320030ad",
+            "sha256": "b9234df045ee649a2df9b14a21ebfad47e786790e079c9eb9b6a957a98264b8f",
             "stale_cache": false,
             "upstream_updated": null,
             "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.yaml"
