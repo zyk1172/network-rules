@@ -1,10 +1,10 @@
 {
   "canonical_rules": {
-    "after_dedup": 5422,
-    "after_patch": 5427,
-    "final": 5184,
-    "normalized": 5427,
-    "raw": 5427
+    "after_dedup": 5418,
+    "after_patch": 5423,
+    "final": 5180,
+    "normalized": 5423,
+    "raw": 5423
   },
   "categories": [
     {
@@ -88,8 +88,8 @@
       "unsupported_rules": 0
     },
     {
-      "after_dedup": 910,
-      "after_patch": 910,
+      "after_dedup": 902,
+      "after_patch": 902,
       "audit_reference_rules": 0,
       "authoritative_component": {
         "client": "quantumult-x",
@@ -98,7 +98,7 @@
       "client_only_extra_rules": 0,
       "components": [
         {
-          "bytes": 23078,
+          "bytes": 22784,
           "cache": "sources/cache/ads.quantumult-x.metacubex-ads-domain.yaml",
           "category": "ads",
           "client": "quantumult-x",
@@ -112,14 +112,14 @@
           },
           "format": "meta-domain-yaml",
           "id": "metacubex-ads-domain",
-          "parsed_rules": 910,
-          "raw_rules": 910,
+          "parsed_rules": 902,
+          "raw_rules": 902,
           "role": "canonical-authoritative",
           "stale_cache": false,
           "unsupported_rules": 0
         },
         {
-          "bytes": 8330,
+          "bytes": 8197,
           "cache": "sources/cache/ads.mihomo.metacubex-ads-mrs.mrs",
           "category": "ads",
           "client": "mihomo",
@@ -133,11 +133,11 @@
           "unsupported_rules": 0
         }
       ],
-      "final": 910,
+      "final": 902,
       "id": "ads",
       "label": "广告",
-      "normalized": 910,
-      "raw_rules": 910,
+      "normalized": 902,
+      "raw_rules": 902,
       "status": "enabled",
       "unsupported_rules": 0
     },
@@ -555,8 +555,8 @@
       "unsupported_rules": 0
     },
     {
-      "after_dedup": 1071,
-      "after_patch": 1071,
+      "after_dedup": 1075,
+      "after_patch": 1075,
       "audit_reference_rules": 0,
       "authoritative_component": {
         "client": "quantumult-x",
@@ -565,7 +565,7 @@
       "client_only_extra_rules": 0,
       "components": [
         {
-          "bytes": 24667,
+          "bytes": 24824,
           "cache": "sources/cache/google.quantumult-x.metacubex-google-domain.yaml",
           "category": "google",
           "client": "quantumult-x",
@@ -579,14 +579,14 @@
           },
           "format": "meta-domain-yaml",
           "id": "metacubex-google-domain",
-          "parsed_rules": 1071,
-          "raw_rules": 1071,
+          "parsed_rules": 1075,
+          "raw_rules": 1075,
           "role": "canonical-authoritative",
           "stale_cache": false,
           "unsupported_rules": 0
         },
         {
-          "bytes": 8871,
+          "bytes": 8927,
           "cache": "sources/cache/google.mihomo.metacubex-google-mrs.mrs",
           "category": "google",
           "client": "mihomo",
@@ -600,11 +600,11 @@
           "unsupported_rules": 0
         }
       ],
-      "final": 842,
+      "final": 846,
       "id": "google",
       "label": "Google",
-      "normalized": 1071,
-      "raw_rules": 1071,
+      "normalized": 1075,
+      "raw_rules": 1075,
       "status": "enabled",
       "unsupported_rules": 0
     },
@@ -635,18 +635,18 @@
       "artifact": "dist/mihomo/merge.yaml",
       "canonical_personal_rules": 11,
       "canonical_provider_rules": {
-        "ads": 910,
+        "ads": 902,
         "apple": 1785,
         "chatgpt": 19,
         "claude": 3,
         "gemini": 13,
-        "google": 842,
+        "google": 846,
         "netflix": 1157,
         "private-tracker": 245,
         "telegram": 21,
         "youtube": 177
       },
-      "canonical_rules": 5183,
+      "canonical_rules": 5179,
       "client_only_extra_rules": {
         "ads": 0,
         "apple": 0,
@@ -675,12 +675,12 @@
         "google"
       ],
       "provider_rules": {
-        "ads": 910,
+        "ads": 902,
         "apple": 1785,
         "chatgpt": 19,
         "claude": 3,
         "gemini": 13,
-        "google": 842,
+        "google": 846,
         "netflix": 1158,
         "private-tracker": 245,
         "telegram": 21,
@@ -719,7 +719,7 @@
         "dist/quantumult-x/providers/apple.list",
         "dist/quantumult-x/providers/google.list"
       ],
-      "canonical_rules": 5184,
+      "canonical_rules": 5180,
       "categories": [
         {
           "artifact": "dist/quantumult-x/providers/personal-overlay.list",
@@ -743,12 +743,12 @@
         },
         {
           "artifact": "dist/quantumult-x/providers/ads.list",
-          "canonical_rules": 910,
+          "canonical_rules": 902,
           "client_only_extra_rules": 0,
           "id": "ads",
           "label": "广告",
           "license_scope": "GPL-3.0",
-          "rules": 910,
+          "rules": 902,
           "upstream": "MetaCubeX/meta-rules-dat"
         },
         {
@@ -823,18 +823,18 @@
         },
         {
           "artifact": "dist/quantumult-x/providers/google.list",
-          "canonical_rules": 842,
+          "canonical_rules": 846,
           "client_only_extra_rules": 0,
           "id": "google",
           "label": "Google",
           "license_scope": "GPL-3.0",
-          "rules": 842,
+          "rules": 846,
           "upstream": "MetaCubeX/meta-rules-dat"
         }
       ],
       "client_only_extra_rules": 0,
       "mixed_derivative": false,
-      "rules": 5184
+      "rules": 5180
     }
   },
   "conflicts": {
@@ -4596,7 +4596,7 @@
         "unsupported_rules": 0
       },
       {
-        "bytes": 23078,
+        "bytes": 22784,
         "cache": "sources/cache/ads.quantumult-x.metacubex-ads-domain.yaml",
         "category": "ads",
         "client": "quantumult-x",
@@ -4610,14 +4610,14 @@
         },
         "format": "meta-domain-yaml",
         "id": "metacubex-ads-domain",
-        "parsed_rules": 910,
-        "raw_rules": 910,
+        "parsed_rules": 902,
+        "raw_rules": 902,
         "role": "canonical-authoritative",
         "stale_cache": false,
         "unsupported_rules": 0
       },
       {
-        "bytes": 8330,
+        "bytes": 8197,
         "cache": "sources/cache/ads.mihomo.metacubex-ads-mrs.mrs",
         "category": "ads",
         "client": "mihomo",
@@ -4911,7 +4911,7 @@
         "unsupported_rules": 0
       },
       {
-        "bytes": 24667,
+        "bytes": 24824,
         "cache": "sources/cache/google.quantumult-x.metacubex-google-domain.yaml",
         "category": "google",
         "client": "quantumult-x",
@@ -4925,14 +4925,14 @@
         },
         "format": "meta-domain-yaml",
         "id": "metacubex-google-domain",
-        "parsed_rules": 1071,
-        "raw_rules": 1071,
+        "parsed_rules": 1075,
+        "raw_rules": 1075,
         "role": "canonical-authoritative",
         "stale_cache": false,
         "unsupported_rules": 0
       },
       {
-        "bytes": 8871,
+        "bytes": 8927,
         "cache": "sources/cache/google.mihomo.metacubex-google-mrs.mrs",
         "category": "google",
         "client": "mihomo",
