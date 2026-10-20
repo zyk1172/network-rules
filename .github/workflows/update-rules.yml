@@ -8,6 +8,11 @@ on:
 permissions:
   contents: write
   pull-requests: write
+  actions: write
+
+concurrency:
+  group: update-upstream-rules
+  cancel-in-progress: false
 
 jobs:
   refresh:
@@ -15,6 +20,8 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+        with:
+          ref: main
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -28,7 +35,12 @@ jobs:
         run: python3 -m py_compile scripts/*.py tests/*.py
 
       - name: Build client artifacts
-        run: python3 scripts/build.py
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git show HEAD:dist/build-report.json > "$RUNNER_TEMP/base-report.json"
+          git show HEAD:sources/upstreams.lock.json > "$RUNNER_TEMP/base-lock.json"
+          python3 scripts/build.py
 
       - name: Validate artifacts
         run: python3 scripts/validate.py
@@ -37,16 +49,45 @@ jobs:
         run: python3 -m unittest discover -s tests -v
 
       - name: Prepare update summary
-        run: python3 scripts/update_summary.py > update-summary.md
+        run: |
+          python3 scripts/update_summary.py --base-report "$RUNNER_TEMP/base-report.json" --base-lock "$RUNNER_TEMP/base-lock.json" > update-summary.md
+          printf 'Checked upstreams at %s (UTC)\n\n' "$(date -u +%FT%TZ)" >> "$GITHUB_STEP_SUMMARY"
+          cat update-summary.md >> "$GITHUB_STEP_SUMMARY"
 
       - name: Open update pull request
+        id: update
         uses: peter-evans/create-pull-request@v7
         with:
+          base: main
           branch: automation/update-upstream-rules
-          delete-branch: true
+          delete-branch: false
           commit-message: "chore(rules): refresh upstream rules"
           title: "chore(rules): refresh upstream rules"
           body-path: update-summary.md
           add-paths: |
             dist/**
             sources/upstreams.lock.json
+
+      # Dispatch explicitly: bot-created PR checks may be suppressed or need
+      # approval, depending on the repository's GitHub Actions policy.
+      - name: Validate automated PR explicitly
+        if: steps.update.outputs.pull-request-number
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run pr-ci.yml --ref automation/update-upstream-rules
+
+      - name: Preserve candidate report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: update-report-${{ github.run_id }}
+          path: |
+            dist/build-report.json
+            update-summary.md
+          retention-days: 14
+
+      - name: Report failed update
+        if: failure()
+        run: |
+          echo '::error::Rule update was not published. Inspect this run and the candidate report; main has not been advanced by this workflow.'
+          echo '## Update failed — published main is unchanged' >> "$GITHUB_STEP_SUMMARY"

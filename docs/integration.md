@@ -1,5 +1,7 @@
 # 客户端接入与维护
 
+本机准备流程见 [日常使用](operations.md)。`scripts/prepare_clash.py` 可将本仓库分类映射到现有策略组并生成待启用片段；仅输出到 `sources/local/`，不会启动 Clash 或改变当前代理方式。静态检查通过后仍需单独安排启用和实际命中验收。
+
 本项目对外提供简单的客户端入口，对内通过 canonical rule model 统一规则意图。入口只包含规则和策略映射，不包含节点、订阅、DNS、TUN、rewrite 或 MitM 配置。由于公开仓库同时承载 GPL-2.0 和 GPL-3.0 上游，本项目的 QX 产物按分类拆分，避免把不同许可证范围物理合成一个文件；Mihomo 仍保持一个 Merge 入口。
 
 ## Clash Verge Rev / Mihomo

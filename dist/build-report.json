@@ -1,4 +1,17 @@
 {
+  "canonical_artifacts": [
+    "dist/canonical/personal-overlay.jsonl",
+    "dist/canonical/private-tracker.jsonl",
+    "dist/canonical/ads.jsonl",
+    "dist/canonical/chatgpt.jsonl",
+    "dist/canonical/claude.jsonl",
+    "dist/canonical/gemini.jsonl",
+    "dist/canonical/telegram.jsonl",
+    "dist/canonical/youtube.jsonl",
+    "dist/canonical/netflix.jsonl",
+    "dist/canonical/apple.jsonl",
+    "dist/canonical/google.jsonl"
+  ],
   "canonical_rules": {
     "after_dedup": 5419,
     "after_patch": 5424,
