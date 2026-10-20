@@ -28,6 +28,7 @@ from build import (  # noqa: E402
     COMPONENT_ROLES,
     BuildError,
     load_json,
+    resolve_components,
     validate_manifest as validate_build_manifest,
 )
 from patch_engine import load_patches  # noqa: E402
@@ -725,11 +726,29 @@ def main() -> int:
     sources, _categories = validate_manifest(manifest, policies, errors)
     validate_patches(errors)
     lock = validate_lock(sources, errors)
+    if sources:
+        try:
+            resolve_components(sources, locked=True)
+        except BuildError as exc:
+            add_error(errors, str(exc))
     report = validate_report(sources, errors, warnings)
     if sources:
         validate_qx(sources, policies, report, errors)
         validate_mihomo(manifest, sources, policies, report, errors)
     validate_routing(errors)
+    try:
+        from rules import load_canonical
+        from routing import parse_qx_rules, qx_output_paths
+        canonical, details = load_canonical()
+        if len(canonical) != (report or {}).get("canonical_rules", {}).get("final"):
+            add_error(errors, "canonical provenance 数量与报告不一致")
+        if len(details) != len(canonical):
+            add_error(errors, "canonical provenance 出现重复规则")
+        qx_keys = {r.category_key for p in qx_output_paths() for r in parse_qx_rules(p)}
+        if any(r.category_key not in qx_keys for r in canonical):
+            add_error(errors, "canonical provenance 与 QX 规则事实不一致")
+    except (OSError, ValueError, TypeError, KeyError) as exc:
+        add_error(errors, f"canonical provenance 校验失败：{exc}")
 
     if warnings:
         print("validation warnings:")

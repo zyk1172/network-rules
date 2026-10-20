@@ -8,10 +8,15 @@ import hashlib
 import json
 import re
 import sys
+import time
+import shutil
+import subprocess
 import urllib.error
 import urllib.request
+from urllib.parse import quote
 from collections import Counter, defaultdict
 from copy import deepcopy
+from dataclasses import asdict
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Sequence, Tuple
 
@@ -57,6 +62,36 @@ CLIENT_EXTRA_ROLE = "client-only-extra"
 
 class BuildError(RuntimeError):
     """Raised for invalid manifests or unbuildable artifacts."""
+
+
+def download(request: urllib.request.Request) -> bytes:
+    """Retry transient transport failures, without masking integrity failures."""
+    for attempt in range(3):
+        try:
+            with urllib.request.urlopen(request, timeout=30) as response:
+                return response.read()
+        except (urllib.error.URLError, TimeoutError, OSError):
+            if attempt == 2:
+                # Optional local fallback through the existing GitHub CLI.
+                # No proxy settings or credentials are read, printed or changed.
+                if shutil.which("gh"):
+                    url = request.full_url
+                    if url.startswith("https://raw.githubusercontent.com/"):
+                        owner, repo, ref, path = url.removeprefix("https://raw.githubusercontent.com/").split("/", 3)
+                        endpoint = f"repos/{owner}/{repo}/contents/{path}?ref={ref}"
+                        command = ["gh", "api", endpoint, "-H", "Accept: application/vnd.github.raw+json"]
+                    elif url.startswith("https://api.github.com/repos/"):
+                        command = ["gh", "api", url.removeprefix("https://api.github.com/")]
+                    else:
+                        raise
+                    try:
+                        result = subprocess.run(command, check=True, capture_output=True, timeout=30)
+                    except (subprocess.SubprocessError, OSError):
+                        raise BuildError("GitHub 下载失败，CLI 备用传输也未成功；现有代理配置未改动") from None
+                    return result.stdout
+                raise
+            time.sleep(0.5 * (attempt + 1))
+    raise AssertionError("unreachable")
 
 
 def load_json(path: Path) -> Dict[str, Any]:
@@ -268,6 +303,48 @@ def component_cache_path(category_id: str, client: str, component: Dict[str, Any
     return CACHE_DIR / f"{category_id}.{client}.{safe_component}{suffix}"
 
 
+def resolve_components(sources: Sequence[Dict[str, Any]], *, locked: bool = False) -> List[Dict[str, Any]]:
+    """Pin each upstream ref once; a locked build never consults moving refs."""
+    resolved = deepcopy(list(sources))
+    lock = load_json(LOCK_PATH) if locked else {}
+    commits: Dict[Tuple[str, str, str], str] = {}
+    for source in resolved:
+        if not source.get("enabled", True):
+            continue
+        for client, components in source["components"].items():
+            for component in components:
+                url = component["url"]
+                owner, repo, ref, path = url.removeprefix("https://raw.githubusercontent.com/").split("/", 3)
+                if locked:
+                    record = lock.get("categories", {}).get(source["id"], {}).get("components", {}).get(client, {}).get(component["id"], {})
+                    pinned = str(record.get("resolved_url", ""))
+                    prefix = f"https://raw.githubusercontent.com/{owner}/{repo}/"
+                    revision = pinned.removeprefix(prefix).split("/", 1)[0]
+                    if (record.get("url") != url or record.get("role") != component["role"]
+                            or not re.fullmatch(r"[0-9a-f]{40}", revision)
+                            or pinned != f"{prefix}{revision}/{path}"
+                            or not re.fullmatch(r"[0-9a-f]{64}", str(record.get("sha256", "")))):
+                        raise BuildError(f"{component['id']} 缺少有效的不可变锁定输入；请执行在线 build 更新 lock")
+                    component["_expected_sha256"] = record["sha256"]
+                else:
+                    key = owner, repo, ref
+                    if key not in commits:
+                        request = urllib.request.Request(
+                            f"https://api.github.com/repos/{owner}/{repo}/commits/{quote(ref, safe='')}",
+                            headers={"User-Agent": "network-rules-project/2.1", "Accept": "application/vnd.github+json"},
+                        )
+                        try:
+                            revision = json.loads(download(request))["sha"]
+                        except (OSError, ValueError, KeyError) as exc:
+                            raise BuildError(f"无法锁定上游版本：{owner}/{repo}/{ref}") from exc
+                        if not re.fullmatch(r"[0-9a-f]{40}", str(revision)):
+                            raise BuildError(f"上游返回无效 commit：{owner}/{repo}/{ref}")
+                        commits[key] = revision
+                    pinned = f"https://raw.githubusercontent.com/{owner}/{repo}/{commits[key]}/{path}"
+                component["_resolved_url"] = pinned
+    return resolved
+
+
 def fetch_component(
     category_id: str,
     client: str,
@@ -276,26 +353,33 @@ def fetch_component(
     offline: bool,
     allow_stale: bool,
 ) -> Tuple[bytes, bool, Path]:
-    url = str(component["url"])
+    url = str(component.get("_resolved_url", component["url"]))
     cache = component_cache_path(category_id, client, component)
+    expected = component.get("_expected_sha256")
+    if expected and cache.exists() and sha256(cache.read_bytes()) == expected:
+        return cache.read_bytes(), offline, cache
     if offline:
         if not cache.exists():
             raise BuildError(f"离线模式缺少缓存：{cache}")
-        return cache.read_bytes(), True, cache
+        data = cache.read_bytes()
+        if expected and sha256(data) != expected:
+            raise BuildError(f"离线缓存与 lock 不符：{component['id']}")
+        return data, True, cache
     request = urllib.request.Request(
         url,
         headers={"User-Agent": "network-rules-project/2.0"},
     )
     try:
-        with urllib.request.urlopen(request, timeout=60) as response:
-            data = response.read()
+        data = download(request)
         if not data:
             raise BuildError(f"上游返回空文件：{url}")
+        if expected and sha256(data) != expected:
+            raise BuildError(f"上游内容与锁定 hash 不符：{component['id']}")
         cache.parent.mkdir(parents=True, exist_ok=True)
         cache.write_bytes(data)
         return data, False, cache
     except (urllib.error.URLError, TimeoutError, OSError, BuildError) as exc:
-        if allow_stale and cache.exists():
+        if allow_stale and not expected and cache.exists():
             print(f"warning: {category_id}/{client}/{component['id']} 使用旧缓存：{exc}", file=sys.stderr)
             return cache.read_bytes(), True, cache
         raise BuildError(f"拉取上游失败：{category_id}/{client}/{component['id']}: {exc}") from exc
@@ -312,6 +396,7 @@ def collect_canonical_rules(
     *,
     offline: bool,
     allow_stale: bool,
+    locked: bool = False,
 ) -> Tuple[
     List[CanonicalRule],
     Dict[str, Any],
@@ -326,6 +411,15 @@ def collect_canonical_rules(
     the shared canonical model and are emitted only for their declared client.
     """
 
+    try:
+        sources = resolve_components(sources, locked=locked or offline)
+    except BuildError:
+        if not allow_stale or locked or offline:
+            raise
+        # An explicitly requested stale build must still verify locked hashes.
+        sources = resolve_components(sources, locked=True)
+        offline = True
+        print("warning: 无法解析最新上游版本；显式使用已锁定缓存", file=sys.stderr)
     candidates: List[CanonicalRule] = []
     lock: Dict[str, Any] = {"schema_version": 2, "categories": {}}
     category_stats: Dict[str, Dict[str, Any]] = {}
@@ -369,6 +463,7 @@ def collect_canonical_rules(
                 )
                 lock_category["components"][client][component_id] = {
                     "url": str(component["url"]),
+                    "resolved_url": component["_resolved_url"],
                     "role": str(component["role"]),
                     "bytes": len(data),
                     "sha256": sha256(data),
@@ -556,6 +651,10 @@ def resolve_canonical_rules(
 
         if len(category_ids) > 1:
             selected = deepcopy(selected)
+            if priority_patch is not None:
+                selected.patched = True
+                if priority_patch["id"] not in selected.patch_ids:
+                    selected.patch_ids.append(priority_patch["id"])
             selected.appearances = []
             for candidate in group:
                 selected.appearances.extend(_appearance_details(candidate))
@@ -950,8 +1049,43 @@ def build_qx_entry_example(
     write_text(DIST_DIR / "quantumult-x" / "entry.example.conf", content)
 
 
+def write_provenance(sources, personal_rules, by_category, conflicts):
+    """Keep explainable canonical facts in separate category/license files."""
+    directory = DIST_DIR / "canonical"
+    decisions = {(c["rule"]["type"], c["rule"]["value"]): c for c in conflicts}
+    sections = [("personal-overlay", "user-owned", personal_rules)] + [
+        (s["id"], s["license"], by_category[s["id"]])
+        for s in sorted(sources, key=source_sort_key) if s.get("enabled", True)
+    ]
+    artifacts = []
+    for category, license_id, rules in sections:
+        path = directory / f"{category}.jsonl"
+        header = {"schema_version": 1, "category": category, "license": license_id}
+        records = [json.dumps(header, ensure_ascii=False, sort_keys=True)]
+        for rule in rules:
+            record = asdict(rule)
+            # Keep cross-source attribution as metadata, without copying the
+            # other category's raw rule text into this license-scoped file.
+            record["appearances"] = [
+                {k: v for k, v in appearance.items() if k != "source_rule"}
+                for appearance in record["appearances"]
+            ]
+            record["resolution"] = decisions.get(rule.key, {}).get("reason", "personal override" if rule.source == "personal-rules" else "category priority")
+            records.append(json.dumps(record, ensure_ascii=False, sort_keys=True))
+        write_text(path, "\n".join(records))
+        artifacts.append(str(path.relative_to(ROOT)))
+    for path in directory.glob("*.jsonl"):
+        if str(path.relative_to(ROOT)) not in artifacts:
+            path.unlink()
+    return artifacts
+
+
 def build(argv: Optional[Sequence[str]] = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--locked", action="store_true",
+        help="使用 lock 中的不可变上游 commit 和 SHA256 复现生成物，不读取移动分支",
+    )
     parser.add_argument(
         "--offline",
         action="store_true",
@@ -986,6 +1120,7 @@ def build(argv: Optional[Sequence[str]] = None) -> int:
             sources,
             offline=args.offline,
             allow_stale=args.allow_stale,
+            locked=args.locked,
         )
         canonical_candidates = local_rules + upstream_candidates
         extra_object_ids = {
@@ -1040,6 +1175,7 @@ def build(argv: Optional[Sequence[str]] = None) -> int:
             patched_client_extras,
         )
         build_qx_entry_example(manifest, qx_report)
+        canonical_artifacts = write_provenance(sources, personal_rules, by_category, conflicts)
 
         category_patched = [
             rule for rule in patched_candidates if rule.source != "personal-rules"
@@ -1146,6 +1282,7 @@ def build(argv: Optional[Sequence[str]] = None) -> int:
         report = {
             "schema_version": 2,
             "generator": "scripts/build.py",
+            "canonical_artifacts": canonical_artifacts,
             "upstreams": {
                 "component_count": len(component_reports),
                 "roles": {

@@ -1,5 +1,8 @@
 # 网络规则项目
 
+[![上游更新](https://github.com/zyk1172/network-rules/actions/workflows/update-rules.yml/badge.svg?branch=main)](https://github.com/zyk1172/network-rules/actions/workflows/update-rules.yml)
+[发布规则最新提交](https://github.com/zyk1172/network-rules/commits/main/dist)
+
 这是一个“上游规则聚合器 + 上游规则修补层 + 规范规则集 + 多客户端编译器”。它使用成熟公开项目维护大规模基础数据，本项目负责聚合、分类、纠错、去重、冲突解决和客户端转换，而不是重新手工维护一套完整规则库。
 
 当前生成 Quantumult X（圈 X）和 Clash Verge Rev / Mihomo 两种产物；小火箭保留为后续适配器，不会把某个客户端的语法当成核心事实模型。
@@ -71,6 +74,19 @@ python3 scripts/validate.py
 正常自动更新不使用陈旧缓存；网络临时故障时才可本地显式传入 `--allow-stale`，并在报告中审查 `stale_cache`。
 
 `.github/workflows/update-rules.yml` 每日 FETCH 上游、构建、验证并创建更新 Pull Request；`.github/workflows/pr-ci.yml` 对每个 Pull Request 只读执行同一套构建、验证、语义测试和生成物一致性检查。PR 会附带 `dist/build-report.json` 的摘要；不会自动合并，必须人工审查上游 diff、冲突、patch 生命周期和许可证。
+
+## 日常维护
+
+在线构建先将上游分支解析为不可变 commit，lock 保存 URL 与 SHA256。PR CI 使用 `python3 scripts/build.py --locked` 复现提交输入；每日更新以 `main` 为基线拉取新版本，显式触发更新 PR 的 CI。Actions summary 包含检查时间及相对发布版的变化，报告保留 14 天；人工审核合并后才推进发布。
+
+`scripts/prepare_clash.py` 只读基础配置，检查策略映射并在 `sources/local/` 生成待启用规则片段，不启动客户端、不修改系统代理或应用配置。
+
+```bash
+python3 scripts/rules.py explain ai.google.dev
+python3 scripts/rules.py propose service.example.com --category gemini --reason "该端点属于 Gemini"
+```
+
+`explain` 显示 canonical、QX/Mihomo 分类与上游、Patch、冲突选择原因。`propose` 生成精确域名修补和回归案例，显式接受后才修改源文件。按分类保留的溯源数据位于 `dist/canonical/*.jsonl`。完整流程见 [日常使用](docs/operations.md)。
 
 ## 本机快照与安全边界
 

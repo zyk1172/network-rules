@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import json
+import argparse
 from pathlib import Path
 from typing import Any, Dict, Iterable
 
@@ -38,7 +39,7 @@ def _rows(categories: Iterable[Dict[str, Any]]) -> str:
     return "\n".join(lines)
 
 
-def render(report: Dict[str, Any]) -> str:
+def render(report: Dict[str, Any], base=None, lock=None, base_lock=None) -> str:
     upstreams = report.get("upstreams", {})
     canonical = report.get("canonical_rules", {})
     patches = report.get("patches", {})
@@ -110,6 +111,22 @@ def render(report: Dict[str, Any]) -> str:
                 lines.append(
                     f"- {client_id} explicit client-only extras: {total} rules"
                 )
+    if base is not None:
+        previous = _number(base.get("canonical_rules", {}).get("final"))
+        delta = _number(canonical.get("final")) - previous
+        lines.extend(["", "## Compared with published main", "", f"- Canonical: {previous} → {_number(canonical.get('final'))} ({delta:+d})"])
+        old_categories = {c["id"]: _number(c.get("final")) for c in base.get("categories", [])}
+        for category in categories:
+            category_id = category["id"]
+            old, new = old_categories.get(category_id, 0), _number(category.get("final"))
+            if old != new:
+                lines.append(f"- {category_id}: {old} → {new} ({new - old:+d})")
+        if lock is not None and base_lock is not None:
+            def hashes(document):
+                return {component_id: item.get("sha256") for category in document.get("categories", {}).values() for components in category.get("components", {}).values() for component_id, item in components.items()}
+            old_hashes, new_hashes = hashes(base_lock), hashes(lock)
+            changed = sum(old_hashes.get(k) != v for k, v in new_hashes.items())
+            lines.append(f"- Upstream components with changed content: {changed}")
     lines.extend(
         [
             "",
@@ -125,8 +142,15 @@ def render(report: Dict[str, Any]) -> str:
 
 
 def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--base-report", type=Path)
+    parser.add_argument("--base-lock", type=Path)
+    args = parser.parse_args()
     report = json.loads(REPORT_PATH.read_text(encoding="utf-8"))
-    print(render(report), end="")
+    base = json.loads(args.base_report.read_text()) if args.base_report else None
+    base_lock = json.loads(args.base_lock.read_text()) if args.base_lock else None
+    lock = json.loads((ROOT / "sources/upstreams.lock.json").read_text())
+    print(render(report, base, lock, base_lock), end="")
     return 0
 
 

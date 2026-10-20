@@ -7,5 +7,6 @@
 - `mihomo/merge.yaml`：Clash Verge Rev / Mihomo 单一 Merge 入口。
 - `mihomo/providers/<category>.yaml`：由 canonical rule model 编译的本地 provider；`merge.yaml` 只引用本仓库这些审核后产物，不直接引用第三方上游。
 - `build-report.json`：构建输入、canonical 计数、patch、重复、冲突、不支持规则和客户端输出摘要。
+- `canonical/<category>.jsonl`：按分类分开的溯源记录，首行为 category 与许可证元数据，后续每行一条规则，包含来源、Patch 与冲突选择原因；供离线路由解释使用，许可证边界与对应分类生成物一致。
 
 生成物不包含节点、订阅 URL、DNS、TUN、rewrite 或 MitM 配置。第三方规则数据和衍生 provider 受对应上游许可证和 attribution 约束；根目录 MIT License 只覆盖本项目原创代码、架构和文档，不覆盖第三方规则数据。详情见 [`sources/ATTRIBUTIONS.md`](../sources/ATTRIBUTIONS.md)。
