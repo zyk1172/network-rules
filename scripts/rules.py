@@ -134,6 +134,10 @@ def accept_draft(draft, root=ROOT):
     refreshed = draft_patch(case["host"], case["expected_category"], reason, rules, manifest["sources"])
     if refreshed["routing_case"] != case:
         raise ValueError("draft 与当前输入不一致，请重新 propose")
+    def reviewed_patches(document):
+        return [{k: v for k, v in p.items() if k != "added"} for p in document["patches"]]
+    if reviewed_patches(refreshed["patch_document"]) != reviewed_patches(draft["patch_document"]):
+        raise ValueError("draft 已过时，修补操作发生变化，请重新 propose 并审阅")
     patch_path = root / "patches" / f"{patch_id}.yaml"
     cases_path = root / "tests/routing-cases.json"
     cases = json.loads(cases_path.read_text())

@@ -20,6 +20,23 @@ def rule(kind, value, category):
 
 
 class OperationsTest(unittest.TestCase):
+    def test_stale_cache_retains_its_original_pinned_revision(self):
+        with tempfile.TemporaryDirectory() as folder:
+            cache = Path(folder) / "input"
+            cache.write_bytes(b"old verified content")
+            original = "https://raw.githubusercontent.com/example/rules/main/file"
+            previous_url = "https://raw.githubusercontent.com/example/rules/" + "a" * 40 + "/file"
+            component = {"id": "fixture", "url": original, "role": "canonical-authoritative", "_resolved_url": "https://raw.githubusercontent.com/example/rules/" + "b" * 40 + "/file"}
+            lock = {"categories": {"fixture": {"components": {"mihomo": {"fixture": {"url": original, "role": component["role"], "resolved_url": previous_url, "sha256": build.sha256(cache.read_bytes())}}}}}}
+            with patch.object(build, "component_cache_path", return_value=cache), patch.object(build, "download", side_effect=OSError("fixture failure")), patch.object(build, "load_json", return_value=lock):
+                data, stale, _ = build.fetch_component("fixture", "mihomo", component, offline=False, allow_stale=True)
+                self.assertEqual(b"old verified content", data)
+                self.assertTrue(stale)
+                self.assertEqual(previous_url, component["_resolved_url"])
+                cache.write_bytes(b"tampered")
+                with self.assertRaises(build.BuildError):
+                    build.fetch_component("fixture", "mihomo", component, offline=False, allow_stale=True)
+
     def test_locked_fetch_rejects_tampered_cache(self):
         with tempfile.TemporaryDirectory() as folder:
             cache = Path(folder) / "input"
@@ -87,6 +104,12 @@ class OperationsTest(unittest.TestCase):
                 (root / name).mkdir()
             (root / "sources/upstreams.json").write_text(json.dumps({"sources": sources}))
             (root / "tests/routing-cases.json").write_text("[]")
+            changed_rules = [rule("domain", "service.example.com", "google")]
+            with patch("rules.load_canonical", return_value=(changed_rules, {})):
+                with self.assertRaisesRegex(ValueError, "draft"):
+                    accept_draft(draft, root)
+                self.assertEqual([], list((root / "patches").glob("*.yaml")))
+                self.assertEqual([], json.loads((root / "tests/routing-cases.json").read_text()))
             with patch("rules.load_canonical", return_value=(rules, {})):
                 result = accept_draft(draft, root)
                 self.assertTrue(Path(result["patch"]).exists())

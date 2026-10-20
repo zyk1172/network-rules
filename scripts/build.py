@@ -380,8 +380,18 @@ def fetch_component(
         return data, False, cache
     except (urllib.error.URLError, TimeoutError, OSError, BuildError) as exc:
         if allow_stale and not expected and cache.exists():
-            print(f"warning: {category_id}/{client}/{component['id']} 使用旧缓存：{exc}", file=sys.stderr)
-            return cache.read_bytes(), True, cache
+            previous = resolve_components(
+                [{"id": category_id, "components": {client: [component]}}],
+                locked=True,
+            )[0]["components"][client][0]
+            data = cache.read_bytes()
+            if sha256(data) != previous["_expected_sha256"]:
+                raise BuildError(f"旧缓存与原有 lock 不符：{component['id']}") from exc
+            # The report and next lock must name the revision these bytes
+            # actually came from, not the newer revision we failed to fetch.
+            component["_resolved_url"] = previous["_resolved_url"]
+            print(f"warning: {category_id}/{client}/{component['id']} 使用已验证的原锁定缓存", file=sys.stderr)
+            return data, True, cache
         raise BuildError(f"拉取上游失败：{category_id}/{client}/{component['id']}: {exc}") from exc
 
 
