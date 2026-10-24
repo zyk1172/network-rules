@@ -13,11 +13,11 @@
     "dist/canonical/google.jsonl"
   ],
   "canonical_rules": {
-    "after_dedup": 5419,
-    "after_patch": 5424,
-    "final": 5181,
-    "normalized": 5424,
-    "raw": 5424
+    "after_dedup": 5421,
+    "after_patch": 5426,
+    "final": 5182,
+    "normalized": 5426,
+    "raw": 5426
   },
   "categories": [
     {
@@ -101,8 +101,8 @@
       "unsupported_rules": 0
     },
     {
-      "after_dedup": 902,
-      "after_patch": 902,
+      "after_dedup": 903,
+      "after_patch": 903,
       "audit_reference_rules": 0,
       "authoritative_component": {
         "client": "quantumult-x",
@@ -111,7 +111,7 @@
       "client_only_extra_rules": 0,
       "components": [
         {
-          "bytes": 22784,
+          "bytes": 22817,
           "cache": "sources/cache/ads.quantumult-x.metacubex-ads-domain.yaml",
           "category": "ads",
           "client": "quantumult-x",
@@ -125,14 +125,14 @@
           },
           "format": "meta-domain-yaml",
           "id": "metacubex-ads-domain",
-          "parsed_rules": 902,
-          "raw_rules": 902,
+          "parsed_rules": 903,
+          "raw_rules": 903,
           "role": "canonical-authoritative",
           "stale_cache": false,
           "unsupported_rules": 0
         },
         {
-          "bytes": 8197,
+          "bytes": 8203,
           "cache": "sources/cache/ads.mihomo.metacubex-ads-mrs.mrs",
           "category": "ads",
           "client": "mihomo",
@@ -146,17 +146,17 @@
           "unsupported_rules": 0
         }
       ],
-      "final": 902,
+      "final": 903,
       "id": "ads",
       "label": "广告",
-      "normalized": 902,
-      "raw_rules": 902,
+      "normalized": 903,
+      "raw_rules": 903,
       "status": "enabled",
       "unsupported_rules": 0
     },
     {
-      "after_dedup": 23,
-      "after_patch": 23,
+      "after_dedup": 24,
+      "after_patch": 24,
       "audit_reference_rules": 0,
       "authoritative_component": {
         "client": "quantumult-x",
@@ -165,7 +165,7 @@
       "client_only_extra_rules": 0,
       "components": [
         {
-          "bytes": 683,
+          "bytes": 716,
           "cache": "sources/cache/chatgpt.quantumult-x.metacubex-chatgpt-domain.yaml",
           "category": "chatgpt",
           "client": "quantumult-x",
@@ -179,14 +179,14 @@
           },
           "format": "meta-domain-yaml",
           "id": "metacubex-chatgpt-domain",
-          "parsed_rules": 23,
-          "raw_rules": 23,
+          "parsed_rules": 24,
+          "raw_rules": 24,
           "role": "canonical-authoritative",
           "stale_cache": false,
           "unsupported_rules": 0
         },
         {
-          "bytes": 421,
+          "bytes": 439,
           "cache": "sources/cache/chatgpt.mihomo.metacubex-chatgpt-mrs.mrs",
           "category": "chatgpt",
           "client": "mihomo",
@@ -203,8 +203,8 @@
       "final": 20,
       "id": "chatgpt",
       "label": "ChatGPT",
-      "normalized": 23,
-      "raw_rules": 23,
+      "normalized": 24,
+      "raw_rules": 24,
       "status": "enabled",
       "unsupported_rules": 0
     },
@@ -648,7 +648,7 @@
       "artifact": "dist/mihomo/merge.yaml",
       "canonical_personal_rules": 11,
       "canonical_provider_rules": {
-        "ads": 902,
+        "ads": 903,
         "apple": 1785,
         "chatgpt": 20,
         "claude": 3,
@@ -659,7 +659,7 @@
         "telegram": 21,
         "youtube": 177
       },
-      "canonical_rules": 5180,
+      "canonical_rules": 5181,
       "client_only_extra_rules": {
         "ads": 0,
         "apple": 0,
@@ -688,7 +688,7 @@
         "google"
       ],
       "provider_rules": {
-        "ads": 902,
+        "ads": 903,
         "apple": 1785,
         "chatgpt": 20,
         "claude": 3,
@@ -732,7 +732,7 @@
         "dist/quantumult-x/providers/apple.list",
         "dist/quantumult-x/providers/google.list"
       ],
-      "canonical_rules": 5181,
+      "canonical_rules": 5182,
       "categories": [
         {
           "artifact": "dist/quantumult-x/providers/personal-overlay.list",
@@ -756,12 +756,12 @@
         },
         {
           "artifact": "dist/quantumult-x/providers/ads.list",
-          "canonical_rules": 902,
+          "canonical_rules": 903,
           "client_only_extra_rules": 0,
           "id": "ads",
           "label": "广告",
           "license_scope": "GPL-3.0",
-          "rules": 902,
+          "rules": 903,
           "upstream": "MetaCubeX/meta-rules-dat"
         },
         {
@@ -847,7 +847,7 @@
       ],
       "client_only_extra_rules": 0,
       "mixed_derivative": false,
-      "rules": 5181
+      "rules": 5182
     }
   },
   "conflicts": {
@@ -1023,6 +1023,35 @@
         "rule": {
           "type": "domain",
           "value": "o33249.ingest.sentry.io"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "o33249.ingest.us.sentry.io"
+          },
+          {
+            "category": "chatgpt",
+            "component": "metacubex-chatgpt-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "o33249.ingest.us.sentry.io"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "chatgpt"
+        ],
+        "dropped": [
+          "chatgpt"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain",
+          "value": "o33249.ingest.us.sentry.io"
         },
         "selected": "ads"
       },
@@ -3730,44 +3759,15 @@
           "value": "youtube.co.ke"
         },
         "selected": "youtube"
-      },
-      {
-        "appearances": [
-          {
-            "category": "youtube",
-            "component": "metacubex-youtube-domain",
-            "source": "MetaCubeX/meta-rules-dat",
-            "source_rule": "+.youtube.co.kr"
-          },
-          {
-            "category": "google",
-            "component": "metacubex-google-domain",
-            "source": "MetaCubeX/meta-rules-dat",
-            "source_rule": "+.youtube.co.kr"
-          }
-        ],
-        "appeared_in": [
-          "youtube",
-          "google"
-        ],
-        "dropped": [
-          "google"
-        ],
-        "reason": "category priority: youtube=70",
-        "rule": {
-          "type": "domain-suffix",
-          "value": "youtube.co.kr"
-        },
-        "selected": "youtube"
       }
     ],
-    "resolved": 237,
-    "total": 237
+    "resolved": 238,
+    "total": 238
   },
   "dropped_rules": {
     "by_reason": {
       "client-unsupported": 1,
-      "conflict": 238,
+      "conflict": 239,
       "duplicate": 5,
       "patch-remove": 0
     },
@@ -4013,6 +4013,35 @@
         "rule": {
           "type": "domain",
           "value": "o33249.ingest.sentry.io"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "o33249.ingest.us.sentry.io"
+          },
+          {
+            "category": "chatgpt",
+            "component": "metacubex-chatgpt-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "o33249.ingest.us.sentry.io"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "chatgpt"
+        ],
+        "dropped": [
+          "chatgpt"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain",
+          "value": "o33249.ingest.us.sentry.io"
         },
         "selected": "ads"
       },
@@ -4402,35 +4431,6 @@
         "selected": "ads"
       },
       {
-        "appearances": [
-          {
-            "category": "ads",
-            "component": "metacubex-ads-domain",
-            "source": "MetaCubeX/meta-rules-dat",
-            "source_rule": "+.advertiserscommunity.com"
-          },
-          {
-            "category": "google",
-            "component": "metacubex-google-domain",
-            "source": "MetaCubeX/meta-rules-dat",
-            "source_rule": "+.advertiserscommunity.com"
-          }
-        ],
-        "appeared_in": [
-          "ads",
-          "google"
-        ],
-        "dropped": [
-          "google"
-        ],
-        "reason": "category priority: ads=20",
-        "rule": {
-          "type": "domain-suffix",
-          "value": "advertiserscommunity.com"
-        },
-        "selected": "ads"
-      },
-      {
         "category": "netflix",
         "reason": "unsupported by mihomo client adapter",
         "role": "canonical-authoritative",
@@ -4438,7 +4438,7 @@
         "value": "Argo*"
       }
     ],
-    "total": 244
+    "total": 245
   },
   "duplicates": {
     "examples": [
@@ -4609,7 +4609,7 @@
         "unsupported_rules": 0
       },
       {
-        "bytes": 22784,
+        "bytes": 22817,
         "cache": "sources/cache/ads.quantumult-x.metacubex-ads-domain.yaml",
         "category": "ads",
         "client": "quantumult-x",
@@ -4623,14 +4623,14 @@
         },
         "format": "meta-domain-yaml",
         "id": "metacubex-ads-domain",
-        "parsed_rules": 902,
-        "raw_rules": 902,
+        "parsed_rules": 903,
+        "raw_rules": 903,
         "role": "canonical-authoritative",
         "stale_cache": false,
         "unsupported_rules": 0
       },
       {
-        "bytes": 8197,
+        "bytes": 8203,
         "cache": "sources/cache/ads.mihomo.metacubex-ads-mrs.mrs",
         "category": "ads",
         "client": "mihomo",
@@ -4644,7 +4644,7 @@
         "unsupported_rules": 0
       },
       {
-        "bytes": 683,
+        "bytes": 716,
         "cache": "sources/cache/chatgpt.quantumult-x.metacubex-chatgpt-domain.yaml",
         "category": "chatgpt",
         "client": "quantumult-x",
@@ -4658,14 +4658,14 @@
         },
         "format": "meta-domain-yaml",
         "id": "metacubex-chatgpt-domain",
-        "parsed_rules": 23,
-        "raw_rules": 23,
+        "parsed_rules": 24,
+        "raw_rules": 24,
         "role": "canonical-authoritative",
         "stale_cache": false,
         "unsupported_rules": 0
       },
       {
-        "bytes": 421,
+        "bytes": 439,
         "cache": "sources/cache/chatgpt.mihomo.metacubex-chatgpt-mrs.mrs",
         "category": "chatgpt",
         "client": "mihomo",
