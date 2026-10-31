@@ -13,11 +13,11 @@
     "dist/canonical/google.jsonl"
   ],
   "canonical_rules": {
-    "after_dedup": 5419,
-    "after_patch": 5424,
-    "final": 5181,
-    "normalized": 5424,
-    "raw": 5424
+    "after_dedup": 5426,
+    "after_patch": 5431,
+    "final": 5187,
+    "normalized": 5431,
+    "raw": 5431
   },
   "categories": [
     {
@@ -101,8 +101,8 @@
       "unsupported_rules": 0
     },
     {
-      "after_dedup": 902,
-      "after_patch": 902,
+      "after_dedup": 904,
+      "after_patch": 904,
       "audit_reference_rules": 0,
       "authoritative_component": {
         "client": "quantumult-x",
@@ -111,7 +111,7 @@
       "client_only_extra_rules": 0,
       "components": [
         {
-          "bytes": 22784,
+          "bytes": 22836,
           "cache": "sources/cache/ads.quantumult-x.metacubex-ads-domain.yaml",
           "category": "ads",
           "client": "quantumult-x",
@@ -125,14 +125,14 @@
           },
           "format": "meta-domain-yaml",
           "id": "metacubex-ads-domain",
-          "parsed_rules": 902,
-          "raw_rules": 902,
+          "parsed_rules": 904,
+          "raw_rules": 904,
           "role": "canonical-authoritative",
           "stale_cache": false,
           "unsupported_rules": 0
         },
         {
-          "bytes": 8197,
+          "bytes": 8261,
           "cache": "sources/cache/ads.mihomo.metacubex-ads-mrs.mrs",
           "category": "ads",
           "client": "mihomo",
@@ -146,17 +146,17 @@
           "unsupported_rules": 0
         }
       ],
-      "final": 902,
+      "final": 904,
       "id": "ads",
       "label": "广告",
-      "normalized": 902,
-      "raw_rules": 902,
+      "normalized": 904,
+      "raw_rules": 904,
       "status": "enabled",
       "unsupported_rules": 0
     },
     {
-      "after_dedup": 23,
-      "after_patch": 23,
+      "after_dedup": 24,
+      "after_patch": 24,
       "audit_reference_rules": 0,
       "authoritative_component": {
         "client": "quantumult-x",
@@ -165,7 +165,7 @@
       "client_only_extra_rules": 0,
       "components": [
         {
-          "bytes": 683,
+          "bytes": 716,
           "cache": "sources/cache/chatgpt.quantumult-x.metacubex-chatgpt-domain.yaml",
           "category": "chatgpt",
           "client": "quantumult-x",
@@ -179,14 +179,14 @@
           },
           "format": "meta-domain-yaml",
           "id": "metacubex-chatgpt-domain",
-          "parsed_rules": 23,
-          "raw_rules": 23,
+          "parsed_rules": 24,
+          "raw_rules": 24,
           "role": "canonical-authoritative",
           "stale_cache": false,
           "unsupported_rules": 0
         },
         {
-          "bytes": 421,
+          "bytes": 439,
           "cache": "sources/cache/chatgpt.mihomo.metacubex-chatgpt-mrs.mrs",
           "category": "chatgpt",
           "client": "mihomo",
@@ -203,8 +203,8 @@
       "final": 20,
       "id": "chatgpt",
       "label": "ChatGPT",
-      "normalized": 23,
-      "raw_rules": 23,
+      "normalized": 24,
+      "raw_rules": 24,
       "status": "enabled",
       "unsupported_rules": 0
     },
@@ -514,8 +514,8 @@
       "unsupported_rules": 0
     },
     {
-      "after_dedup": 1790,
-      "after_patch": 1792,
+      "after_dedup": 1791,
+      "after_patch": 1793,
       "audit_reference_rules": 0,
       "authoritative_component": {
         "client": "quantumult-x",
@@ -524,7 +524,7 @@
       "client_only_extra_rules": 0,
       "components": [
         {
-          "bytes": 47622,
+          "bytes": 47674,
           "cache": "sources/cache/apple.quantumult-x.metacubex-apple-domain.yaml",
           "category": "apple",
           "client": "quantumult-x",
@@ -538,14 +538,14 @@
           },
           "format": "meta-domain-yaml",
           "id": "metacubex-apple-domain",
-          "parsed_rules": 1792,
-          "raw_rules": 1792,
+          "parsed_rules": 1793,
+          "raw_rules": 1793,
           "role": "canonical-authoritative",
           "stale_cache": false,
           "unsupported_rules": 0
         },
         {
-          "bytes": 17859,
+          "bytes": 17829,
           "cache": "sources/cache/apple.mihomo.metacubex-apple-mrs.mrs",
           "category": "apple",
           "client": "mihomo",
@@ -559,17 +559,17 @@
           "unsupported_rules": 0
         }
       ],
-      "final": 1785,
+      "final": 1786,
       "id": "apple",
       "label": "Apple",
-      "normalized": 1792,
-      "raw_rules": 1792,
+      "normalized": 1793,
+      "raw_rules": 1793,
       "status": "enabled",
       "unsupported_rules": 0
     },
     {
-      "after_dedup": 1075,
-      "after_patch": 1075,
+      "after_dedup": 1078,
+      "after_patch": 1078,
       "audit_reference_rules": 0,
       "authoritative_component": {
         "client": "quantumult-x",
@@ -578,7 +578,7 @@
       "client_only_extra_rules": 0,
       "components": [
         {
-          "bytes": 24824,
+          "bytes": 24953,
           "cache": "sources/cache/google.quantumult-x.metacubex-google-domain.yaml",
           "category": "google",
           "client": "quantumult-x",
@@ -592,14 +592,14 @@
           },
           "format": "meta-domain-yaml",
           "id": "metacubex-google-domain",
-          "parsed_rules": 1075,
-          "raw_rules": 1075,
+          "parsed_rules": 1078,
+          "raw_rules": 1078,
           "role": "canonical-authoritative",
           "stale_cache": false,
           "unsupported_rules": 0
         },
         {
-          "bytes": 8927,
+          "bytes": 8973,
           "cache": "sources/cache/google.mihomo.metacubex-google-mrs.mrs",
           "category": "google",
           "client": "mihomo",
@@ -613,11 +613,11 @@
           "unsupported_rules": 0
         }
       ],
-      "final": 846,
+      "final": 849,
       "id": "google",
       "label": "Google",
-      "normalized": 1075,
-      "raw_rules": 1075,
+      "normalized": 1078,
+      "raw_rules": 1078,
       "status": "enabled",
       "unsupported_rules": 0
     },
@@ -648,18 +648,18 @@
       "artifact": "dist/mihomo/merge.yaml",
       "canonical_personal_rules": 11,
       "canonical_provider_rules": {
-        "ads": 902,
-        "apple": 1785,
+        "ads": 904,
+        "apple": 1786,
         "chatgpt": 20,
         "claude": 3,
         "gemini": 13,
-        "google": 846,
+        "google": 849,
         "netflix": 1157,
         "private-tracker": 245,
         "telegram": 21,
         "youtube": 177
       },
-      "canonical_rules": 5180,
+      "canonical_rules": 5186,
       "client_only_extra_rules": {
         "ads": 0,
         "apple": 0,
@@ -688,12 +688,12 @@
         "google"
       ],
       "provider_rules": {
-        "ads": 902,
-        "apple": 1785,
+        "ads": 904,
+        "apple": 1786,
         "chatgpt": 20,
         "claude": 3,
         "gemini": 13,
-        "google": 846,
+        "google": 849,
         "netflix": 1158,
         "private-tracker": 245,
         "telegram": 21,
@@ -732,7 +732,7 @@
         "dist/quantumult-x/providers/apple.list",
         "dist/quantumult-x/providers/google.list"
       ],
-      "canonical_rules": 5181,
+      "canonical_rules": 5187,
       "categories": [
         {
           "artifact": "dist/quantumult-x/providers/personal-overlay.list",
@@ -756,12 +756,12 @@
         },
         {
           "artifact": "dist/quantumult-x/providers/ads.list",
-          "canonical_rules": 902,
+          "canonical_rules": 904,
           "client_only_extra_rules": 0,
           "id": "ads",
           "label": "广告",
           "license_scope": "GPL-3.0",
-          "rules": 902,
+          "rules": 904,
           "upstream": "MetaCubeX/meta-rules-dat"
         },
         {
@@ -826,28 +826,28 @@
         },
         {
           "artifact": "dist/quantumult-x/providers/apple.list",
-          "canonical_rules": 1785,
+          "canonical_rules": 1786,
           "client_only_extra_rules": 0,
           "id": "apple",
           "label": "Apple",
           "license_scope": "GPL-3.0",
-          "rules": 1785,
+          "rules": 1786,
           "upstream": "MetaCubeX/meta-rules-dat"
         },
         {
           "artifact": "dist/quantumult-x/providers/google.list",
-          "canonical_rules": 846,
+          "canonical_rules": 849,
           "client_only_extra_rules": 0,
           "id": "google",
           "label": "Google",
           "license_scope": "GPL-3.0",
-          "rules": 846,
+          "rules": 849,
           "upstream": "MetaCubeX/meta-rules-dat"
         }
       ],
       "client_only_extra_rules": 0,
       "mixed_derivative": false,
-      "rules": 5181
+      "rules": 5187
     }
   },
   "conflicts": {
@@ -1023,6 +1023,35 @@
         "rule": {
           "type": "domain",
           "value": "o33249.ingest.sentry.io"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "o33249.ingest.us.sentry.io"
+          },
+          {
+            "category": "chatgpt",
+            "component": "metacubex-chatgpt-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "o33249.ingest.us.sentry.io"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "chatgpt"
+        ],
+        "dropped": [
+          "chatgpt"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain",
+          "value": "o33249.ingest.us.sentry.io"
         },
         "selected": "ads"
       },
@@ -3730,44 +3759,15 @@
           "value": "youtube.co.ke"
         },
         "selected": "youtube"
-      },
-      {
-        "appearances": [
-          {
-            "category": "youtube",
-            "component": "metacubex-youtube-domain",
-            "source": "MetaCubeX/meta-rules-dat",
-            "source_rule": "+.youtube.co.kr"
-          },
-          {
-            "category": "google",
-            "component": "metacubex-google-domain",
-            "source": "MetaCubeX/meta-rules-dat",
-            "source_rule": "+.youtube.co.kr"
-          }
-        ],
-        "appeared_in": [
-          "youtube",
-          "google"
-        ],
-        "dropped": [
-          "google"
-        ],
-        "reason": "category priority: youtube=70",
-        "rule": {
-          "type": "domain-suffix",
-          "value": "youtube.co.kr"
-        },
-        "selected": "youtube"
       }
     ],
-    "resolved": 237,
-    "total": 237
+    "resolved": 238,
+    "total": 238
   },
   "dropped_rules": {
     "by_reason": {
       "client-unsupported": 1,
-      "conflict": 238,
+      "conflict": 239,
       "duplicate": 5,
       "patch-remove": 0
     },
@@ -4013,6 +4013,35 @@
         "rule": {
           "type": "domain",
           "value": "o33249.ingest.sentry.io"
+        },
+        "selected": "ads"
+      },
+      {
+        "appearances": [
+          {
+            "category": "ads",
+            "component": "metacubex-ads-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "o33249.ingest.us.sentry.io"
+          },
+          {
+            "category": "chatgpt",
+            "component": "metacubex-chatgpt-domain",
+            "source": "MetaCubeX/meta-rules-dat",
+            "source_rule": "o33249.ingest.us.sentry.io"
+          }
+        ],
+        "appeared_in": [
+          "ads",
+          "chatgpt"
+        ],
+        "dropped": [
+          "chatgpt"
+        ],
+        "reason": "category priority: ads=20",
+        "rule": {
+          "type": "domain",
+          "value": "o33249.ingest.us.sentry.io"
         },
         "selected": "ads"
       },
@@ -4402,35 +4431,6 @@
         "selected": "ads"
       },
       {
-        "appearances": [
-          {
-            "category": "ads",
-            "component": "metacubex-ads-domain",
-            "source": "MetaCubeX/meta-rules-dat",
-            "source_rule": "+.advertiserscommunity.com"
-          },
-          {
-            "category": "google",
-            "component": "metacubex-google-domain",
-            "source": "MetaCubeX/meta-rules-dat",
-            "source_rule": "+.advertiserscommunity.com"
-          }
-        ],
-        "appeared_in": [
-          "ads",
-          "google"
-        ],
-        "dropped": [
-          "google"
-        ],
-        "reason": "category priority: ads=20",
-        "rule": {
-          "type": "domain-suffix",
-          "value": "advertiserscommunity.com"
-        },
-        "selected": "ads"
-      },
-      {
         "category": "netflix",
         "reason": "unsupported by mihomo client adapter",
         "role": "canonical-authoritative",
@@ -4438,7 +4438,7 @@
         "value": "Argo*"
       }
     ],
-    "total": 244
+    "total": 245
   },
   "duplicates": {
     "examples": [
@@ -4609,7 +4609,7 @@
         "unsupported_rules": 0
       },
       {
-        "bytes": 22784,
+        "bytes": 22836,
         "cache": "sources/cache/ads.quantumult-x.metacubex-ads-domain.yaml",
         "category": "ads",
         "client": "quantumult-x",
@@ -4623,14 +4623,14 @@
         },
         "format": "meta-domain-yaml",
         "id": "metacubex-ads-domain",
-        "parsed_rules": 902,
-        "raw_rules": 902,
+        "parsed_rules": 904,
+        "raw_rules": 904,
         "role": "canonical-authoritative",
         "stale_cache": false,
         "unsupported_rules": 0
       },
       {
-        "bytes": 8197,
+        "bytes": 8261,
         "cache": "sources/cache/ads.mihomo.metacubex-ads-mrs.mrs",
         "category": "ads",
         "client": "mihomo",
@@ -4644,7 +4644,7 @@
         "unsupported_rules": 0
       },
       {
-        "bytes": 683,
+        "bytes": 716,
         "cache": "sources/cache/chatgpt.quantumult-x.metacubex-chatgpt-domain.yaml",
         "category": "chatgpt",
         "client": "quantumult-x",
@@ -4658,14 +4658,14 @@
         },
         "format": "meta-domain-yaml",
         "id": "metacubex-chatgpt-domain",
-        "parsed_rules": 23,
-        "raw_rules": 23,
+        "parsed_rules": 24,
+        "raw_rules": 24,
         "role": "canonical-authoritative",
         "stale_cache": false,
         "unsupported_rules": 0
       },
       {
-        "bytes": 421,
+        "bytes": 439,
         "cache": "sources/cache/chatgpt.mihomo.metacubex-chatgpt-mrs.mrs",
         "category": "chatgpt",
         "client": "mihomo",
@@ -4889,7 +4889,7 @@
         "unsupported_rules": 0
       },
       {
-        "bytes": 47622,
+        "bytes": 47674,
         "cache": "sources/cache/apple.quantumult-x.metacubex-apple-domain.yaml",
         "category": "apple",
         "client": "quantumult-x",
@@ -4903,14 +4903,14 @@
         },
         "format": "meta-domain-yaml",
         "id": "metacubex-apple-domain",
-        "parsed_rules": 1792,
-        "raw_rules": 1792,
+        "parsed_rules": 1793,
+        "raw_rules": 1793,
         "role": "canonical-authoritative",
         "stale_cache": false,
         "unsupported_rules": 0
       },
       {
-        "bytes": 17859,
+        "bytes": 17829,
         "cache": "sources/cache/apple.mihomo.metacubex-apple-mrs.mrs",
         "category": "apple",
         "client": "mihomo",
@@ -4924,7 +4924,7 @@
         "unsupported_rules": 0
       },
       {
-        "bytes": 24824,
+        "bytes": 24953,
         "cache": "sources/cache/google.quantumult-x.metacubex-google-domain.yaml",
         "category": "google",
         "client": "quantumult-x",
@@ -4938,14 +4938,14 @@
         },
         "format": "meta-domain-yaml",
         "id": "metacubex-google-domain",
-        "parsed_rules": 1075,
-        "raw_rules": 1075,
+        "parsed_rules": 1078,
+        "raw_rules": 1078,
         "role": "canonical-authoritative",
         "stale_cache": false,
         "unsupported_rules": 0
       },
       {
-        "bytes": 8927,
+        "bytes": 8973,
         "cache": "sources/cache/google.mihomo.metacubex-google-mrs.mrs",
         "category": "google",
         "client": "mihomo",
